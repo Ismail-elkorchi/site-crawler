@@ -4,7 +4,7 @@ coverage/
 *.tgz
 *.zip
 *.sha256
-runs/
+/runs/
 .site-crawler-cache/
 *.sqlite
 *.sqlite-shm

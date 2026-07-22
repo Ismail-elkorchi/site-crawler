@@ -3,9 +3,9 @@
   "schemaVersion": 1,
   "package": "site-crawler",
   "version": "0.1.0",
-  "generatedAt": "2026-07-22T20:14:21.084Z",
+  "generatedAt": "2026-07-22T20:29:30.518Z",
   "fileCount": 468,
-  "totalBytes": 1239397,
+  "totalBytes": 1239398,
   "files": [
     {
       "path": ".github/workflows/ci.yml",
@@ -14,8 +14,8 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "d75bd8d6e24ea9f41dbf22d46d9de96f05467414ef88b7b27f2a8772e2202e12",
-      "bytes": 121
+      "sha256": "687ae8f85df7e00a07aca3f0f7a198f043e740009129d36aba10f90e9137d478",
+      "bytes": 122
     },
     {
       "path": "api-surface.json",
@@ -174,7 +174,7 @@
     },
     {
       "path": "release/sbom.cdx.json",
-      "sha256": "74c61a487b3698d5d94af794886a0fb895ab39d40f41e5c03837b578990ac78a",
+      "sha256": "db6189909c03db9fb530330e7eaa72f4e6f90a0dacf380316bfc70e724f583b8",
       "bytes": 6008
     },
     {
