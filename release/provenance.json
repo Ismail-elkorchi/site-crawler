@@ -4,7 +4,7 @@
     {
       "name": "site-crawler@0.1.0",
       "digest": {
-        "sha256": "d0f17546b0c91de82af3de81e55501622e9d4190d79b810fba5deb5007c14830"
+        "sha256": "95c3ec4d7c6722a07cd3fa04b8a40b6152f5bb8aa62c372b5a85c0bfee21f0a7"
       }
     }
   ],
@@ -34,9 +34,9 @@
         "id": "https://site-crawler.dev/tools/generate-provenance"
       },
       "metadata": {
-        "invocationId": "22871752-73b4-4dd9-a7b4-272932418b49",
-        "startedOn": "2026-07-22T20:29:30.715Z",
-        "finishedOn": "2026-07-22T20:29:30.715Z"
+        "invocationId": "6d9ec50e-9561-493d-9eaf-71bdab10a283",
+        "startedOn": "2026-07-22T20:37:48.196Z",
+        "finishedOn": "2026-07-22T20:37:48.197Z"
       }
     }
   }

@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = path.resolve(new URL("..", import.meta.url).pathname);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(
   await fs.readFile(path.join(root, "package.json"), "utf8"),
 );
@@ -51,7 +52,7 @@ const provenance = {
   schemaVersion: 1,
   package: `${packageJson.name}@${packageJson.version}`,
   generatedAt: new Date().toISOString(),
-  node: process.version,
+  engines: packageJson.engines,
   npmLockSha256: await digestFile(path.join(root, "package-lock.json")),
   sourceTreeSha256: await digestTree(path.join(root, "src")),
   schemasSha256: await digestTree(path.join(root, "schemas")),

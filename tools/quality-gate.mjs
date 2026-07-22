@@ -1,8 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
-const repositoryRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const repositoryRoot = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
 const sourceRoot = path.join(repositoryRoot, "src");
 const failures = [];
 const warnings = [];

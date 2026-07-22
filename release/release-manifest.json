@@ -3,9 +3,9 @@
   "schemaVersion": 1,
   "package": "site-crawler",
   "version": "0.1.0",
-  "generatedAt": "2026-07-22T20:29:30.518Z",
+  "generatedAt": "2026-07-22T20:37:48.019Z",
   "fileCount": 468,
-  "totalBytes": 1239398,
+  "totalBytes": 1239614,
   "files": [
     {
       "path": ".github/workflows/ci.yml",
@@ -174,7 +174,7 @@
     },
     {
       "path": "release/sbom.cdx.json",
-      "sha256": "db6189909c03db9fb530330e7eaa72f4e6f90a0dacf380316bfc70e724f583b8",
+      "sha256": "8fe8e57726a783c97ae07f40a78341f6b0667a4714bddcce62c961a7aac3b764",
       "bytes": 6008
     },
     {
@@ -2079,8 +2079,8 @@
     },
     {
       "path": "supply-chain/provenance.json",
-      "sha256": "05c592aa55da2b9eb96551e27b2d81baaecf2dd4ee37c048ac83c51033763584",
-      "bytes": 523
+      "sha256": "c88684f532f83b88ae9ee65c71f161544f0db0cbd1662530e93f136d2d1aec9f",
+      "bytes": 567
     },
     {
       "path": "supply-chain/sbom.cdx.json",
@@ -2279,18 +2279,18 @@
     },
     {
       "path": "tools/generate-schemas.mjs",
-      "sha256": "3bb207edd54400c52dc696083c6ef143230813b7db41f166798346fec844d1cf",
-      "bytes": 1315
+      "sha256": "ee85c554d981588e278c493f38a193475b65cc1d4f66fee53c49782e1b4bc7be",
+      "bytes": 1341
     },
     {
       "path": "tools/generate-supply-chain.mjs",
-      "sha256": "dcdb2559b6ef9ba0189bff5f10ffb91c1cf08971a275279f66004482fef1a950",
-      "bytes": 5038
+      "sha256": "6862e4893c9f5f2ffe29384d0c6bc239ba05c9803bf1fd0a4dcc19589e49ca42",
+      "bytes": 5098
     },
     {
       "path": "tools/quality-gate.mjs",
-      "sha256": "8be554095a8d814a02bc0aa17c30ae6383536bbe2add855c204580311b6233ca",
-      "bytes": 10061
+      "sha256": "4c2e20cceac62eeed17041b0f6098615919c54518f38981487b980028e5d5ae4",
+      "bytes": 10121
     },
     {
       "path": "tools/run-tests.mjs",
@@ -2324,8 +2324,8 @@
     },
     {
       "path": "tools/verify-public-api.mjs",
-      "sha256": "a117aca382a348c8935533702f3da554cecaf335bbc55cf176f3788610f27fab",
-      "bytes": 2281
+      "sha256": "cbccad6f335bf0346f024b3642c87ac0bfb0e053616e8080d157809c62e470f2",
+      "bytes": 2307
     },
     {
       "path": "tools/verify-resource-leaks.mjs",

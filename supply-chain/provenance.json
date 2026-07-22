@@ -2,8 +2,11 @@
   "schemaId": "site-crawler.provenance",
   "schemaVersion": 1,
   "package": "site-crawler@0.1.0",
-  "generatedAt": "2026-07-22T20:11:32.919Z",
-  "node": "v24.14.0",
+  "generatedAt": "2026-07-22T20:35:10.795Z",
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  },
   "npmLockSha256": "580095a1f2ff5f2a0ba22fcef473f5bbbe15e22e76eb54d9a0b8598d2e3a81f5",
   "sourceTreeSha256": "a0d28ec22f5ea03bcfbad240fda568688ca1b62afcc34b3cd2d08e1165c79d31",
   "schemasSha256": "a3fb3b679f3d48b1d3a4a4021352b1237cbf6835f136c9108a39b493abd6ae2b",
