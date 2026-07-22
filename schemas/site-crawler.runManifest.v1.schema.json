@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "run-manifest",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "crawlerVersion",
+    "configFingerprint",
+    "operationalConfigFingerprint",
+    "startedAt",
+    "status",
+    "schemaSetVersion",
+    "rawSnapshotsEnabled",
+    "sensitive",
+    "stats",
+    "runtime",
+    "deliveryGuarantees",
+    "seeds",
+    "htmlParserVersion",
+    "xmlParserVersion",
+    "finishedAt",
+    "stopReason",
+    "outputDirectory",
+    "resumedFrom",
+    "stopDetail",
+    "fatalError"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.runManifest"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "crawlerVersion": {
+      "type": "string"
+    },
+    "configFingerprint": {
+      "type": "string"
+    },
+    "operationalConfigFingerprint": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "schemaSetVersion": {
+      "type": "number"
+    },
+    "rawSnapshotsEnabled": {
+      "type": "boolean"
+    },
+    "sensitive": {
+      "type": "boolean"
+    },
+    "stats": {
+      "type": "object"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "deliveryGuarantees": {
+      "type": "object"
+    },
+    "seeds": {
+      "type": "array"
+    },
+    "htmlParserVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "xmlParserVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "finishedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stopReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "outputDirectory": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resumedFrom": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stopDetail": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "fatalError": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.runManifest.v1.json"
+}

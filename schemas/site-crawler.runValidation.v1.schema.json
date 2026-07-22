@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "run-validation",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "directory",
+    "createdAt",
+    "errorCount",
+    "warningCount",
+    "valid",
+    "issues"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.runValidation"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "directory": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "errorCount": {
+      "type": "number"
+    },
+    "warningCount": {
+      "type": "number"
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "issues": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.runValidation.v1.json"
+}

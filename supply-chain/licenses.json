@@ -1,0 +1,61 @@
+{
+  "schemaId": "site-crawler.licenses",
+  "schemaVersion": 1,
+  "packages": [
+    {
+      "name": "@ismail-elkorchi/html-parser",
+      "version": "0.2.0",
+      "license": "MIT"
+    },
+    {
+      "name": "@ismail-elkorchi/xml-parser",
+      "version": "0.2.0",
+      "license": "MIT"
+    },
+    {
+      "name": "@types/node",
+      "version": "24.13.3",
+      "license": "MIT"
+    },
+    {
+      "name": "acorn",
+      "version": "8.17.0",
+      "license": "MIT"
+    },
+    {
+      "name": "playwright-core",
+      "version": "1.61.1",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "prettier",
+      "version": "3.9.6",
+      "license": "MIT"
+    },
+    {
+      "name": "tldts-core",
+      "version": "7.4.9",
+      "license": "MIT"
+    },
+    {
+      "name": "tldts",
+      "version": "7.4.9",
+      "license": "MIT"
+    },
+    {
+      "name": "tough-cookie",
+      "version": "6.0.2",
+      "license": "BSD-3-Clause"
+    },
+    {
+      "name": "typescript",
+      "version": "6.0.3",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "undici-types",
+      "version": "7.18.2",
+      "license": "MIT"
+    }
+  ]
+}

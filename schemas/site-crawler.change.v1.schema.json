@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-change",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "id",
+    "entity",
+    "kind",
+    "key",
+    "detectedAt",
+    "before",
+    "after"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.change"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string"
+    },
+    "entity": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "key": {
+      "type": "string"
+    },
+    "detectedAt": {
+      "type": "string"
+    },
+    "before": {},
+    "after": {}
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.change.v1.json"
+}

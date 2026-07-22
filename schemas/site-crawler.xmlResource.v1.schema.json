@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "xml-resource",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "requestId",
+    "resourceId",
+    "requestedUrl",
+    "finalUrl",
+    "normalizedUrl",
+    "xmlKind",
+    "extractedAt",
+    "parseStatus",
+    "parserBudgets",
+    "namespaces",
+    "sitemapEntries",
+    "feedEntries",
+    "warnings",
+    "parserDiagnostics",
+    "rootName",
+    "encoding",
+    "evidence"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.xmlResource"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "resourceId": {
+      "type": "string"
+    },
+    "requestedUrl": {
+      "type": "string"
+    },
+    "finalUrl": {
+      "type": "string"
+    },
+    "normalizedUrl": {
+      "type": "string"
+    },
+    "xmlKind": {
+      "type": "string"
+    },
+    "extractedAt": {
+      "type": "string"
+    },
+    "parseStatus": {
+      "type": "object"
+    },
+    "parserBudgets": {
+      "type": "object"
+    },
+    "namespaces": {
+      "type": "array"
+    },
+    "sitemapEntries": {
+      "type": "array"
+    },
+    "feedEntries": {
+      "type": "array"
+    },
+    "warnings": {
+      "type": "array"
+    },
+    "parserDiagnostics": {
+      "type": "array"
+    },
+    "rootName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "encoding": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "evidence": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.xmlResource.v1.json"
+}

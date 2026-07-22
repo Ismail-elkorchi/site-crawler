@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "resolved-crawl-config",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "seeds",
+    "seedUrls",
+    "scope",
+    "limits",
+    "networkSafety",
+    "robots",
+    "sitemaps",
+    "feeds",
+    "jsDiscovery",
+    "cssDiscovery",
+    "network",
+    "session",
+    "httpCache",
+    "responseLimits",
+    "parsing",
+    "rendering",
+    "storage",
+    "output"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.resolvedConfig"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "seeds": {},
+    "seedUrls": {},
+    "scope": {},
+    "limits": {},
+    "networkSafety": {},
+    "robots": {},
+    "sitemaps": {},
+    "feeds": {},
+    "jsDiscovery": {},
+    "cssDiscovery": {},
+    "network": {},
+    "session": {},
+    "httpCache": {},
+    "responseLimits": {},
+    "parsing": {},
+    "rendering": {},
+    "storage": {},
+    "output": {}
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.resolvedConfig.v1.json"
+}

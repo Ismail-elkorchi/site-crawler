@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "feed-entry",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "feedUrl",
+    "discoveredAt",
+    "rawUrl",
+    "resolvedUrl",
+    "normalizedUrl",
+    "title",
+    "publishedAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.feedEntry"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "feedUrl": {
+      "type": "string"
+    },
+    "discoveredAt": {
+      "type": "string"
+    },
+    "rawUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolvedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "normalizedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "publishedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.feedEntry.v1.json"
+}

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-stats",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "startedAt",
+    "durationMs",
+    "seeds",
+    "requestsScheduled",
+    "requestsAttempted",
+    "requestsFetched",
+    "requestsTransportFailed",
+    "requestsPolicySkipped",
+    "requestsCancelled",
+    "requestsFailed",
+    "urlsSkipped",
+    "retries",
+    "resourcesRecorded",
+    "htmlPagesParsed",
+    "xmlResourcesParsed",
+    "sitemapsFetched",
+    "sitemapEntriesDiscovered",
+    "sitemapFilesDiscovered",
+    "feedsFetched",
+    "feedEntriesDiscovered",
+    "linksExtracted",
+    "internalLinksExtracted",
+    "externalLinksExtracted",
+    "javascriptResourcesParsed",
+    "javascriptLinksExtracted",
+    "cssStylesheetsParsed",
+    "cssLinksExtracted",
+    "renderedPages",
+    "redirectsFollowed",
+    "redirectsBlocked",
+    "robotsFilesFetched",
+    "robotsDisallowedUrls",
+    "scopeRejectedUrls",
+    "networkSafetyRejectedUrls",
+    "parserErrors",
+    "decodeErrors",
+    "bytesDownloaded",
+    "responseCount",
+    "responseTimeMsTotal",
+    "averageResponseTimeMs",
+    "peakConcurrency",
+    "peakQueueSize",
+    "resumedRequests",
+    "recoveredLeases",
+    "renewedLeases",
+    "releasedLeases",
+    "storageBackpressureEvents",
+    "droppedEvents",
+    "evidenceObjectsWritten",
+    "evidenceBytesWritten",
+    "changesRecorded",
+    "workerHeartbeats",
+    "replaysCompleted",
+    "finishedAt",
+    "stopReason",
+    "stopDetail"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.stats"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "durationMs": {
+      "type": "number"
+    },
+    "seeds": {
+      "type": "number"
+    },
+    "requestsScheduled": {
+      "type": "number"
+    },
+    "requestsAttempted": {
+      "type": "number"
+    },
+    "requestsFetched": {
+      "type": "number"
+    },
+    "requestsTransportFailed": {
+      "type": "number"
+    },
+    "requestsPolicySkipped": {
+      "type": "number"
+    },
+    "requestsCancelled": {
+      "type": "number"
+    },
+    "requestsFailed": {
+      "type": "number"
+    },
+    "urlsSkipped": {
+      "type": "number"
+    },
+    "retries": {
+      "type": "number"
+    },
+    "resourcesRecorded": {
+      "type": "number"
+    },
+    "htmlPagesParsed": {
+      "type": "number"
+    },
+    "xmlResourcesParsed": {
+      "type": "number"
+    },
+    "sitemapsFetched": {
+      "type": "number"
+    },
+    "sitemapEntriesDiscovered": {
+      "type": "number"
+    },
+    "sitemapFilesDiscovered": {
+      "type": "number"
+    },
+    "feedsFetched": {
+      "type": "number"
+    },
+    "feedEntriesDiscovered": {
+      "type": "number"
+    },
+    "linksExtracted": {
+      "type": "number"
+    },
+    "internalLinksExtracted": {
+      "type": "number"
+    },
+    "externalLinksExtracted": {
+      "type": "number"
+    },
+    "javascriptResourcesParsed": {
+      "type": "number"
+    },
+    "javascriptLinksExtracted": {
+      "type": "number"
+    },
+    "cssStylesheetsParsed": {
+      "type": "number"
+    },
+    "cssLinksExtracted": {
+      "type": "number"
+    },
+    "renderedPages": {
+      "type": "number"
+    },
+    "redirectsFollowed": {
+      "type": "number"
+    },
+    "redirectsBlocked": {
+      "type": "number"
+    },
+    "robotsFilesFetched": {
+      "type": "number"
+    },
+    "robotsDisallowedUrls": {
+      "type": "number"
+    },
+    "scopeRejectedUrls": {
+      "type": "number"
+    },
+    "networkSafetyRejectedUrls": {
+      "type": "number"
+    },
+    "parserErrors": {
+      "type": "number"
+    },
+    "decodeErrors": {
+      "type": "number"
+    },
+    "bytesDownloaded": {
+      "type": "number"
+    },
+    "responseCount": {
+      "type": "number"
+    },
+    "responseTimeMsTotal": {
+      "type": "number"
+    },
+    "averageResponseTimeMs": {
+      "type": "number"
+    },
+    "peakConcurrency": {
+      "type": "number"
+    },
+    "peakQueueSize": {
+      "type": "number"
+    },
+    "resumedRequests": {
+      "type": "number"
+    },
+    "recoveredLeases": {
+      "type": "number"
+    },
+    "renewedLeases": {
+      "type": "number"
+    },
+    "releasedLeases": {
+      "type": "number"
+    },
+    "storageBackpressureEvents": {
+      "type": "number"
+    },
+    "droppedEvents": {
+      "type": "number"
+    },
+    "evidenceObjectsWritten": {
+      "type": "number"
+    },
+    "evidenceBytesWritten": {
+      "type": "number"
+    },
+    "changesRecorded": {
+      "type": "number"
+    },
+    "workerHeartbeats": {
+      "type": "number"
+    },
+    "replaysCompleted": {
+      "type": "number"
+    },
+    "finishedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stopReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stopDetail": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.stats.v1.json"
+}

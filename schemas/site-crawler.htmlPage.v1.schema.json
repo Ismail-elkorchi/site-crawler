@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "html-page",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "requestId",
+    "resourceId",
+    "requestedUrl",
+    "finalUrl",
+    "normalizedUrl",
+    "discoveredBy",
+    "htmlSource",
+    "extractedAt",
+    "depth",
+    "discoveredOutgoingLinkCount",
+    "recordedOutgoingLinkCount",
+    "truncatedOutgoingLinkCount",
+    "inScopeOutgoingLinkCount",
+    "outOfScopeOutgoingLinkCount",
+    "facts",
+    "discoveredFrom",
+    "evidence"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.htmlPage"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "resourceId": {
+      "type": "string"
+    },
+    "requestedUrl": {
+      "type": "string"
+    },
+    "finalUrl": {
+      "type": "string"
+    },
+    "normalizedUrl": {
+      "type": "string"
+    },
+    "discoveredBy": {
+      "type": "string"
+    },
+    "htmlSource": {
+      "type": "string"
+    },
+    "extractedAt": {
+      "type": "string"
+    },
+    "depth": {
+      "type": "number"
+    },
+    "discoveredOutgoingLinkCount": {
+      "type": "number"
+    },
+    "recordedOutgoingLinkCount": {
+      "type": "number"
+    },
+    "truncatedOutgoingLinkCount": {
+      "type": "number"
+    },
+    "inScopeOutgoingLinkCount": {
+      "type": "number"
+    },
+    "outOfScopeOutgoingLinkCount": {
+      "type": "number"
+    },
+    "facts": {
+      "type": "object"
+    },
+    "discoveredFrom": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.htmlPage.v1.json"
+}

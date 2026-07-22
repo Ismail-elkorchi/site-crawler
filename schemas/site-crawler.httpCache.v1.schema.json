@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "http-cache",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "url",
+    "storedAt",
+    "statusCode",
+    "bodyBytes",
+    "bodyPresent",
+    "etag",
+    "lastModified",
+    "contentType"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.httpCache"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "url": {
+      "type": "string"
+    },
+    "storedAt": {
+      "type": "string"
+    },
+    "statusCode": {
+      "type": "number"
+    },
+    "bodyBytes": {
+      "type": "number"
+    },
+    "bodyPresent": {
+      "type": "boolean"
+    },
+    "etag": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastModified": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contentType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.httpCache.v1.json"
+}

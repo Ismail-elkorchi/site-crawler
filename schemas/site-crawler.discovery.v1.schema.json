@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "discovery-record",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "uniqueKey",
+    "rawUrl",
+    "source",
+    "seedUrl",
+    "createdAt",
+    "depth",
+    "firstSeen",
+    "decision",
+    "requestId",
+    "resolvedUrl",
+    "normalizedUrl",
+    "referrerUrl",
+    "seedLabel"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.discovery"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "uniqueKey": {
+      "type": "string"
+    },
+    "rawUrl": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "seedUrl": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "depth": {
+      "type": "number"
+    },
+    "firstSeen": {
+      "type": "boolean"
+    },
+    "decision": {
+      "type": "object"
+    },
+    "requestId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolvedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "normalizedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "referrerUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "seedLabel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.discovery.v1.json"
+}

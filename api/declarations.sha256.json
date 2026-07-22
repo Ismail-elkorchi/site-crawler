@@ -1,0 +1,25 @@
+{
+  "schemaId": "site-crawler.declarationSnapshot",
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "declarations": {
+    ".": "29307a8b4a0ea97ed1ab587db84f1eed3cafc6fe5d4995ff6c80a90475fc4527",
+    "./config": "990b94a43fa84a847903e796ab61405fa88dd63a8d2ea55aa05e04fc7e2ca0f0",
+    "./events": "19d2c5bd38e14eed040919be4254d4030da533b80489dc9a09205821c3ffac14",
+    "./adapters": "4d32e9ef85d2c4115847186507f45badea4e3f90db6ef3937e10ef9ff469cb3b",
+    "./schemas": "5019fb68a118da1f0c8de6714c5e6e90e0036461b588859f6977fee37d58fd37",
+    "./experimental": "355ebb541c592e06e9924f1e440c280bbf60e879e04e553e6c88c1f3f65cf2a4",
+    "./playwright": "fdfaab929d2fc5df89aa3f3485f6a7185af83bc1968847c28bbc5d225b11ecb4",
+    "./storage": "7234e62c9cf4b869a6ed3c187f4eab9ca5c6a5612dc764660e423a6de230ea0c",
+    "./query": "2b78dff78e8fb1df18693efe06d8d4f00eb906f79c5a97e0eb793e0e1c8adb95",
+    "./opentelemetry": "6f4774d23e002f107cd88e0e39b046395b500a45032e011d18d6af6dccb2bf98",
+    "./contracts": "216e09c1a59d9841432a2fd0c07abbb850a37c9409810deb54343f7e03a06504",
+    "./evidence": "46872156be18a59abfc427e07cbe56d7203fdcb7152c9ee1a842ef55c3f443bb",
+    "./replay": "32682f15fe0adabd855ddd660e298be18cb7440c5395e4e619185976f8a888be",
+    "./diff": "1118b507e655cc50da71bcf447b250f6ba5982e2035354315948971bbf747ea8",
+    "./runs": "74b5ea56b5d5cb1eecaadc4ef167d3473e2eed02870a89c929c802170d5812b8",
+    "./operations": "30b6b5f56ba90fe08bbd95a1d7ac6f28fe2c5311a8a4a80bc13165b42ff7dde9",
+    "./workers": "397585a5129524e06c3277f10181d0d493308058e4b54524b6d844ad3357ad6f",
+    "./security": "61918e61106b5c2848833e82afff0a3f99cbe98ee6086b2a87576e27774080a7"
+  }
+}

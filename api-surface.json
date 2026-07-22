@@ -1,0 +1,90 @@
+{
+  "schemaId": "site-crawler.apiSurface",
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "stable": {
+    ".": [
+      "CrawlEventHub",
+      "SiteCrawler",
+      "assertCrawlConfig",
+      "parseCrawlConfig",
+      "resolveConfig",
+      "validateConfig"
+    ],
+    "./config": [
+      "assertCrawlConfig",
+      "parseCrawlConfig",
+      "resolveConfig",
+      "validateConfig"
+    ],
+    "./events": ["CrawlEventHub"],
+    "./adapters": [],
+    "./schemas": [
+      "persistentSchemas",
+      "schemaForId",
+      "validatePersistentValue"
+    ],
+    "./playwright": ["PlaywrightRenderAdapter"],
+    "./storage": ["SqliteResultStore"],
+    "./query": ["CrawlIndex"],
+    "./opentelemetry": ["createOpenTelemetryHooks"],
+    "./contracts": [
+      "DELIVERY_GUARANTEES",
+      "SITE_CRAWLER_SCHEMA_SET_VERSION",
+      "SITE_CRAWLER_SCHEMA_VERSION",
+      "contractForName",
+      "contractForSchema",
+      "runtimeContracts",
+      "validateContract"
+    ],
+    "./evidence": [
+      "ContentAddressedEvidenceStore",
+      "createEvidenceBundle",
+      "verifyEvidenceBundle"
+    ],
+    "./replay": ["replayRun"],
+    "./diff": ["compareRuns"],
+    "./runs": ["openRunReader"],
+    "./operations": [
+      "checkpointRun",
+      "compactRun",
+      "configForResume",
+      "doctor",
+      "exportRun",
+      "inspectRun",
+      "requestRunAbort",
+      "validateConfigFile",
+      "validateRun"
+    ],
+    "./workers": [
+      "SqliteWorkerCoordinator",
+      "WorkerSession",
+      "encodeWorkerMessage",
+      "parseWorkerMessage"
+    ],
+    "./security": ["auditRunSecurity", "runSecurityDoctor"]
+  },
+  "experimental": {
+    "./experimental": [
+      "RobotsService",
+      "ScopePolicy",
+      "classifyResponse",
+      "decodeBody",
+      "decompressXmlPayload",
+      "extractHtmlFacts",
+      "extractStaticJavascriptLinks",
+      "extractXmlResource",
+      "isHtmlLike",
+      "isXmlLike",
+      "normalizeUrl",
+      "parseRobotsTxt",
+      "shouldEnqueueNavigationUrl"
+    ]
+  },
+  "internal": [
+    "src/crawler/**",
+    "src/frontier/**",
+    "src/http/**",
+    "src/storage/sqlite/**"
+  ]
+}

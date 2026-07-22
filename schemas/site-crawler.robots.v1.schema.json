@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "robots-record",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "origin",
+    "requestedUrl",
+    "source",
+    "fetchedAt",
+    "expiresAt",
+    "groups",
+    "rules",
+    "sitemaps",
+    "finalUrl",
+    "fallbackMode",
+    "error",
+    "statusCode"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.robots"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string"
+    },
+    "requestedUrl": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "fetchedAt": {
+      "type": "string"
+    },
+    "expiresAt": {
+      "type": "string"
+    },
+    "groups": {
+      "type": "number"
+    },
+    "rules": {
+      "type": "number"
+    },
+    "sitemaps": {
+      "type": "array"
+    },
+    "finalUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fallbackMode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "statusCode": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.robots.v1.json"
+}

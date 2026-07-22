@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "evidence-reference",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "algorithm",
+    "digest",
+    "kind",
+    "mediaType",
+    "byteLength",
+    "capture",
+    "relativePath",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.evidenceReference"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "algorithm": {
+      "const": "sha256"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "kind": {
+      "enum": [
+        "html",
+        "xml",
+        "rendered-html"
+      ]
+    },
+    "mediaType": {
+      "type": "string"
+    },
+    "byteLength": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "capture": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "sourceByteLength"
+          ],
+          "properties": {
+            "kind": {
+              "const": "complete"
+            },
+            "sourceByteLength": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "sourceByteLength",
+            "limitBytes"
+          ],
+          "properties": {
+            "kind": {
+              "const": "truncated"
+            },
+            "sourceByteLength": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "limitBytes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "relativePath": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.evidenceReference.v1.json"
+}

@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawled-resource",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "requestId",
+    "requestedUrl",
+    "normalizedUrl",
+    "resourceType",
+    "httpProtocol",
+    "cacheStatus",
+    "fetchedAt",
+    "responseTimeMs",
+    "ok",
+    "networkTimings",
+    "scopeDecision",
+    "robotsDecision",
+    "networkSafetyDecision",
+    "redirects",
+    "warnings",
+    "finalUrl",
+    "contentType",
+    "remoteAddress",
+    "statusCode",
+    "contentLength",
+    "wireBytesRead",
+    "httpDecodedBytesRead",
+    "fileDecodedBytesRead",
+    "tls",
+    "encoding",
+    "bodyHash",
+    "error"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.resource"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "requestedUrl": {
+      "type": "string"
+    },
+    "normalizedUrl": {
+      "type": "string"
+    },
+    "resourceType": {
+      "type": "string"
+    },
+    "httpProtocol": {
+      "type": "string"
+    },
+    "cacheStatus": {
+      "type": "string"
+    },
+    "fetchedAt": {
+      "type": "string"
+    },
+    "responseTimeMs": {
+      "type": "number"
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "networkTimings": {
+      "type": "object"
+    },
+    "scopeDecision": {
+      "type": "object"
+    },
+    "robotsDecision": {
+      "type": "object"
+    },
+    "networkSafetyDecision": {
+      "type": "object"
+    },
+    "redirects": {
+      "type": "array"
+    },
+    "warnings": {
+      "type": "array"
+    },
+    "finalUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contentType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "remoteAddress": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "statusCode": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "contentLength": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "wireBytesRead": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "httpDecodedBytesRead": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "fileDecodedBytesRead": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "tls": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "encoding": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "bodyHash": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "error": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.resource.v1.json"
+}

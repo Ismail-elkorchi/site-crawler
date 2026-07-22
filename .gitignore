@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+*.tgz
+*.zip
+*.sha256
+runs/
+.site-crawler-cache/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.spool

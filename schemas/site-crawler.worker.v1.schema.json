@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "worker-protocol-message",
+  "type": "object",
+  "required": [
+    "protocolVersion",
+    "type",
+    "workerId",
+    "runId",
+    "sentAt"
+  ],
+  "additionalProperties": true,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.worker.v1.json",
+  "properties": {}
+}

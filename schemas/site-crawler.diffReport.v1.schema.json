@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-diff-report",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "baseRunDirectory",
+    "targetRunDirectory",
+    "createdAt",
+    "summary",
+    "changes"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.diffReport"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "baseRunDirectory": {
+      "type": "string"
+    },
+    "targetRunDirectory": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "changes": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.diffReport.v1.json"
+}

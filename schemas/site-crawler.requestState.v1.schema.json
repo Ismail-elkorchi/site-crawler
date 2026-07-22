@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "request-state",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "requestId",
+    "uniqueKey",
+    "state",
+    "updatedAt",
+    "reason"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.requestState"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "uniqueKey": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.requestState.v1.json"
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "replay-report",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runDirectory",
+    "crawlerVersion",
+    "startedAt",
+    "finishedAt",
+    "matched",
+    "changed",
+    "missingEvidence",
+    "failed",
+    "items",
+    "htmlParserVersion",
+    "xmlParserVersion"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.replayReport"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runDirectory": {
+      "type": "string"
+    },
+    "crawlerVersion": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "finishedAt": {
+      "type": "string"
+    },
+    "matched": {
+      "type": "number"
+    },
+    "changed": {
+      "type": "number"
+    },
+    "missingEvidence": {
+      "type": "number"
+    },
+    "failed": {
+      "type": "number"
+    },
+    "items": {
+      "type": "array"
+    },
+    "htmlParserVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "xmlParserVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.replayReport.v1.json"
+}

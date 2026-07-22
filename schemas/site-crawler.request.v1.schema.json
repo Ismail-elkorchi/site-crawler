@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-request",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "id",
+    "uniqueKey",
+    "rawUrl",
+    "resolvedUrl",
+    "normalizedUrl",
+    "source",
+    "seedUrl",
+    "method",
+    "renderPolicy",
+    "createdAt",
+    "updatedAt",
+    "depth",
+    "sitemapIndexDepth",
+    "priority",
+    "retryCount",
+    "maxRetries",
+    "headers",
+    "userData",
+    "sitemapAncestors",
+    "referrerUrl",
+    "seedLabel"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.request"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string"
+    },
+    "uniqueKey": {
+      "type": "string"
+    },
+    "rawUrl": {
+      "type": "string"
+    },
+    "resolvedUrl": {
+      "type": "string"
+    },
+    "normalizedUrl": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "seedUrl": {
+      "type": "string"
+    },
+    "method": {
+      "type": "string"
+    },
+    "renderPolicy": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "depth": {
+      "type": "number"
+    },
+    "sitemapIndexDepth": {
+      "type": "number"
+    },
+    "priority": {
+      "type": "number"
+    },
+    "retryCount": {
+      "type": "number"
+    },
+    "maxRetries": {
+      "type": "number"
+    },
+    "headers": {
+      "type": "object"
+    },
+    "userData": {
+      "type": "object"
+    },
+    "sitemapAncestors": {
+      "type": "array"
+    },
+    "referrerUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "seedLabel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.request.v1.json"
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "worker-record",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "workerId",
+    "runId",
+    "host",
+    "protocolVersion",
+    "startedAt",
+    "heartbeatAt",
+    "status",
+    "pid"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.workerRecord"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "workerId": {
+      "type": "string"
+    },
+    "runId": {
+      "type": "string"
+    },
+    "host": {
+      "type": "string"
+    },
+    "protocolVersion": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "heartbeatAt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "pid": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.workerRecord.v1.json"
+}

@@ -1,0 +1,92 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:bad49d18-816d-450e-aeae-85c5f7a27f67",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "site-crawler",
+      "version": "0.1.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "@ismail-elkorchi/html-parser",
+      "version": "0.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40ismail-elkorchi%2Fhtml-parser@0.2.0"
+    },
+    {
+      "type": "library",
+      "name": "@ismail-elkorchi/xml-parser",
+      "version": "0.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40ismail-elkorchi%2Fxml-parser@0.2.0"
+    },
+    {
+      "type": "library",
+      "name": "@types/node",
+      "version": "24.13.3",
+      "scope": "development",
+      "purl": "pkg:npm/%40types%2Fnode@24.13.3"
+    },
+    {
+      "type": "library",
+      "name": "acorn",
+      "version": "8.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/acorn@8.17.0"
+    },
+    {
+      "type": "library",
+      "name": "playwright-core",
+      "version": "1.61.1",
+      "scope": "required",
+      "purl": "pkg:npm/playwright-core@1.61.1"
+    },
+    {
+      "type": "library",
+      "name": "prettier",
+      "version": "3.9.6",
+      "scope": "development",
+      "purl": "pkg:npm/prettier@3.9.6"
+    },
+    {
+      "type": "library",
+      "name": "tldts-core",
+      "version": "7.4.9",
+      "scope": "required",
+      "purl": "pkg:npm/tldts-core@7.4.9"
+    },
+    {
+      "type": "library",
+      "name": "tldts",
+      "version": "7.4.9",
+      "scope": "required",
+      "purl": "pkg:npm/tldts@7.4.9"
+    },
+    {
+      "type": "library",
+      "name": "tough-cookie",
+      "version": "6.0.2",
+      "scope": "required",
+      "purl": "pkg:npm/tough-cookie@6.0.2"
+    },
+    {
+      "type": "library",
+      "name": "typescript",
+      "version": "6.0.3",
+      "scope": "development",
+      "purl": "pkg:npm/typescript@6.0.3"
+    },
+    {
+      "type": "library",
+      "name": "undici-types",
+      "version": "7.18.2",
+      "scope": "required",
+      "purl": "pkg:npm/undici-types@7.18.2"
+    }
+  ]
+}

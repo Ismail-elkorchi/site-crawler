@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "replay-item",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "entity",
+    "requestId",
+    "url",
+    "status",
+    "evidenceDigest",
+    "previousHash",
+    "replayedHash",
+    "error"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.replayItem"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "entity": {
+      "type": "string"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "evidenceDigest": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "previousHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "replayedHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.replayItem.v1.json"
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "skipped-url",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "rawUrl",
+    "reason",
+    "createdAt",
+    "resolvedUrl",
+    "normalizedUrl",
+    "referrerUrl",
+    "policyName",
+    "detail"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.skippedUrl"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "rawUrl": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "resolvedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "normalizedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "referrerUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "policyName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "detail": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.skippedUrl.v1.json"
+}

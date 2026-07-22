@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-error",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "code",
+    "message",
+    "createdAt",
+    "retryable",
+    "fatal",
+    "url",
+    "requestId",
+    "causeName",
+    "causeMessage",
+    "attempt"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.error"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "code": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "fatal": {
+      "type": "boolean"
+    },
+    "url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "requestId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "causeName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "causeMessage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "attempt": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.error.v1.json"
+}

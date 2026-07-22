@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "evidence-bundle",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "createdAt",
+    "sourceDirectory",
+    "objectCount",
+    "totalBytes",
+    "storedBytes",
+    "compressed",
+    "files"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.evidenceBundle"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "sourceDirectory": {
+      "type": "string"
+    },
+    "objectCount": {
+      "type": "number"
+    },
+    "totalBytes": {
+      "type": "number"
+    },
+    "storedBytes": {
+      "type": "number"
+    },
+    "compressed": {
+      "type": "boolean"
+    },
+    "files": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.evidenceBundle.v1.json"
+}

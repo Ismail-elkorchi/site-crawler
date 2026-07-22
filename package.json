@@ -1,0 +1,156 @@
+{
+  "name": "site-crawler",
+  "version": "0.1.0",
+  "description": "Strict TypeScript website crawler with durable scheduling, current-only runtime contracts, replayable evidence, differential crawling, and production release verification.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "site-crawler": "./dist/cli/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/public.d.ts",
+      "import": "./dist/config/public.js"
+    },
+    "./events": {
+      "types": "./dist/events/public.d.ts",
+      "import": "./dist/events/public.js"
+    },
+    "./adapters": {
+      "types": "./dist/adapters/public.d.ts",
+      "import": "./dist/adapters/public.js"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/public.d.ts",
+      "import": "./dist/schemas/public.js"
+    },
+    "./experimental": {
+      "types": "./dist/experimental/public.d.ts",
+      "import": "./dist/experimental/public.js"
+    },
+    "./playwright": {
+      "types": "./dist/rendering/playwright/public.d.ts",
+      "import": "./dist/rendering/playwright/public.js"
+    },
+    "./storage": {
+      "types": "./dist/storage/public.d.ts",
+      "import": "./dist/storage/public.js"
+    },
+    "./query": {
+      "types": "./dist/query/public.d.ts",
+      "import": "./dist/query/public.js"
+    },
+    "./opentelemetry": {
+      "types": "./dist/opentelemetry/public.d.ts",
+      "import": "./dist/opentelemetry/public.js"
+    },
+    "./contracts": {
+      "types": "./dist/contracts/public.d.ts",
+      "import": "./dist/contracts/public.js"
+    },
+    "./evidence": {
+      "types": "./dist/evidence/public.d.ts",
+      "import": "./dist/evidence/public.js"
+    },
+    "./replay": {
+      "types": "./dist/replay/public.d.ts",
+      "import": "./dist/replay/public.js"
+    },
+    "./diff": {
+      "types": "./dist/diff/public.d.ts",
+      "import": "./dist/diff/public.js"
+    },
+    "./runs": {
+      "types": "./dist/runs/public.d.ts",
+      "import": "./dist/runs/public.js"
+    },
+    "./operations": {
+      "types": "./dist/operations/public.d.ts",
+      "import": "./dist/operations/public.js"
+    },
+    "./workers": {
+      "types": "./dist/workers/public.d.ts",
+      "import": "./dist/workers/public.js"
+    },
+    "./security": {
+      "types": "./dist/security/public.d.ts",
+      "import": "./dist/security/public.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "docs",
+    "CHANGELOG.md",
+    "api-surface.json",
+    "release",
+    "schemas",
+    "api",
+    "supply-chain"
+  ],
+  "scripts": {
+    "build": "node tools/clean.mjs && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "quality": "node tools/quality-gate.mjs",
+    "check": "npm run typecheck && npm run quality && npm run format:check",
+    "test": "npm run build && node tools/run-tests.mjs",
+    "prepack": "npm run check && npm run build",
+    "clean": "node tools/clean.mjs",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.mjs\" \"tools/**/*.mjs\" \"benchmarks/**/*.mjs\" \"*.{json,md}\" \"docs/**/*.md\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.mjs\" \"tools/**/*.mjs\" \"benchmarks/**/*.mjs\" \"*.{json,md}\" \"docs/**/*.md\"",
+    "prepublishOnly": "npm test",
+    "verify:release": "npm run check && npm test && npm run verify:termination && npm run verify:leaks && npm run benchmark && npm run test:browser && npm run verify:api && npm run schemas:check && npm run api:check && npm run supply-chain:check && npm run verify:crash && npm run verify:clean-install && npm run verify:package && npm run release:metadata && npm run verify:supply-chain",
+    "verify:package": "node tools/verify-package.mjs",
+    "verify:clean-install": "node tools/verify-clean-install.mjs",
+    "verify:leaks": "npm run build && node --expose-gc tools/verify-resource-leaks.mjs",
+    "benchmark": "npm run build && node benchmarks/run.mjs",
+    "test:browser": "npm run build && node tools/verify-browser.mjs --require",
+    "schemas:generate": "npm run build && node tools/generate-schemas.mjs",
+    "verify:api": "npm run build && node tools/verify-api.mjs",
+    "sbom": "node tools/generate-sbom.mjs",
+    "release:manifest": "node tools/generate-release-manifest.mjs",
+    "release:provenance": "node tools/generate-provenance.mjs",
+    "release:metadata": "npm run build && node tools/generate-schemas.mjs && npm run sbom && npm run release:manifest && npm run release:provenance",
+    "verify:supply-chain": "node tools/verify-supply-chain.mjs",
+    "schemas:write": "npm run build && node tools/generate-schemas.mjs --write",
+    "schemas:check": "npm run build && node tools/generate-schemas.mjs",
+    "api:write": "npm run build && node tools/verify-public-api.mjs --write",
+    "api:check": "npm run build && node tools/verify-public-api.mjs",
+    "supply-chain:write": "node tools/generate-supply-chain.mjs --write",
+    "supply-chain:check": "node tools/generate-supply-chain.mjs",
+    "verify:crash": "npm run build && node tools/verify-crash-safety.mjs",
+    "benchmark:million": "npm run build && node benchmarks/million-frontier.mjs",
+    "benchmark:soak": "npm run build && node benchmarks/soak.mjs",
+    "test:fuzz": "npm run build && node tools/run-tests.mjs faults-fuzz.test.mjs",
+    "test:load": "npm run benchmark:million",
+    "test:soak": "npm run benchmark:soak",
+    "verify:pre1": "npm run verify:release && npm run test:load && npm run test:soak",
+    "test:repeat": "npm run verify:termination",
+    "verify:termination": "npm run build && node tools/verify-test-termination.mjs"
+  },
+  "dependencies": {
+    "@ismail-elkorchi/html-parser": "0.2.0",
+    "@ismail-elkorchi/xml-parser": "0.2.0",
+    "acorn": "^8.17.0",
+    "playwright-core": "^1.61.1",
+    "tough-cookie": "^6.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "prettier": "^3.9.5",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

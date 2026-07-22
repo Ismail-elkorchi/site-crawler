@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "run-inspection",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "directory",
+    "createdAt",
+    "manifest",
+    "counts",
+    "files"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.runInspection"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "directory": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "manifest": {
+      "type": "object"
+    },
+    "counts": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.runInspection.v1.json"
+}

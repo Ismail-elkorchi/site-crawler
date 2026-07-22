@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "link-edge",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "id",
+    "runId",
+    "fromUrl",
+    "toRaw",
+    "source",
+    "linkKind",
+    "discoveredAt",
+    "depth",
+    "nofollow",
+    "sponsored",
+    "ugc",
+    "enqueueDecision",
+    "evidence",
+    "rel",
+    "toResolved",
+    "toNormalized",
+    "toFinalUrl",
+    "anchorText",
+    "target"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.linkEdge"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string"
+    },
+    "runId": {
+      "type": "string"
+    },
+    "fromUrl": {
+      "type": "string"
+    },
+    "toRaw": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "linkKind": {
+      "type": "string"
+    },
+    "discoveredAt": {
+      "type": "string"
+    },
+    "depth": {
+      "type": "number"
+    },
+    "nofollow": {
+      "type": "boolean"
+    },
+    "sponsored": {
+      "type": "boolean"
+    },
+    "ugc": {
+      "type": "boolean"
+    },
+    "enqueueDecision": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "rel": {
+      "type": "array"
+    },
+    "toResolved": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "toNormalized": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "toFinalUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "anchorText": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.linkEdge.v1.json"
+}

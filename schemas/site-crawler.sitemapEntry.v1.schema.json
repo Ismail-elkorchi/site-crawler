@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "sitemap-entry",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "sitemapUrl",
+    "entryKind",
+    "discoveredAt",
+    "warnings",
+    "rawLoc",
+    "resolvedUrl",
+    "normalizedUrl",
+    "lastmod",
+    "changefreq",
+    "priority"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.sitemapEntry"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "sitemapUrl": {
+      "type": "string"
+    },
+    "entryKind": {
+      "type": "string"
+    },
+    "discoveredAt": {
+      "type": "string"
+    },
+    "warnings": {
+      "type": "array"
+    },
+    "rawLoc": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolvedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "normalizedUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastmod": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "changefreq": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "priority": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.sitemapEntry.v1.json"
+}

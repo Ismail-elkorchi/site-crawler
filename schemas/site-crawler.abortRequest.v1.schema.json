@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "abort-request",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "reason",
+    "requestedAt",
+    "runId"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.abortRequest"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "reason": {
+      "type": "string"
+    },
+    "requestedAt": {
+      "type": "string"
+    },
+    "runId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.abortRequest.v1.json"
+}

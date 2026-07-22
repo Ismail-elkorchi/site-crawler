@@ -1,0 +1,43 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "site-crawler@0.1.0",
+      "digest": {
+        "sha256": "29bca1173574960650842f8dca7205a7144ad3eee5fe5bf9d12286b651cd1032"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://site-crawler.dev/build/source-release/v1",
+      "externalParameters": {
+        "packageVersion": "0.1.0"
+      },
+      "internalParameters": {
+        "node": "24.14.0",
+        "platform": "linux",
+        "architecture": "x64"
+      },
+      "resolvedDependencies": [
+        {
+          "uri": "package-lock.json",
+          "digest": {
+            "sha256": "580095a1f2ff5f2a0ba22fcef473f5bbbe15e22e76eb54d9a0b8598d2e3a81f5"
+          }
+        }
+      ]
+    },
+    "runDetails": {
+      "builder": {
+        "id": "https://site-crawler.dev/tools/generate-provenance"
+      },
+      "metadata": {
+        "invocationId": "51372e00-ca31-4aba-aaeb-4671a23cad43",
+        "startedOn": "2026-07-22T20:14:21.273Z",
+        "finishedOn": "2026-07-22T20:14:21.274Z"
+      }
+    }
+  }
+}

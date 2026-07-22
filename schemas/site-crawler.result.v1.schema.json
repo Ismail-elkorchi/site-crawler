@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-result",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "status",
+    "schemaSetVersion",
+    "stats",
+    "stopReason",
+    "outputDirectory",
+    "manifestPath",
+    "stopDetail",
+    "fatalError"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.result"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "schemaSetVersion": {
+      "type": "number"
+    },
+    "stats": {
+      "type": "object"
+    },
+    "stopReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "outputDirectory": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "manifestPath": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stopDetail": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "fatalError": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.result.v1.json"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "crawl-event",
+  "type": "object",
+  "required": [
+    "type",
+    "runId",
+    "createdAt"
+  ],
+  "additionalProperties": true,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.event.v1.json",
+  "properties": {}
+}

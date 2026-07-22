@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "checkpoint",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "runId",
+    "createdAt",
+    "frontierBackend",
+    "sequence",
+    "counts"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "site-crawler.checkpoint"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "frontierBackend": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "number"
+    },
+    "counts": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "$id": "https://schemas.site-crawler.dev/site-crawler.checkpoint.v1.json"
+}
