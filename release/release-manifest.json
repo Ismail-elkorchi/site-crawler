@@ -3,10 +3,15 @@
   "schemaVersion": 1,
   "package": "site-crawler",
   "version": "0.1.0",
-  "generatedAt": "2026-07-22T20:37:48.019Z",
-  "fileCount": 468,
-  "totalBytes": 1239614,
+  "generatedAt": "2026-07-22T20:40:04.576Z",
+  "fileCount": 469,
+  "totalBytes": 1239633,
   "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c",
+      "bytes": 19
+    },
     {
       "path": ".github/workflows/ci.yml",
       "sha256": "02b9dacf338494f52c6c1aebd48e845b04fed765f282e738d22a46d288993b83",
@@ -174,7 +179,7 @@
     },
     {
       "path": "release/sbom.cdx.json",
-      "sha256": "8fe8e57726a783c97ae07f40a78341f6b0667a4714bddcce62c961a7aac3b764",
+      "sha256": "498f3cf3fff85e6c667fe382b9bffdbe5e2e28e699157fda233f66fbb3df165b",
       "bytes": 6008
     },
     {
