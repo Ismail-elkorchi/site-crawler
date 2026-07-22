@@ -89,7 +89,8 @@
       ]
     },
     "relativePath": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^/\\\\]+(?:/[^/\\\\]+)*$"
     },
     "createdAt": {
       "type": "string"

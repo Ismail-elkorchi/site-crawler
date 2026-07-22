@@ -3,9 +3,9 @@
   "schemaVersion": 1,
   "package": "site-crawler",
   "version": "0.1.0",
-  "generatedAt": "2026-07-22T20:40:04.576Z",
-  "fileCount": 469,
-  "totalBytes": 1239633,
+  "generatedAt": "2026-07-22T20:49:26.792Z",
+  "fileCount": 470,
+  "totalBytes": 1241224,
   "files": [
     {
       "path": ".gitattributes",
@@ -179,7 +179,7 @@
     },
     {
       "path": "release/sbom.cdx.json",
-      "sha256": "498f3cf3fff85e6c667fe382b9bffdbe5e2e28e699157fda233f66fbb3df165b",
+      "sha256": "9b72cbda2ee2bc554ecab90f71c46185fb4d05d900f31fdb6c563ef42bf50a16",
       "bytes": 6008
     },
     {
@@ -234,8 +234,8 @@
     },
     {
       "path": "schemas/site-crawler.evidenceReference.v1.schema.json",
-      "sha256": "37330e0131eaad7a61f5a4e677f68e47f2b346c490b09221a0091da5f886402c",
-      "bytes": 2041
+      "sha256": "a8ee144b83d989efa79debe4e1b3ac40439e7df8852bdc9cc84e25ff3d05934b",
+      "bytes": 2129
     },
     {
       "path": "schemas/site-crawler.exportReport.v1.schema.json",
@@ -539,8 +539,8 @@
     },
     {
       "path": "src/contracts/definitions/predicates.ts",
-      "sha256": "4170834bfad4689d3c1e120d5840e5f7e60ad76085d25b2052d80336113bac77",
-      "bytes": 6251
+      "sha256": "c6234ab68df0cb727ee504df40055c8bf57abe4c0e4dc50b012c00033f826bec",
+      "bytes": 6364
     },
     {
       "path": "src/contracts/delivery.ts",
@@ -601,6 +601,11 @@
       "path": "src/core/platform.ts",
       "sha256": "27295c1f1a65a497f888008fa93c3a4a49bc61d8e10c03dbf69cb6ddc2782572",
       "bytes": 170
+    },
+    {
+      "path": "src/core/portable-path.ts",
+      "sha256": "2454614e638f128176d5c571a79e08688c3b561944737ef8229acc785d0652ad",
+      "bytes": 930
     },
     {
       "path": "src/core/private-files.ts",
@@ -914,18 +919,18 @@
     },
     {
       "path": "src/evidence/bundle.ts",
-      "sha256": "03e999be6dad8fa16fab1276a468b835d5934f1bc4cd800887159a53f38f8dc7",
-      "bytes": 5510
+      "sha256": "9332dbf962f17fc7dcecdc470418571cfddefd6edcdd2dcdca49d5e768f3f711",
+      "bytes": 5300
     },
     {
       "path": "src/evidence/content-addressed-store.ts",
-      "sha256": "9ebe4bbc85bdc557263152e97f1ec405a3d473e01fde4baf1408d9b6265e782e",
-      "bytes": 3966
+      "sha256": "ecc5e83bf1ddb2486cb06251d694165bffb7a4e1db6d97b15ef78a7fffdcee28",
+      "bytes": 3807
     },
     {
       "path": "src/evidence/parse.ts",
-      "sha256": "c57df834289dcd6f959e4bfa218e59303546ff6a1cae9767fe821fce4ac57a75",
-      "bytes": 3557
+      "sha256": "8e54a95bdad282ee1336bd2d17142382cb0122283ed4b9c74f1c8882c72aad25",
+      "bytes": 3692
     },
     {
       "path": "src/evidence/public.ts",
@@ -939,8 +944,8 @@
     },
     {
       "path": "src/evidence/verify-bundle.ts",
-      "sha256": "4640a49b9af165e4b874fc131338f13779b56d399d601fda062eb6e693db1e86",
-      "bytes": 7582
+      "sha256": "c68ba1dc6e5da43f42499e591f07dcd172ca71e2db9b7cb96ad3eacd1776aacf",
+      "bytes": 7372
     },
     {
       "path": "src/experimental/public.ts",
@@ -2084,7 +2089,7 @@
     },
     {
       "path": "supply-chain/provenance.json",
-      "sha256": "c88684f532f83b88ae9ee65c71f161544f0db0cbd1662530e93f136d2d1aec9f",
+      "sha256": "f5e5e59fd1bb87a132d7dfa6b6ec8443b67f243854cd65e03e5575e91a455a7f",
       "bytes": 567
     },
     {
@@ -2109,8 +2114,8 @@
     },
     {
       "path": "tests/current-contracts.test.mjs",
-      "sha256": "a39cfb29345ede7e8b2d5f6f3e78f56b8cc969ada5578158f3a8b8be580c1087",
-      "bytes": 5011
+      "sha256": "76dfcfb85c6e6bc5d5b97b95e41d8b5d3b96e48957bf690d09fe91b41e9911f4",
+      "bytes": 5411
     },
     {
       "path": "tests/discovery-rendering.test.mjs",
@@ -2129,8 +2134,8 @@
     },
     {
       "path": "tests/evidence.test.mjs",
-      "sha256": "9eab6a4f4f95f6421e9b1d0401560aaad423204737dfc66c5b4aa48443f6ae01",
-      "bytes": 3364
+      "sha256": "dc54b3299579f7e4b2e62da40fe8606494d2ca46f07568bb63bbd150907ac6f4",
+      "bytes": 3722
     },
     {
       "path": "tests/faults-fuzz.test.mjs",
@@ -2274,8 +2279,8 @@
     },
     {
       "path": "tools/generate-release-manifest.mjs",
-      "sha256": "dbfee2c2bd90fb2974337c9adb10e728524577204c8251b5d2cdb5e00ce05b36",
-      "bytes": 1846
+      "sha256": "593695e912a04d5178f94a4854bbfa97f7820d050546cf587fcee1c7c193086b",
+      "bytes": 1966
     },
     {
       "path": "tools/generate-sbom.mjs",
@@ -2289,8 +2294,8 @@
     },
     {
       "path": "tools/generate-supply-chain.mjs",
-      "sha256": "6862e4893c9f5f2ffe29384d0c6bc239ba05c9803bf1fd0a4dcc19589e49ca42",
-      "bytes": 5098
+      "sha256": "be7194f127059863064498d12bb16dcb29f57f0651d101ff3296f3e0904355af",
+      "bytes": 5124
     },
     {
       "path": "tools/quality-gate.mjs",

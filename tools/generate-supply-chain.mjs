@@ -120,7 +120,7 @@ async function digestFile(file) {
 async function digestTree(directory) {
   const hash = createHash("sha256");
   for (const file of await files(directory)) {
-    hash.update(path.relative(root, file));
+    hash.update(path.relative(root, file).split(path.sep).join("/"));
     hash.update(await fs.readFile(file));
   }
   return hash.digest("hex");

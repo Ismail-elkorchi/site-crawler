@@ -9,7 +9,7 @@ const packageJson = JSON.parse(
 );
 const files = [];
 for (const target of await collect(root)) {
-  const relative = path.relative(root, target);
+  const relative = portableRelativePath(root, target);
   if (excluded(relative)) continue;
   const bytes = await fs.readFile(target);
   files.push({
@@ -43,6 +43,10 @@ async function collect(directory) {
     else if (entry.isFile()) output.push(target);
   }
   return output;
+}
+
+function portableRelativePath(root, target) {
+  return path.relative(root, target).split(path.sep).join("/");
 }
 
 function excluded(relative) {

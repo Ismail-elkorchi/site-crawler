@@ -2,13 +2,13 @@
   "schemaId": "site-crawler.provenance",
   "schemaVersion": 1,
   "package": "site-crawler@0.1.0",
-  "generatedAt": "2026-07-22T20:35:10.795Z",
+  "generatedAt": "2026-07-22T20:49:02.593Z",
   "engines": {
     "node": ">=24.0.0",
     "npm": ">=11.0.0"
   },
   "npmLockSha256": "580095a1f2ff5f2a0ba22fcef473f5bbbe15e22e76eb54d9a0b8598d2e3a81f5",
-  "sourceTreeSha256": "a0d28ec22f5ea03bcfbad240fda568688ca1b62afcc34b3cd2d08e1165c79d31",
-  "schemasSha256": "a3fb3b679f3d48b1d3a4a4021352b1237cbf6835f136c9108a39b493abd6ae2b",
+  "sourceTreeSha256": "b85b1bf8f519b8fe9b29d4230893fa654344ed0c4b2b1aa8e01e33573ffff329",
+  "schemasSha256": "3252eadb3ffc86531b6896903dc991c9fb4198542850bfad44514cc9b744e1e7",
   "apiSnapshotSha256": "6df2d77c5a2d8512f239226282b36e67a002fbf98d16c6c6b92482432830bcf9"
 }

@@ -4,6 +4,10 @@ import path from "node:path";
 import { gunzip } from "node:zlib";
 import { promisify } from "node:util";
 import { hasCurrentSchema } from "../contracts/schema-identity.js";
+import {
+  resolvePortableRelativePath,
+  validatePortableRelativePath,
+} from "../core/portable-path.js";
 import type {
   EvidenceBundleFile,
   EvidenceBundleManifest,
@@ -34,7 +38,7 @@ export async function verifyEvidenceBundle(
   if (manifest !== null) {
     const listed = new Set(["bundle.json"]);
     for (const file of manifest.files) {
-      listed.add(normalizeRelative(file.bundlePath));
+      listed.add(file.bundlePath);
       if (await verifyFile(directory, file, issues)) verifiedFiles += 1;
     }
     await inspectUnlistedFiles(directory, directory, listed, issues);
@@ -57,7 +61,7 @@ async function verifyFile(
 ): Promise<boolean> {
   let target: string;
   try {
-    target = safeJoin(directory, file.bundlePath);
+    target = resolvePortableRelativePath(directory, file.bundlePath);
   } catch (caught) {
     issues.push(issue("BUNDLE_PATH_ESCAPE", message(caught), file.bundlePath));
     return false;
@@ -156,8 +160,8 @@ function parseBundleFile(value: unknown): EvidenceBundleFile {
     throw new Error("Evidence bundle content encoding is unsupported.");
   }
   return {
-    sourcePath: stringField(value, "sourcePath"),
-    bundlePath: stringField(value, "bundlePath"),
+    sourcePath: validatePortableRelativePath(stringField(value, "sourcePath")),
+    bundlePath: validatePortableRelativePath(stringField(value, "bundlePath")),
     sha256: digestField(value, "sha256"),
     byteLength: integerField(value, "byteLength"),
     storedByteLength: integerField(value, "storedByteLength"),
@@ -165,19 +169,9 @@ function parseBundleFile(value: unknown): EvidenceBundleFile {
   };
 }
 
-function safeJoin(root: string, relativePath: string): string {
-  const absolute = path.resolve(root, relativePath);
-  const relative = path.relative(root, absolute);
-  if (relative.startsWith("..") || path.isAbsolute(relative)) {
-    throw new Error(`Path escapes the bundle root: ${relativePath}`);
-  }
-  return absolute;
-}
-
 function verifyObjectName(relativePath: string, digest: string): void {
-  const normalized = normalizeRelative(relativePath);
-  if (!normalized.startsWith("evidence/sha256/")) return;
-  if (path.posix.basename(normalized) !== digest) {
+  if (!relativePath.startsWith("evidence/sha256/")) return;
+  if (path.posix.basename(relativePath) !== digest) {
     throw new Error(`Content-addressed object name does not match ${digest}.`);
   }
 }

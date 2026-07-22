@@ -90,6 +90,20 @@ test("evidence contracts enforce capture variants and digest shape", () => {
   assert.throws(() =>
     validateContract("evidence-reference", {
       ...base,
+      relativePath: "evidence\\sha256\\00\\object",
+      capture: { kind: "complete", sourceByteLength: 4 },
+    }),
+  );
+  assert.throws(() =>
+    validateContract("evidence-reference", {
+      ...base,
+      relativePath: "evidence/../object",
+      capture: { kind: "complete", sourceByteLength: 4 },
+    }),
+  );
+  assert.throws(() =>
+    validateContract("evidence-reference", {
+      ...base,
       digest: "A".repeat(64),
       capture: { kind: "complete", sourceByteLength: 4 },
     }),

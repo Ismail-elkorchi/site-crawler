@@ -24,6 +24,10 @@ test("content-addressed evidence is immutable and deduplicated", async () => {
     assert.equal(second.created, false);
     assert.equal(first.reference.digest, second.reference.digest);
     assert.equal(
+      first.reference.relativePath,
+      `evidence/sha256/${first.reference.digest.slice(0, 2)}/${first.reference.digest}`,
+    );
+    assert.equal(
       Buffer.from(await store.read(first.reference)).toString("utf8"),
       "<p>same</p>",
     );
@@ -55,15 +59,23 @@ test("evidence bundles verify hashes and reject tampering", async () => {
     );
     const { createEvidenceBundle, verifyEvidenceBundle } =
       await import("../dist/evidence/public.js");
-    await createEvidenceBundle(run, {
+    const created = await createEvidenceBundle(run, {
       targetDirectory: target,
       compressObjects: true,
     });
+    assert.equal(
+      created.files.every(
+        (file) =>
+          !file.sourcePath.includes("\\") && !file.bundlePath.includes("\\"),
+      ),
+      true,
+    );
     assert.equal((await verifyEvidenceBundle(target)).valid, true);
     const bundle = await readJson(path.join(target, "bundle.json"));
     const object = bundle.files.find((file) =>
       file.sourcePath.startsWith("evidence/"),
     );
+    assert.ok(object);
     await fs.appendFile(path.join(target, object.bundlePath), "tampered");
     assert.equal((await verifyEvidenceBundle(target)).valid, false);
   } finally {

@@ -5,6 +5,7 @@ import {
   ensurePrivateDirectory,
   protectPrivateFile,
 } from "../core/private-files.js";
+import { resolvePortableRelativePath } from "../core/portable-path.js";
 import type {
   EvidenceKind,
   EvidenceReference,
@@ -80,7 +81,7 @@ export class ContentAddressedEvidenceStore {
   }
 
   private relativeObjectPath(digest: string): string {
-    return path.join("evidence", "sha256", digest.slice(0, 2), digest);
+    return `evidence/sha256/${digest.slice(0, 2)}/${digest}`;
   }
 
   private objectPath(reference: EvidenceReference): string {
@@ -92,12 +93,7 @@ export class ContentAddressedEvidenceStore {
   }
 
   private safeAbsolutePath(relativePath: string): string {
-    const absolute = path.resolve(this.rootDirectory, relativePath);
-    const relative = path.relative(this.rootDirectory, absolute);
-    if (relative.startsWith("..") || path.isAbsolute(relative)) {
-      throw new Error("Evidence path escapes the run directory.");
-    }
-    return absolute;
+    return resolvePortableRelativePath(this.rootDirectory, relativePath);
   }
 }
 

@@ -4,6 +4,10 @@ import path from "node:path";
 import { gzipSync } from "node:zlib";
 import { record, stringField } from "../validation/primitives.js";
 import { validatePersistedRecord } from "../contracts/catalog.js";
+import {
+  portableRelativePath,
+  resolvePortableRelativePath,
+} from "../core/portable-path.js";
 import type {
   EvidenceBundleFile,
   EvidenceBundleManifest,
@@ -43,7 +47,7 @@ export async function createEvidenceBundle(
   const objectRoot = path.join(source, "evidence", "sha256");
   if (await exists(objectRoot)) {
     for (const objectPath of await collectFiles(objectRoot)) {
-      const relative = path.relative(source, objectPath);
+      const relative = portableRelativePath(source, objectPath);
       files.push(
         await copyFile(
           source,
@@ -55,7 +59,7 @@ export async function createEvidenceBundle(
     }
   }
   const objectFiles = files.filter((file) =>
-    file.sourcePath.startsWith(`evidence${path.sep}sha256${path.sep}`),
+    file.sourcePath.startsWith("evidence/sha256/"),
   );
   const result: EvidenceBundleManifest = {
     schemaId: "site-crawler.evidenceBundle",
@@ -80,12 +84,12 @@ async function copyFile(
   relativePath: string,
   compress: boolean,
 ): Promise<EvidenceBundleFile> {
-  const source = safeJoin(sourceRoot, relativePath);
+  const source = resolvePortableRelativePath(sourceRoot, relativePath);
   const bytes = await fs.readFile(source);
   const digest = sha256(bytes);
   verifyObjectName(relativePath, digest);
   const bundlePath = compress ? `${relativePath}.gz` : relativePath;
-  const target = safeJoin(targetRoot, bundlePath);
+  const target = resolvePortableRelativePath(targetRoot, bundlePath);
   const stored = compress ? gzipSync(bytes, { level: 9 }) : bytes;
   await ensurePrivateDirectory(path.dirname(target));
   const handle = await openPrivateFile(target, "w");
@@ -105,8 +109,8 @@ async function copyFile(
 }
 
 function verifyObjectName(relativePath: string, digest: string): void {
-  if (!relativePath.startsWith(`evidence${path.sep}sha256${path.sep}`)) return;
-  if (path.basename(relativePath) !== digest) {
+  if (!relativePath.startsWith("evidence/sha256/")) return;
+  if (path.posix.basename(relativePath) !== digest) {
     throw new Error(
       `Evidence object name does not match its digest: ${relativePath}`,
     );
@@ -141,15 +145,6 @@ async function collectFiles(directory: string): Promise<readonly string[]> {
     else if (entry.isFile()) files.push(child);
   }
   return files.sort();
-}
-
-function safeJoin(root: string, relativePath: string): string {
-  const absolute = path.resolve(root, relativePath);
-  const relative = path.relative(root, absolute);
-  if (relative.startsWith("..") || path.isAbsolute(relative)) {
-    throw new Error(`Path escapes its root: ${relativePath}`);
-  }
-  return absolute;
 }
 
 function sha256(value: Uint8Array): string {

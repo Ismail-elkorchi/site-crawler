@@ -1,5 +1,6 @@
 import type { EvidenceKind, EvidenceReference } from "./types.js";
 import { assertCurrentSchema } from "../contracts/schema-identity.js";
+import { validatePortableRelativePath } from "../core/portable-path.js";
 import {
   integerField,
   nullableIntegerField,
@@ -35,6 +36,9 @@ export function parseEvidenceReference(value: unknown): EvidenceReference {
     throw new Error("Evidence digest must be a lowercase SHA-256 digest.");
   const byteLength = nonNegativeInteger(input, "byteLength");
   const capture = parseCapture(input["capture"], byteLength);
+  const relativePath = validatePortableRelativePath(
+    stringField(input, "relativePath"),
+  );
   if (capture.kind === "complete" && capture.sourceByteLength !== byteLength) {
     throw new Error("Complete evidence byte lengths must agree.");
   }
@@ -47,7 +51,7 @@ export function parseEvidenceReference(value: unknown): EvidenceReference {
     mediaType: stringField(input, "mediaType"),
     byteLength,
     capture,
-    relativePath: stringField(input, "relativePath"),
+    relativePath,
     createdAt: stringField(input, "createdAt"),
   };
 }

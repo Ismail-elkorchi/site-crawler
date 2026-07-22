@@ -238,7 +238,11 @@ function evidenceReferenceSchema(): JsonSchema {
           },
         ],
       },
-      relativePath: { type: "string" },
+      relativePath: {
+        type: "string",
+        pattern:
+          "^(?![A-Za-z]:)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^/\\\\]+(?:/[^/\\\\]+)*$",
+      },
       createdAt: { type: "string" },
     },
     additionalProperties: false,
