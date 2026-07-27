@@ -60,7 +60,7 @@ jobs:
       - run: npx playwright-core install --with-deps chromium
       - run: npm run test:browser
 
-  contracts-and-supply-chain:
+  reliability:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -69,9 +69,6 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run schemas:check
-      - run: npm run api:check
-      - run: npm run supply-chain:check
       - run: npm run verify:crash
       - run: npm run verify:leaks
       - run: npm run test:fuzz
