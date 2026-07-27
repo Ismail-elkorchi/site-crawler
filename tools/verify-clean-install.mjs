@@ -13,6 +13,10 @@ const project = path.join(temporary, "project");
 const cache = path.join(temporary, "npm-cache");
 
 try {
+  const lock = JSON.parse(
+    await fs.readFile(path.join(root, "package-lock.json"), "utf8"),
+  );
+  verifyPublicRegistryLock(lock);
   await fs.mkdir(project);
   await Promise.all(
     ["package.json", "package-lock.json"].map(
@@ -54,6 +58,25 @@ try {
   );
 } finally {
   await fs.rm(temporary, { recursive: true, force: true });
+}
+
+function verifyPublicRegistryLock(lock) {
+  assert.equal(lock.lockfileVersion, 3);
+  assert.equal(typeof lock.packages, "object");
+  for (const [location, metadata] of Object.entries(lock.packages)) {
+    if (location === "") continue;
+    assert.equal(
+      typeof metadata?.resolved,
+      "string",
+      `${location} resolved URL`,
+    );
+    assert.equal(
+      metadata.resolved.startsWith("https://registry.npmjs.org/"),
+      true,
+      `${location} public registry`,
+    );
+    assert.equal(typeof metadata.integrity, "string", `${location} integrity`);
+  }
 }
 
 function npmCommand() {
