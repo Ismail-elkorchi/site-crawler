@@ -91,7 +91,6 @@ export class RunFinalizer {
     return {
       schemaId: "site-crawler.result",
       schemaVersion: 1,
-      schemaSetVersion: manifest.schemaSetVersion,
       runId: this.deps.runId,
       status,
       stopReason: manifest.stopReason,

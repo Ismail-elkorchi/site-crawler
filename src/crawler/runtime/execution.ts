@@ -1,14 +1,14 @@
-import { PolitenessController } from "../politeness/index.js";
-import { ResourceProcessor } from "../resources/resource-processor.js";
-import { RunFinalizer } from "./finalizer.js";
-import { RedirectTargetPolicy } from "./redirect-target-policy.js";
-import { RequestHandler } from "./request-handler.js";
-import { RequestPolicyRunner } from "./request-policy.js";
-import { RequestTerminalizer } from "./request-terminalizer.js";
-import { RetryingFetcher } from "./retrying-fetcher.js";
-import type { RuntimeComponents } from "./runtime-components.js";
-import type { RuntimeFoundation } from "./runtime-foundation.js";
-import { WorkerPool } from "./worker-pool.js";
+import { PolitenessController } from "../../politeness/index.js";
+import { ResourceProcessor } from "../../resources/resource-processor.js";
+import { RunFinalizer } from "../finalizer.js";
+import { RedirectTargetPolicy } from "../redirect-target-policy.js";
+import { RequestHandler } from "../request-handler.js";
+import { RequestPolicyRunner } from "../request-policy.js";
+import { RequestTerminalizer } from "../request-terminalizer.js";
+import { RetryingFetcher } from "../retrying-fetcher.js";
+import { WorkerPool } from "../worker-pool.js";
+import type { RuntimeComponents } from "./components.js";
+import type { RuntimeFoundation } from "./foundation.js";
 
 export function createRuntimeExecution(
   foundation: RuntimeFoundation,

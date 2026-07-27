@@ -2,7 +2,7 @@ import type { CrawlConfig } from "../config/types.js";
 import type { CrawlEventSubscription } from "../events/index.js";
 import type { CrawlerExtensions } from "../extensions/types.js";
 import type { CrawlResult } from "../results/types.js";
-import { CrawlerRuntime } from "./runtime.js";
+import { CrawlerRuntime } from "./runtime/index.js";
 export class SiteCrawler {
   private readonly runtime: CrawlerRuntime;
   public constructor(config: CrawlConfig, extensions?: CrawlerExtensions) {

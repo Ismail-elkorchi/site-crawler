@@ -7,7 +7,6 @@ import type { JsDiscoveryConfig } from "../javascript/types.js";
 import type { NetworkSafetyConfig } from "../network/types.js";
 import type { RenderingConfig } from "../rendering/types.js";
 import type { CrawlSeedInput, ResolvedSeed } from "../requests/types.js";
-import type { OutputConfig } from "../results/config-types.js";
 import type { RobotsConfig } from "../robots/types.js";
 import type { StorageConfig } from "../storage/config-types.js";
 import type { ScopeConfig } from "../url/types.js";
@@ -37,6 +36,12 @@ export interface ParsingConfig {
 export interface ParsingConfigInput {
   readonly html?: Partial<HtmlParsingConfig>;
   readonly xml?: Partial<XmlParsingConfig>;
+}
+
+export interface OutputConfig {
+  readonly writeSkippedUrls: boolean;
+  readonly writeSummary: boolean;
+  readonly hashBodies: boolean;
 }
 
 export type NetworkConfigInput = Omit<

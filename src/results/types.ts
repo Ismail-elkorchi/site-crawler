@@ -1,5 +1,4 @@
 import type { DeliveryGuarantees } from "../contracts/delivery.js";
-import type { SiteCrawlerSchemaSetVersion } from "../contracts/schema-set.js";
 import type { RunStatus, StopReason } from "../core/types.js";
 import type { CrawlError, SkipReason } from "../diagnostics/types.js";
 import type { ResolvedSeed } from "../requests/types.js";
@@ -85,7 +84,6 @@ export interface CrawlStats {
 export interface RunManifest {
   readonly schemaId: "site-crawler.runManifest";
   readonly schemaVersion: 1;
-  readonly schemaSetVersion: SiteCrawlerSchemaSetVersion;
   readonly runId: string;
   readonly crawlerVersion: string;
   readonly htmlParserVersion: string | null;
@@ -111,7 +109,6 @@ export interface RunManifest {
 export interface CrawlResult {
   readonly schemaId: "site-crawler.result";
   readonly schemaVersion: 1;
-  readonly schemaSetVersion: SiteCrawlerSchemaSetVersion;
   readonly runId: string;
   readonly status: RunStatus;
   readonly stopReason: StopReason | null;

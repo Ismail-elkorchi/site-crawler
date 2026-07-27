@@ -7,7 +7,7 @@ import {
   runtimeContracts,
   SITE_CRAWLER_SCHEMA_VERSION,
   validateContract,
-} from "../dist/contracts/public.js";
+} from "../dist/schemas/public.js";
 import { parseRunManifest } from "../dist/crawler/resume-schema.js";
 import { SiteCrawler } from "../dist/index.js";
 import { schemaForId } from "../dist/schemas/public.js";

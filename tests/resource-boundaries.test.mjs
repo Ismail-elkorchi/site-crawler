@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { test } from "node:test";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { zeroCounters } from "../dist/crawler/run-records.js";
 import { RetryingFetcher } from "../dist/crawler/retrying-fetcher.js";
 import { SiteCrawler } from "../dist/index.js";

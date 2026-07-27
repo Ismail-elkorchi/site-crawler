@@ -27,10 +27,6 @@ export const operationsDefinitions: readonly ObjectContractOptions[] = [
     numbers: ["sequence"],
     objects: ["counts"],
   }),
-  definition("run-format", "site-crawler.runFormat", {
-    strings: ["runId", "formatVersion", "workerProtocol", "createdAt"],
-    numbers: ["schemaSetVersion"],
-  }),
   definition("security-audit", "site-crawler.securityAudit", {
     strings: ["runId", "createdAt", "status"],
     numbers: ["issueCount"],

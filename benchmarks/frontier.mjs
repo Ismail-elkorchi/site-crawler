@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { Frontier } from "../dist/frontier/index.js";
 
 export async function benchmarkFrontier(requestCount = 10_000) {

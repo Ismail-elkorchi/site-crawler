@@ -1,5 +1,5 @@
 {
-  "name": "site-crawler",
+  "name": "@ismail-elkorchi/site-crawler",
   "version": "0.1.0",
   "description": "Strict TypeScript website crawler with durable scheduling, current-only runtime contracts, replayable evidence, differential crawling, and production release verification.",
   "type": "module",
@@ -12,25 +12,9 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./config": {
-      "types": "./dist/config/public.d.ts",
-      "import": "./dist/config/public.js"
-    },
-    "./events": {
-      "types": "./dist/events/public.d.ts",
-      "import": "./dist/events/public.js"
-    },
-    "./adapters": {
-      "types": "./dist/adapters/public.d.ts",
-      "import": "./dist/adapters/public.js"
-    },
     "./schemas": {
       "types": "./dist/schemas/public.d.ts",
       "import": "./dist/schemas/public.js"
-    },
-    "./experimental": {
-      "types": "./dist/experimental/public.d.ts",
-      "import": "./dist/experimental/public.js"
     },
     "./playwright": {
       "types": "./dist/rendering/playwright/public.d.ts",
@@ -47,10 +31,6 @@
     "./opentelemetry": {
       "types": "./dist/opentelemetry/public.d.ts",
       "import": "./dist/opentelemetry/public.js"
-    },
-    "./contracts": {
-      "types": "./dist/contracts/public.d.ts",
-      "import": "./dist/contracts/public.js"
     },
     "./evidence": {
       "types": "./dist/evidence/public.d.ts",

@@ -44,7 +44,7 @@ export interface SeedRequestCount {
   readonly count: number;
 }
 
-export type { FrontierOrder } from "../scheduling/types.js";
+export type { FrontierOrder } from "../core/types.js";
 export type TerminalRequestState =
   "handled" | "failed" | "skipped" | "cancelled";
 

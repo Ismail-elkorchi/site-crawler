@@ -1,7 +1,7 @@
 export type ResumePolicy = "exact" | "operational";
 export type ResultStorageType = "memory" | "filesystem" | "sqlite";
 export type FrontierBackendType = "memory" | "journal" | "sqlite";
-import type { FrontierOrder } from "../scheduling/types.js";
+import type { FrontierOrder } from "../core/types.js";
 
 export interface StorageConfig {
   readonly type: ResultStorageType;

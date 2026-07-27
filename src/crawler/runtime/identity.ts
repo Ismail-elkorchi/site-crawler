@@ -3,18 +3,18 @@ import {
   resolveConfig,
   validateConfig,
   type ConfigFingerprints,
-} from "../config/index.js";
-import type { CrawlConfig, ResolvedCrawlConfig } from "../config/types.js";
-import { installedPackageVersion } from "../core/dependency-version.js";
-import { makeId, nowIso } from "../core/utils.js";
-import { resolveExtensions } from "../extensions/index.js";
+} from "../../config/index.js";
+import type { CrawlConfig, ResolvedCrawlConfig } from "../../config/types.js";
+import { installedPackageVersion } from "../../core/dependency-version.js";
+import { makeId, nowIso } from "../../core/utils.js";
+import { resolveExtensions } from "../../extensions/index.js";
 import type {
   CrawlerExtensions,
   ResolvedCrawlerExtensions,
-} from "../extensions/types.js";
-import { readResumeState } from "./resume.js";
-import { zeroCounters } from "./run-records.js";
-import type { CrawlCounters } from "./types.js";
+} from "../../extensions/types.js";
+import { readResumeState } from "../resume.js";
+import { zeroCounters } from "../run-records.js";
+import type { CrawlCounters } from "../types.js";
 
 export interface RuntimeIdentity {
   readonly config: ResolvedCrawlConfig;

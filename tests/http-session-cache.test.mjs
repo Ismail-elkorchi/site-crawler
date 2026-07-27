@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import http2 from "node:http2";
 import path from "node:path";
 import { test } from "node:test";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { SiteCrawler } from "../dist/index.js";
 import { disposeResponseBody, readResponseBody } from "../dist/http/body.js";
 import { HttpFetcher } from "../dist/http/index.js";

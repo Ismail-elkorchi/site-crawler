@@ -6,7 +6,6 @@ import type { SessionConfig } from "../http/session/types.js";
 import type { JsDiscoveryConfig } from "../javascript/types.js";
 import type { NetworkSafetyConfig } from "../network/types.js";
 import type { RenderingConfig } from "../rendering/types.js";
-import type { OutputConfig } from "../results/config-types.js";
 import type { RobotsConfig } from "../robots/types.js";
 import type { StorageConfig } from "../storage/config-types.js";
 import type { ScopeConfig } from "../url/types.js";
@@ -15,7 +14,7 @@ import type {
   SitemapConfig,
   XmlParsingConfig,
 } from "../xml/config-types.js";
-import type { CrawlLimits } from "./types.js";
+import type { CrawlLimits, OutputConfig } from "./types.js";
 
 export const defaultScope: ScopeConfig = {
   mode: "origin",

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { test } from "node:test";
-import { runtimeContracts } from "../dist/contracts/public.js";
+import { runtimeContracts } from "../dist/schemas/public.js";
 import {
   parseWorkerMessage,
   SqliteWorkerCoordinator,

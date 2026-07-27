@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import { test } from "node:test";
-import { resolveConfig } from "../dist/config/public.js";
-import { extractXmlResource } from "../dist/experimental/public.js";
+import { resolveConfig } from "../dist/index.js";
+import { extractXmlResource } from "../dist/xml/index.js";
 import { SiteCrawler } from "../dist/index.js";
 import {
   closeServer,

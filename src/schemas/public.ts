@@ -3,6 +3,14 @@ export {
   schemaForId,
   validatePersistentValue,
 } from "./catalog.js";
+export {
+  contractForName,
+  contractForSchema,
+  runtimeContracts,
+  validateContract,
+} from "../contracts/catalog.js";
+export { DELIVERY_GUARANTEES } from "../contracts/delivery.js";
+export { SITE_CRAWLER_SCHEMA_VERSION } from "../contracts/schema-identity.js";
 export type {
   JsonSchemaDocument,
   JsonSchemaProperty,
@@ -10,6 +18,16 @@ export type {
   SchemaValidationIssue,
   SchemaValidationResult,
 } from "./types.js";
+export type { DeliveryGuarantees } from "../contracts/delivery.js";
+export type {
+  SchemaIdentity,
+  SiteCrawlerSchemaVersion,
+} from "../contracts/schema-identity.js";
+export type {
+  ContractIssue,
+  JsonSchema,
+  RuntimeContract,
+} from "../contracts/types.js";
 export type {
   ParserBudgetReport,
   ParserDiagnostic,

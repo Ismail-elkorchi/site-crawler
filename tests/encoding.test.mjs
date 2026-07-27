@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { decodeBody } from "../dist/experimental/public.js";
+import { decodeBody } from "../dist/encoding/index.js";
 
 const encoder = new TextEncoder();
 

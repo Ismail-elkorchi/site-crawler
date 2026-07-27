@@ -98,7 +98,7 @@ function document(
   return {
     ...schema,
     $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: `https://schemas.site-crawler.dev/${schemaId}.v${schemaVersion}.json`,
+    $id: `urn:site-crawler:schema:${schemaId}:${schemaVersion}`,
     title,
     type: "object",
     required: requiredFields(schema),

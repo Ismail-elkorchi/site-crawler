@@ -1,5 +1,6 @@
 export type RunStatus =
   "completed" | "partial" | "stopped_by_limit" | "aborted" | "failed";
+export type FrontierOrder = "priority" | "bfs" | "dfs";
 export type StopReason =
   "frontier_empty" | "limit_reached" | "aborted" | "fatal_error";
 export interface SourcePosition {

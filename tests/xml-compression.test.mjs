@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { gzipSync } from "node:zlib";
 import { test } from "node:test";
-import { decompressXmlPayload } from "../dist/experimental/public.js";
+import { decompressXmlPayload } from "../dist/xml/index.js";
 
 const url = "https://example.com/sitemap.xml.gz";
 

@@ -11,7 +11,6 @@ export const crawlDefinitions: readonly ObjectContractOptions[] = [
       "startedAt",
       "status",
     ],
-    numbers: ["schemaSetVersion"],
     booleans: ["rawSnapshotsEnabled", "sensitive"],
     objects: ["stats", "runtime", "deliveryGuarantees"],
     arrays: ["seeds"],
@@ -86,7 +85,6 @@ export const crawlDefinitions: readonly ObjectContractOptions[] = [
   }),
   definition("crawl-result", "site-crawler.result", {
     strings: ["runId", "status"],
-    numbers: ["schemaSetVersion"],
     objects: ["stats"],
     nullableStrings: ["stopReason", "outputDirectory", "manifestPath"],
     nullableObjects: ["stopDetail", "fatalError"],

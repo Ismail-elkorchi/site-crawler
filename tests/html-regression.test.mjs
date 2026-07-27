@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import { test } from "node:test";
 import { SiteCrawler } from "../dist/index.js";
-import { resolveConfig } from "../dist/config/public.js";
-import { extractHtmlFacts } from "../dist/experimental/public.js";
+import { extractHtmlFacts } from "../dist/html/index.js";
+import { resolveConfig } from "../dist/index.js";
 import {
   closeServer,
   crawlInput,

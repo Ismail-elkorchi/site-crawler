@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { test } from "node:test";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { Frontier } from "../dist/frontier/index.js";
 import { temporaryDirectory } from "./helpers.mjs";
 

@@ -23,7 +23,6 @@ const metadataFiles = [
   "config.resolved.json",
   "stats.json",
   "summary.md",
-  "run-format.json",
   "evidence.ndjson",
 ] as const;
 

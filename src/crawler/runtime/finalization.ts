@@ -1,9 +1,10 @@
-import { nowIso } from "../core/utils.js";
-import type { CrawlEvent } from "../events/types.js";
-import type { CrawlResult } from "../results/types.js";
-import { fatalCrawlerError } from "./request-handler.js";
-import type { RuntimeComponents } from "./runtime-components.js";
-import type { CrawlerContext } from "./types.js";
+import { nowIso } from "../../core/utils.js";
+import type { CrawlError } from "../../diagnostics/types.js";
+import type { CrawlEvent } from "../../events/types.js";
+import type { CrawlResult } from "../../results/types.js";
+import { fatalCrawlerError } from "../request-handler.js";
+import type { CrawlerContext } from "../types.js";
+import type { RuntimeComponents } from "./components.js";
 
 export class RuntimeFinalization {
   private readonly runtime: RuntimeComponents;
@@ -125,9 +126,7 @@ export class RuntimeFinalization {
     }
   }
 
-  private async tryWriteError(
-    error: import("../diagnostics/types.js").CrawlError,
-  ): Promise<void> {
+  private async tryWriteError(error: CrawlError): Promise<void> {
     try {
       await this.runtime.store.writeError(error);
     } catch {

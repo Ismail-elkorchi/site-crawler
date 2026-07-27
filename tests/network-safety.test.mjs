@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { NetworkSafetyPolicy } from "../dist/network/index.js";
 
 function safetyConfig(overrides = {}) {

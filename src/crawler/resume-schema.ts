@@ -3,7 +3,6 @@ import {
   assertCurrentSchema,
   SITE_CRAWLER_SCHEMA_VERSION,
 } from "../contracts/schema-identity.js";
-import { SITE_CRAWLER_SCHEMA_SET_VERSION } from "../contracts/schema-set.js";
 import { parseCrawlError } from "../diagnostics/parse.js";
 import type { RunRuntimeMetadata } from "../results/run-metadata.js";
 import type { RunManifest } from "../results/types.js";
@@ -29,7 +28,6 @@ export function parseRunManifest(text: string): RunManifest {
   const manifest = exactRecord(parsed, "run manifest", [
     "schemaId",
     "schemaVersion",
-    "schemaSetVersion",
     "runId",
     "crawlerVersion",
     "htmlParserVersion",
@@ -52,14 +50,10 @@ export function parseRunManifest(text: string): RunManifest {
     "stats",
   ]);
   assertCurrentSchema(manifest, MANIFEST_SCHEMA_ID, "Resume manifest");
-  if (manifest["schemaSetVersion"] !== SITE_CRAWLER_SCHEMA_SET_VERSION) {
-    throw new Error("Resume manifest schema set is unsupported.");
-  }
   const fatalError = parseCrawlError(manifest["fatalError"]);
   return {
     schemaId: MANIFEST_SCHEMA_ID,
     schemaVersion: SITE_CRAWLER_SCHEMA_VERSION,
-    schemaSetVersion: SITE_CRAWLER_SCHEMA_SET_VERSION,
     runId: stringField(manifest, "runId"),
     crawlerVersion: stringField(manifest, "crawlerVersion"),
     htmlParserVersion: nullableString(manifest, "htmlParserVersion"),

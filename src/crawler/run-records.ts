@@ -1,6 +1,5 @@
 import type { ConfigFingerprints } from "../config/fingerprint.js";
 import { DELIVERY_GUARANTEES } from "../contracts/delivery.js";
-import { SITE_CRAWLER_SCHEMA_SET_VERSION } from "../contracts/schema-set.js";
 import type { RunStatus } from "../core/types.js";
 import { nowIso } from "../core/utils.js";
 import type { CrawlError } from "../diagnostics/types.js";
@@ -165,7 +164,6 @@ export function createRunManifest(input: RunManifestInput): RunManifest {
   return {
     schemaId: "site-crawler.runManifest",
     schemaVersion: 1,
-    schemaSetVersion: SITE_CRAWLER_SCHEMA_SET_VERSION,
     runId: input.runId,
     crawlerVersion: input.crawlerVersion,
     htmlParserVersion: input.htmlParserVersion,

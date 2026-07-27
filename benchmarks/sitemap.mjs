@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { extractXmlResource } from "../dist/xml/index.js";
 
 export function benchmarkSitemap(entryCount = 50_000) {

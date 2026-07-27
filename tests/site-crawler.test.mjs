@@ -5,12 +5,10 @@ import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import { SiteCrawler } from "../dist/index.js";
-import { resolveConfig } from "../dist/config/public.js";
-import {
-  extractHtmlFacts,
-  extractXmlResource,
-  normalizeUrl,
-} from "../dist/experimental/public.js";
+import { extractHtmlFacts } from "../dist/html/index.js";
+import { resolveConfig } from "../dist/index.js";
+import { normalizeUrl } from "../dist/url/index.js";
+import { extractXmlResource } from "../dist/xml/index.js";
 
 function listen(handler) {
   const server = http.createServer(handler);

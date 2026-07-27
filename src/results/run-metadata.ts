@@ -1,5 +1,5 @@
 import type { NetworkConfig } from "../http/types.js";
-import type { FrontierOrder } from "../scheduling/types.js";
+import type { FrontierOrder } from "../core/types.js";
 import type {
   FrontierBackendType,
   ResultStorageType,

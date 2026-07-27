@@ -3,9 +3,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { test } from "node:test";
 import { SiteCrawler } from "../dist/index.js";
-import { resolveConfig } from "../dist/config/public.js";
+import { resolveConfig } from "../dist/index.js";
 import { crawlError } from "../dist/diagnostics/factory.js";
-import { RuntimeFinalization } from "../dist/crawler/runtime-finalization.js";
+import { RuntimeFinalization } from "../dist/crawler/runtime/finalization.js";
 import { zeroCounters } from "../dist/crawler/run-records.js";
 import { RunController } from "../dist/runtime/run-controller.js";
 import {

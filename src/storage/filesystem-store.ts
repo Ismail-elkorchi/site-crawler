@@ -3,10 +3,6 @@ import {
   ensurePrivateDirectory,
   writePrivateFileAtomic,
 } from "../core/private-files.js";
-import {
-  SITE_CRAWLER_RUN_FORMAT,
-  SITE_CRAWLER_WORKER_PROTOCOL,
-} from "../core/version.js";
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import type { CrawlError } from "../diagnostics/types.js";
 import { ContentAddressedEvidenceStore } from "../evidence/content-addressed-store.js";
@@ -80,15 +76,6 @@ export class FileSystemStore implements ResultStore {
     if (this.storeRawHtml || this.storeRawXml) await this.evidence.init();
     await this.writeJsonAtomic("manifest.json", manifest);
     await this.writeJsonAtomic("config.resolved.json", redactConfig(config));
-    await this.writeJsonAtomic("run-format.json", {
-      schemaId: "site-crawler.runFormat",
-      schemaVersion: 1,
-      runId: manifest.runId,
-      formatVersion: SITE_CRAWLER_RUN_FORMAT,
-      workerProtocol: SITE_CRAWLER_WORKER_PROTOCOL,
-      schemaSetVersion: manifest.schemaSetVersion,
-      createdAt: new Date().toISOString(),
-    });
   }
   public async writeManifest(value: RunManifest): Promise<void> {
     await this.writeJsonAtomic("manifest.json", value);

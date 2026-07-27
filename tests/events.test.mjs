@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { CrawlEventHub } from "../dist/events/public.js";
+import { CrawlEventHub } from "../dist/index.js";
 
 const event = (runId) => ({
   type: "run-started",

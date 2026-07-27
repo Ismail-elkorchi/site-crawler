@@ -1,4 +1,5 @@
-import { parseCrawlConfig, resolveConfig } from "../config/public.js";
+import { parseCrawlConfig } from "../config/input/parse-config.js";
+import { resolveConfig } from "../config/resolve.js";
 import type { ResolvedCrawlConfig } from "../config/types.js";
 
 export function replayConfig(value: unknown): ResolvedCrawlConfig {
