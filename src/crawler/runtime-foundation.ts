@@ -71,14 +71,20 @@ export function createRuntimeFoundation(
           depth,
           identity.config.seeds[0] ?? null,
         ),
-    emit: (event) => dispatcherRef.get().emit(event),
-    abort: (reason) => controller.cancel(reason),
+    emit: (event) => {
+      dispatcherRef.get().emit(event);
+    },
+    abort: (reason) => {
+      controller.cancel(reason);
+    },
   });
   const dispatcher = new EventDispatcher(
     identity.extensions,
     extensionRunner,
     () => contextFactory.create(),
-    (error) => controller.failFromUnknown(error),
+    (error) => {
+      controller.failFromUnknown(error);
+    },
   );
   dispatcherRef.set(dispatcher);
   controller.observeLimits((limit) => {
@@ -108,7 +114,9 @@ export function createRuntimeFoundation(
   const robots = new RobotsService(
     identity.config,
     async (url) => await robotsFetcher.fetch(url),
-    async (record) => await store.writeRobots(record),
+    async (record) => {
+      await store.writeRobots(record);
+    },
   );
   const scheduler = new RequestScheduler({
     runId: identity.runId,
@@ -121,8 +129,12 @@ export function createRuntimeFoundation(
     scope,
     robots,
     context: () => contextFactory.create(),
-    emit: (event) => dispatcher.emit(event),
-    onLimit: (limit) => controller.noteLimit(limit),
+    emit: (event) => {
+      dispatcher.emit(event);
+    },
+    onLimit: (limit) => {
+      controller.noteLimit(limit);
+    },
   });
   schedulerRef.set(scheduler);
   return {

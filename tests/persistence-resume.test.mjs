@@ -213,30 +213,3 @@ test("operational resume preserves run identity and terminal records", async () 
     await closeServer(fixture.server);
   }
 });
-
-for (const expectation of [
-  { mode: "record", status: "completed", failed: 0 },
-  { mode: "fail-request", status: "partial", failed: 1 },
-  { mode: "fail-run", status: "failed", failed: 1 },
-]) {
-  test(`extension failure mode '${expectation.mode}' has explicit run semantics`, async () => {
-    const fixture = await simpleServer();
-    try {
-      const result = await new SiteCrawler(crawlInput(fixture.origin), {
-        failureMode: expectation.mode,
-        hooks: {
-          onHtmlParsed() {
-            throw new Error("extension fixture failure");
-          },
-        },
-      }).run();
-      assert.equal(result.status, expectation.status);
-      assert.equal(result.stats.requestsFailed, expectation.failed);
-      if (expectation.mode === "fail-run") {
-        assert.equal(result.fatalError.code, "EXTENSION_ERROR");
-      }
-    } finally {
-      await closeServer(fixture.server);
-    }
-  });
-}

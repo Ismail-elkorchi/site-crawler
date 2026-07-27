@@ -176,7 +176,9 @@ async function defaultResolver(
 async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | null = null;
   const timeout = new Promise<never>((_resolve, reject) => {
-    timer = setTimeout(() => reject(new Error("DNS lookup timed out")), ms);
+    timer = setTimeout(() => {
+      reject(new Error("DNS lookup timed out"));
+    }, ms);
   });
   try {
     return await Promise.race([promise, timeout]);

@@ -25,7 +25,7 @@ function visit(value: unknown, path: string, seen: WeakSet<object>): void {
 function visitObject(value: object, path: string, seen: WeakSet<object>): void {
   if (seen.has(value)) throw new TypeError(`${path} contains a cycle.`);
   seen.add(value);
-  const prototype = Object.getPrototypeOf(value);
+  const prototype: unknown = Object.getPrototypeOf(value);
   if (
     !Array.isArray(value) &&
     prototype !== Object.prototype &&
@@ -41,7 +41,10 @@ function visitObject(value: object, path: string, seen: WeakSet<object>): void {
     if (descriptor.get !== undefined || descriptor.set !== undefined) {
       throw new TypeError(`${path}.${key} contains an accessor property.`);
     }
-    if ("value" in descriptor) visit(descriptor.value, `${path}.${key}`, seen);
+    if ("value" in descriptor) {
+      const descriptorValue: unknown = descriptor.value;
+      visit(descriptorValue, `${path}.${key}`, seen);
+    }
   }
   seen.delete(value);
 }

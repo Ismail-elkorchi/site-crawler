@@ -31,7 +31,9 @@ export class LeaseHeartbeat {
 
   public start(): void {
     if (this.timer !== null) return;
-    this.timer = setInterval(() => this.scheduleRenewal(), this.intervalMs);
+    this.timer = setInterval(() => {
+      this.scheduleRenewal();
+    }, this.intervalMs);
   }
 
   public async stop(): Promise<RequestLease> {

@@ -29,10 +29,9 @@ export class WorkerPool {
   }
 
   public async run(): Promise<void> {
-    const workers = Array.from(
-      { length: this.deps.workerCount },
-      async () => await this.workerLoop(),
-    );
+    const workers = Array.from({ length: this.deps.workerCount }, async () => {
+      await this.workerLoop();
+    });
     const results = await Promise.allSettled(workers);
     const rejected = results.find((result) => result.status === "rejected");
     if (rejected?.status === "rejected") throw rejected.reason;
@@ -42,8 +41,9 @@ export class WorkerPool {
     while (this.deps.controller.shouldLeaseMore()) {
       const lease = await this.deps.frontier.leaseNext({
         tryReserve: (request) => this.deps.politeness.tryReserve(request),
-        releaseReservation: (request) =>
-          this.deps.politeness.releaseReservation(request),
+        releaseReservation: (request) => {
+          this.deps.politeness.releaseReservation(request);
+        },
       });
       if (lease === null) {
         if (this.shouldFinish()) return;
@@ -98,7 +98,9 @@ export class WorkerPool {
       lease,
       this.deps.leaseRenewalIntervalMs,
       this.deps.counters,
-      (error) => this.deps.controller.failFromUnknown(error),
+      (error) => {
+        this.deps.controller.failFromUnknown(error);
+      },
       (renewed) => {
         this.deps.emit({
           type: "lease-renewed",

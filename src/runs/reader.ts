@@ -26,14 +26,15 @@ class SqliteRunReader implements RunReader {
 
   public async metadata(
     key: "manifest" | "config" | "stats" | "summary",
-  ): Promise<unknown | null> {
+  ): Promise<unknown> {
     const row = this.database
       .prepare("SELECT json FROM crawl_metadata WHERE key = ?")
       .get(key);
     if (!isRecord(row) || typeof row["json"] !== "string") {
       return await metadataFile(this.directory, key);
     }
-    return JSON.parse(row["json"]);
+    const value: unknown = JSON.parse(row["json"]);
+    return value;
   }
 
   public async *records(kind: CrawlRecordKind): AsyncIterable<RunRecord> {
@@ -47,7 +48,8 @@ class SqliteRunReader implements RunReader {
       const recordId = row["record_id"];
       const json = row["json"];
       if (typeof recordId !== "string" || typeof json !== "string") continue;
-      yield { kind, recordId, data: JSON.parse(json) };
+      const data: unknown = JSON.parse(json);
+      yield { kind, recordId, data };
     }
   }
 
@@ -65,7 +67,7 @@ class NdjsonRunReader implements RunReader {
 
   public async metadata(
     key: "manifest" | "config" | "stats" | "summary",
-  ): Promise<unknown | null> {
+  ): Promise<unknown> {
     return await metadataFile(this.directory, key);
   }
 
@@ -83,7 +85,8 @@ class NdjsonRunReader implements RunReader {
     for await (const line of lines) {
       if (line.trim().length === 0) continue;
       index += 1;
-      yield { kind, recordId: `${kind}:${index}`, data: JSON.parse(line) };
+      const data: unknown = JSON.parse(line);
+      yield { kind, recordId: `${kind}:${index}`, data };
     }
   }
 
@@ -113,11 +116,12 @@ function fileForKind(kind: CrawlRecordKind): string | null {
 async function metadataFile(
   directory: string,
   key: "manifest" | "config" | "stats" | "summary",
-): Promise<unknown | null> {
+): Promise<unknown> {
   const fileName = key === "config" ? "config.resolved.json" : `${key}.json`;
   const target = path.join(directory, fileName);
   if (!(await exists(target))) return null;
-  return JSON.parse(await fs.readFile(target, "utf8"));
+  const value: unknown = JSON.parse(await fs.readFile(target, "utf8"));
+  return value;
 }
 
 async function exists(target: string): Promise<boolean> {

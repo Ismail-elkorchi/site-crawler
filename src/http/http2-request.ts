@@ -112,7 +112,7 @@ export function timedHttp2Failure(
   options: FetchOptions,
   startedAt: number,
   dnsMs: number,
-  cause: unknown = undefined,
+  cause?: unknown,
   retryable = true,
 ): FetchResult {
   const totalMs = performance.now() - startedAt;

@@ -173,16 +173,17 @@ function versionedObjectSchema(
   schemaId: string,
   fields: readonly string[],
 ): JsonSchema {
+  const properties: Record<string, JsonSchema> = {
+    schemaId: { const: schemaId },
+    schemaVersion: { const: 1 },
+  };
+  for (const field of fields) properties[field] = {};
   return {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     title,
     type: "object",
     required: ["schemaId", "schemaVersion", ...fields],
-    properties: Object.fromEntries([
-      ["schemaId", { const: schemaId }],
-      ["schemaVersion", { const: 1 }],
-      ...fields.map((field) => [field, {}]),
-    ]),
+    properties,
     additionalProperties: false,
   };
 }

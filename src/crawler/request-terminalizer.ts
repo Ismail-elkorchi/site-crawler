@@ -1,4 +1,3 @@
-import { faultPoint } from "../faults/injector.js";
 import { nowIso } from "../core/utils.js";
 import type { CrawlError } from "../diagnostics/types.js";
 import type { CrawlEvent } from "../events/types.js";
@@ -105,7 +104,9 @@ export class RequestTerminalizer {
           url: lease.request.normalizedUrl,
           requestId: lease.request.id,
         },
-        async () => await hook(this.deps.context(), error),
+        async () => {
+          await hook(this.deps.context(), error);
+        },
       );
     }
     return {
@@ -121,14 +122,12 @@ export class RequestTerminalizer {
     state: TerminalRequestState,
     reason: string | null,
   ): Promise<void> {
-    faultPoint("before-terminal-transition");
     const record = await this.frontierTransition(lease, state, reason);
     try {
       await this.deps.store.writeRequestState(record);
     } catch (caught) {
       throw new TerminalPersistenceError(state, caught);
     }
-    faultPoint("after-terminal-transition");
     this.deps.emit({
       type: "request-finished",
       runId: this.deps.runId,

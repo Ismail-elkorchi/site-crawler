@@ -291,13 +291,17 @@ function stringArray(
   key: string,
 ): readonly string[] {
   const field = value[key];
-  if (
-    !Array.isArray(field) ||
-    !field.every((item) => typeof item === "string" && item.length > 0)
-  ) {
+  if (!Array.isArray(field)) {
     throw new Error(`Worker message ${key} is malformed.`);
   }
-  return field.slice();
+  const result: string[] = [];
+  for (const item of field) {
+    if (typeof item !== "string" || item.length === 0) {
+      throw new Error(`Worker message ${key} is malformed.`);
+    }
+    result.push(item);
+  }
+  return result;
 }
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {

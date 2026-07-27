@@ -32,8 +32,12 @@ export class CrawlerContextFactory {
       signal: this.deps.signal,
       enqueue: (rawUrl, referrerUrl, source, depth) =>
         this.deps.enqueue(rawUrl, referrerUrl, source, depth),
-      emit: (event) => this.deps.emit(event),
-      abort: (reason) => this.deps.abort(reason),
+      emit: (event) => {
+        this.deps.emit(event);
+      },
+      abort: (reason) => {
+        this.deps.abort(reason);
+      },
     };
   }
 }

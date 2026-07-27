@@ -128,7 +128,10 @@ function decoderFor(rawEncoding: string | string[] | undefined): Duplex {
   const [first, ...rest] = decoders;
   if (first === undefined) return new PassThrough();
   let current: Duplex = first;
-  for (const decoder of rest) current = current.compose(decoder);
+  for (const decoder of rest) {
+    current.pipe(decoder);
+    current = decoder;
+  }
   return current;
 }
 

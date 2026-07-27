@@ -12,7 +12,9 @@ export class XmlEntryDispatcher {
     this.sitemapPolicy = new SitemapRunPolicy({
       config: deps.config,
       counters: deps.counters,
-      onLimit: (limit) => deps.onLimit(limit),
+      onLimit: (limit) => {
+        deps.onLimit(limit);
+      },
     });
   }
 

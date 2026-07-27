@@ -22,7 +22,9 @@ export function createRuntimeExecution(
     extensions: foundation.extensions,
     extensionRunner: foundation.extensionRunner,
     context: () => foundation.contextFactory.create(),
-    emit: (event) => foundation.dispatcher.emit(event),
+    emit: (event) => {
+      foundation.dispatcher.emit(event);
+    },
   });
   const handler = new RequestHandler({
     runId: foundation.runId,
@@ -44,7 +46,9 @@ export function createRuntimeExecution(
     extensionRunner: foundation.extensionRunner,
     terminalizer,
     context: () => foundation.contextFactory.create(),
-    emit: (event) => foundation.dispatcher.emit(event),
+    emit: (event) => {
+      foundation.dispatcher.emit(event);
+    },
   });
   const workerPool = new WorkerPool({
     frontier: foundation.frontier,
@@ -56,7 +60,9 @@ export function createRuntimeExecution(
     workerCount: foundation.config.network.maxConcurrency,
     leaseRenewalIntervalMs: foundation.config.storage.leaseRenewalIntervalMs,
     runId: foundation.runId,
-    emit: (event) => foundation.dispatcher.emit(event),
+    emit: (event) => {
+      foundation.dispatcher.emit(event);
+    },
   });
   const finalizer = new RunFinalizer({ ...foundation, resources });
   return { ...foundation, resources, workerPool, finalizer };
@@ -73,7 +79,9 @@ function createResources(foundation: RuntimeFoundation): ResourceProcessor {
     session: foundation.session,
     scope: foundation.scope,
     context: () => foundation.contextFactory.create(),
-    emit: (event) => foundation.dispatcher.emit(event),
+    emit: (event) => {
+      foundation.dispatcher.emit(event);
+    },
     seedForRequest: (request) => foundation.seeds.forRequest(request),
     enqueue: async (
       rawUrl,
@@ -93,11 +101,13 @@ function createResources(foundation: RuntimeFoundation): ResourceProcessor {
         sitemapIndexDepth,
         sitemapAncestors,
       ),
-    onLimit: (limit) => foundation.controller.noteLimit(limit),
+    onLimit: (limit) => {
+      foundation.controller.noteLimit(limit);
+    },
     afterResource: async (resource) =>
-      await foundation.middlewares.afterResource(resource, (reason) =>
-        foundation.controller.cancel(reason),
-      ),
+      await foundation.middlewares.afterResource(resource, (reason) => {
+        foundation.controller.cancel(reason);
+      }),
   });
 }
 
@@ -116,6 +126,8 @@ function createRetryingFetcher(foundation: RuntimeFoundation): RetryingFetcher {
       foundation.counters,
     ),
     counters: foundation.counters,
-    emit: (event) => foundation.dispatcher.emit(event),
+    emit: (event) => {
+      foundation.dispatcher.emit(event);
+    },
   });
 }

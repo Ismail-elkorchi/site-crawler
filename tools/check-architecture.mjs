@@ -9,7 +9,6 @@ const repositoryRoot = path.resolve(
 );
 const sourceRoot = path.join(repositoryRoot, "src");
 const failures = [];
-const warnings = [];
 const sourceFiles = await collectTypeScriptFiles(sourceRoot);
 const sourceSet = new Set(sourceFiles);
 const graph = new Map();
@@ -24,9 +23,6 @@ for (const filePath of sourceFiles) {
     true,
     ts.ScriptKind.TS,
   );
-  checkTextRules(relativePath, sourceText);
-  checkCohesionSignals(relativePath, sourceText);
-  checkSyntax(relativePath, sourceFile);
   const imports = collectInternalImports(filePath, sourceFile, sourceSet);
   graph.set(filePath, imports);
   checkDependencyDirection(relativePath, imports);
@@ -37,110 +33,11 @@ await checkRootLayout();
 checkImportCycles(graph);
 await checkReachability(graph, sourceSet);
 
-if (warnings.length > 0) {
-  console.warn("Quality observations:");
-  for (const warning of [...new Set(warnings)].sort())
-    console.warn(`- ${warning}`);
-}
 if (failures.length > 0) {
-  console.error("Quality gate failed:");
+  console.error("Architecture check failed:");
   for (const failure of [...new Set(failures)].sort())
     console.error(`- ${failure}`);
   process.exitCode = 1;
-}
-
-function checkTextRules(relativePath, sourceText) {
-  for (const token of ["@ts-ignore", "@ts-expect-error", "eslint-disable"]) {
-    if (sourceText.includes(token)) failures.push(`${relativePath}: ${token}`);
-  }
-}
-
-function checkCohesionSignals(relativePath, sourceText) {
-  const lineCount = sourceText.split("\n").length;
-  if (lineCount > 320)
-    warnings.push(`${relativePath}: ${lineCount} lines; review cohesion`);
-}
-
-function checkSyntax(relativePath, sourceFile) {
-  const visit = (node) => {
-    if (node.kind === ts.SyntaxKind.AnyKeyword)
-      failures.push(`${relativePath}: explicit any type`);
-    if (ts.isTypeAssertionExpression(node))
-      failures.push(`${relativePath}: angle-bracket type assertion`);
-    if (ts.isAsExpression(node) && !isConstAssertion(node, sourceFile))
-      failures.push(`${relativePath}: non-const type assertion`);
-    if (ts.isNonNullExpression(node))
-      failures.push(`${relativePath}: non-null assertion`);
-    if (ts.isParameter(node) && isParameterProperty(node))
-      failures.push(`${relativePath}: constructor parameter property`);
-    if (ts.isConstructorDeclaration(node) && node.parameters.length > 16) {
-      failures.push(
-        `${relativePath}: constructor has ${node.parameters.length} dependencies`,
-      );
-    }
-    if (isFunctionLike(node)) {
-      const complexity = cyclomaticComplexity(node);
-      if (complexity > 45)
-        failures.push(
-          `${relativePath}: function complexity ${complexity} exceeds 45`,
-        );
-    }
-    ts.forEachChild(node, visit);
-  };
-  visit(sourceFile);
-}
-
-function cyclomaticComplexity(node) {
-  let complexity = 1;
-  const visit = (child) => {
-    if (child !== node && isFunctionLike(child)) return;
-    if (
-      ts.isIfStatement(child) ||
-      ts.isForStatement(child) ||
-      ts.isForInStatement(child) ||
-      ts.isForOfStatement(child) ||
-      ts.isWhileStatement(child) ||
-      ts.isDoStatement(child) ||
-      ts.isConditionalExpression(child) ||
-      ts.isCatchClause(child) ||
-      ts.isCaseClause(child) ||
-      child.kind === ts.SyntaxKind.AmpersandAmpersandToken ||
-      child.kind === ts.SyntaxKind.BarBarToken ||
-      child.kind === ts.SyntaxKind.QuestionQuestionToken
-    )
-      complexity += 1;
-    ts.forEachChild(child, visit);
-  };
-  ts.forEachChild(node, visit);
-  return complexity;
-}
-
-function isFunctionLike(node) {
-  return (
-    ts.isFunctionDeclaration(node) ||
-    ts.isFunctionExpression(node) ||
-    ts.isArrowFunction(node) ||
-    ts.isMethodDeclaration(node) ||
-    ts.isConstructorDeclaration(node)
-  );
-}
-
-function isConstAssertion(node, sourceFile) {
-  return node.getText(sourceFile).trimEnd().endsWith(" as const");
-}
-
-function isParameterProperty(node) {
-  if (!ts.isConstructorDeclaration(node.parent)) return false;
-  return (
-    node.modifiers?.some((modifier) =>
-      [
-        ts.SyntaxKind.PublicKeyword,
-        ts.SyntaxKind.PrivateKeyword,
-        ts.SyntaxKind.ProtectedKeyword,
-        ts.SyntaxKind.ReadonlyKeyword,
-      ].includes(modifier.kind),
-    ) === true
-  );
 }
 
 function collectInternalImports(filePath, sourceFile, knownFiles) {

@@ -1,4 +1,4 @@
-import { SqliteWorkerCoordinator } from "./coordinator.js";
+import type { SqliteWorkerCoordinator } from "./coordinator.js";
 import type { WorkerRecord } from "./types.js";
 
 export interface WorkerSessionOptions {

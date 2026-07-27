@@ -18,7 +18,7 @@ export function failure(
   requestId: string,
   statusCode: number | null,
   headers: Headers,
-  cause: unknown = undefined,
+  cause?: unknown,
   retryable = false,
 ): FetchResult {
   return {

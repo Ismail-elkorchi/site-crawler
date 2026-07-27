@@ -208,8 +208,8 @@ function change(
   entity: CrawlChange["entity"],
   kind: CrawlChangeKind,
   key: string,
-  before: unknown | null,
-  after: unknown | null,
+  before: unknown,
+  after: unknown,
   detectedAt: string,
 ): CrawlChange {
   return {

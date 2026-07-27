@@ -135,7 +135,7 @@ export class RunFinalizer {
     const results = await Promise.allSettled(operations);
     const failures = results
       .filter((result) => result.status === "rejected")
-      .map((result) => result.reason);
+      .map((result): unknown => result.reason);
     if (failures.length > 0) {
       throw new AggregateError(failures, "Crawler auxiliary shutdown failed.");
     }

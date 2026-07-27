@@ -1,6 +1,6 @@
 import { parse } from "acorn";
 import type { JavascriptDiscoveryMethod } from "../discovery/types.js";
-import { JavascriptCandidateSet, literalMethod } from "./candidates.js";
+import { type JavascriptCandidateSet, literalMethod } from "./candidates.js";
 
 export function discoverJavascriptAst(
   script: string,
@@ -11,7 +11,7 @@ export function discoverJavascriptAst(
   visit(root, candidates, collectXhrIdentifiers(root));
 }
 
-function parseProgram(script: string): unknown | null {
+function parseProgram(script: string): unknown {
   try {
     return parse(script, {
       ecmaVersion: "latest",

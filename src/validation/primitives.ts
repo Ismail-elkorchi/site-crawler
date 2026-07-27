@@ -5,7 +5,7 @@ export function record(
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
     throw new Error(`${name} must be an object.`);
   }
-  const prototype = Object.getPrototypeOf(value);
+  const prototype: unknown = Object.getPrototypeOf(value);
   if (prototype !== Object.prototype && prototype !== null) {
     throw new Error(`${name} must be a plain object.`);
   }
@@ -15,7 +15,10 @@ export function record(
     if (descriptor.get !== undefined || descriptor.set !== undefined) {
       throw new Error(`${name}.${key} must be a data property.`);
     }
-    if (descriptor.enumerable === true) output[key] = descriptor.value;
+    if (descriptor.enumerable === true) {
+      const descriptorValue: unknown = descriptor.value;
+      output[key] = descriptorValue;
+    }
   }
   return output;
 }

@@ -34,9 +34,7 @@ export class CrawlIndex implements CrawlIndexReader {
     return countRecords(this.database, query);
   }
 
-  public metadata(
-    key: "manifest" | "config" | "stats" | "summary",
-  ): unknown | null {
+  public metadata(key: "manifest" | "config" | "stats" | "summary"): unknown {
     const row = this.database
       .prepare("SELECT json FROM crawl_metadata WHERE key = ?")
       .get(key);
@@ -44,7 +42,8 @@ export class CrawlIndex implements CrawlIndexReader {
     const json = row["json"];
     if (typeof json !== "string")
       throw new Error("SQLite metadata is invalid.");
-    return JSON.parse(json);
+    const value: unknown = JSON.parse(json);
+    return value;
   }
 
   public resourcesByType(

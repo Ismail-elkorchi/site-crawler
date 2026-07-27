@@ -56,10 +56,9 @@ export class NodeHttp1Transport {
 
     const timeout = new AbortController();
     const signal = combineRequestSignals(timeout.signal, options.signal);
-    const timer = setTimeout(
-      () => timeout.abort(),
-      this.config.network.requestTimeoutMs,
-    );
+    const timer = setTimeout(() => {
+      timeout.abort();
+    }, this.config.network.requestTimeoutMs);
     try {
       let last: FetchResult | null = null;
       for (const address of resolution.addresses) {

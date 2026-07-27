@@ -54,7 +54,9 @@ export class RuntimeFinalization {
       await this.runtime.extensionRunner.invoke(
         "onRunFinish hook",
         { scope: "run" },
-        async () => await hook(this.context(), this.currentResult()),
+        async () => {
+          await hook(this.context(), this.currentResult());
+        },
       );
     } catch (caught) {
       this.runtime.controller.fail(fatalCrawlerError(caught));

@@ -144,7 +144,7 @@ export class Frontier {
     ]);
     const errors = results
       .filter((result) => result.status === "rejected")
-      .map((result) => result.reason);
+      .map((result): unknown => result.reason);
     if (errors.length > 0)
       throw new AggregateError(errors, "Frontier close failed.");
   }

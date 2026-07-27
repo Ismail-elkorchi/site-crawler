@@ -3,7 +3,6 @@ import {
   ensurePrivateDirectory,
   writePrivateFileAtomic,
 } from "../core/private-files.js";
-import { faultPoint } from "../faults/injector.js";
 import {
   SITE_CRAWLER_RUN_FORMAT,
   SITE_CRAWLER_WORKER_PROTOCOL,
@@ -153,13 +152,17 @@ export class FileSystemStore implements ResultStore {
 
   public async flush(): Promise<void> {
     await Promise.all(
-      [...this.sinks.values()].map(async (sink) => await sink.flush()),
+      [...this.sinks.values()].map(async (sink) => {
+        await sink.flush();
+      }),
     );
   }
 
   public async close(): Promise<void> {
     await Promise.all(
-      [...this.sinks.values()].map(async (sink) => await sink.close()),
+      [...this.sinks.values()].map(async (sink) => {
+        await sink.close();
+      }),
     );
     this.sinks.clear();
   }
@@ -170,9 +173,7 @@ export class FileSystemStore implements ResultStore {
     mediaType: string,
     bytes: Uint8Array,
   ): Promise<EvidenceReference> {
-    faultPoint("before-evidence-write");
     const result = await this.evidence.writeBytes(kind, mediaType, bytes);
-    faultPoint("after-evidence-write");
     if (result.created) {
       this.evidenceObjects += 1;
       this.evidenceBytes += result.reference.byteLength;
@@ -213,12 +214,10 @@ export class FileSystemStore implements ResultStore {
     record: unknown,
   ): Promise<void> {
     validatePersistedRecord(record);
-    if (fileName === "manifest.json") faultPoint("before-manifest-write");
     await this.writeTextAtomic(
       fileName,
       `${JSON.stringify(record, null, 2)}\n`,
     );
-    if (fileName === "manifest.json") faultPoint("after-manifest-write");
   }
 
   private async writeTextAtomic(

@@ -2,7 +2,6 @@ import type { FileHandle } from "node:fs/promises";
 import fs from "node:fs/promises";
 import { openPrivateFile } from "../core/private-files.js";
 import { validatePersistedRecord } from "../contracts/catalog.js";
-import { faultPoint } from "../faults/injector.js";
 import { buildJournalRecord, decodeJournalRecord } from "./journal-codec.js";
 import { FrontierJournalError } from "./journal-error.js";
 import { validateJournal } from "./journal-validation.js";
@@ -141,7 +140,6 @@ export class FrontierJournal {
   private async appendSerialized(
     record: UnsequencedFrontierJournalRecord,
   ): Promise<FrontierJournalRecord> {
-    faultPoint("before-journal-append");
     const sequence = this.sequence + 1;
     const sequenced = buildJournalRecord(record, sequence, this.lastChecksum);
     validatePersistedRecord(sequenced);
@@ -152,7 +150,6 @@ export class FrontierJournal {
     }
     this.sequence = sequence;
     this.lastChecksum = sequenced.checksum;
-    faultPoint("after-journal-append");
     return sequenced;
   }
 

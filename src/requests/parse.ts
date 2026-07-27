@@ -115,8 +115,11 @@ function parseStringRecord(
 }
 
 function parseStringArray(value: unknown, name: string): readonly string[] {
-  if (!Array.isArray(value) || value.some((item) => typeof item !== "string")) {
-    throw new Error(`${name} is malformed.`);
+  if (!Array.isArray(value)) throw new Error(`${name} is malformed.`);
+  const result: string[] = [];
+  for (const item of value) {
+    if (typeof item !== "string") throw new Error(`${name} is malformed.`);
+    result.push(item);
   }
-  return value.slice();
+  return result;
 }

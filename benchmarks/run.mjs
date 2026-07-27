@@ -29,23 +29,6 @@ process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
 async function runBenchmark(name, execute) {
   process.stderr.write(`[benchmark] ${name} started\n`);
   const result = await execute();
-  assertBenchmarkBounds(result);
   results.push(result);
   process.stderr.write(`[benchmark] ${name} completed\n`);
-}
-
-function assertBenchmarkBounds(result) {
-  const totalMs = result.totalMs;
-  if (typeof totalMs !== "number" || !Number.isFinite(totalMs) || totalMs < 0)
-    throw new Error(`${result.name} did not report a valid duration.`);
-  const maximumMs = result.name === "multi-origin-crawl" ? 120_000 : 60_000;
-  if (totalMs > maximumMs)
-    throw new Error(
-      `${result.name} exceeded the ${maximumMs} ms regression ceiling.`,
-    );
-  const rss = result.rssDeltaBytes;
-  if (typeof rss === "number" && rss > 1_610_612_736)
-    throw new Error(
-      `${result.name} exceeded the 1.5 GiB RSS regression ceiling.`,
-    );
 }

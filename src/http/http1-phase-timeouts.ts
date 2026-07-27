@@ -29,10 +29,14 @@ export class Http1PhaseTimeouts {
       return;
     }
     if (socket instanceof TLSSocket) {
-      socket.once("secureConnect", () => this.markConnected());
+      socket.once("secureConnect", () => {
+        this.markConnected();
+      });
       return;
     }
-    socket.once("connect", () => this.markConnected());
+    socket.once("connect", () => {
+      this.markConnected();
+    });
   }
 
   public markResponseStarted(): void {

@@ -6,6 +6,9 @@ const [directory, point] = process.argv.slice(2);
 if (directory === undefined || point === undefined) {
   throw new Error("Crash fixture arguments are missing.");
 }
+if (point !== "before-journal-append" && point !== "after-journal-append") {
+  throw new Error(`Unknown crash fixture point: ${point}`);
+}
 const now = new Date().toISOString();
 const request = parseCrawlRequest({
   schemaId: "site-crawler.request",
@@ -53,8 +56,7 @@ await journal.append({
   expiresAt: new Date(Date.now() + 30_000).toISOString(),
   createdAt: now,
 });
-process.env.SITE_CRAWLER_FAULT_POINT = point;
-process.env.SITE_CRAWLER_FAULT_MODE = "exit";
+if (point === "before-journal-append") process.exit(86);
 await journal.append({
   schemaId: "site-crawler.frontierJournal",
   schemaVersion: 1,
@@ -64,4 +66,5 @@ await journal.append({
   reason: "crash fixture",
   createdAt: new Date().toISOString(),
 });
-await journal.close();
+if (point === "after-journal-append") process.exit(86);
+throw new Error(`Crash fixture did not terminate at ${point}.`);

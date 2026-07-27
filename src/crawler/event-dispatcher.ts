@@ -58,7 +58,9 @@ export class EventDispatcher {
     await this.extensionRunner.invoke(
       "onEvent terminal hook",
       { scope: "run" },
-      async () => await hook(this.context(), event),
+      async () => {
+        await hook(this.context(), event);
+      },
     );
   }
 

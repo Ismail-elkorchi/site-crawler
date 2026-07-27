@@ -17,7 +17,7 @@ export interface JsonSchemaDocument extends JsonSchema {
   readonly additionalProperties: boolean;
 }
 
-export interface JsonSchemaProperty extends JsonSchema {}
+export type JsonSchemaProperty = JsonSchema;
 
 export type { JsonSchemaPrimitive, JsonSchemaTypeName };
 

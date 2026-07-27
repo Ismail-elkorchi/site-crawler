@@ -26,8 +26,8 @@ export interface CrawlChange {
   readonly entity: CrawlChangeEntity;
   readonly kind: CrawlChangeKind;
   readonly key: string;
-  readonly before: unknown | null;
-  readonly after: unknown | null;
+  readonly before: unknown;
+  readonly after: unknown;
   readonly detectedAt: string;
 }
 

@@ -29,7 +29,14 @@ export async function inspectRun(runDirectory: string): Promise<RunInspection> {
     const counts: Record<string, number> = {};
     for (const kind of recordKinds) {
       let count = 0;
-      for await (const _record of reader.records(kind)) count += 1;
+      for await (const current of reader.records(kind)) {
+        if (current.kind !== kind) {
+          throw new Error(
+            `Run reader returned ${current.kind} while reading ${kind}.`,
+          );
+        }
+        count += 1;
+      }
       counts[kind] = count;
     }
     return {

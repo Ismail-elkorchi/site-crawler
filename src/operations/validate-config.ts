@@ -5,7 +5,7 @@ import { resolveConfig } from "../config/resolve.js";
 export interface ConfigValidationReport {
   readonly valid: boolean;
   readonly validatedAt: string;
-  readonly config: unknown | null;
+  readonly config: unknown;
   readonly issues: readonly string[];
 }
 

@@ -240,7 +240,7 @@ export function isRecord(
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
     return false;
   }
-  const prototype = Object.getPrototypeOf(value);
+  const prototype: unknown = Object.getPrototypeOf(value);
   if (prototype !== Object.prototype && prototype !== null) return false;
   return Object.values(Object.getOwnPropertyDescriptors(value)).every(
     (descriptor) =>

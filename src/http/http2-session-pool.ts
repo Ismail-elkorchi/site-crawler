@@ -148,7 +148,9 @@ function waitForSession(
       cleanup();
       reject(new Error("HTTP/2 session acquisition was aborted."));
     };
-    const cleanup = (): void => signal.removeEventListener("abort", onAbort);
+    const cleanup = (): void => {
+      signal.removeEventListener("abort", onAbort);
+    };
     signal.addEventListener("abort", onAbort, { once: true });
     void session.then(
       (value) => {

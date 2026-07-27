@@ -74,7 +74,9 @@ export class CrawlerRuntime {
     const monitor = new AbortRequestMonitor(
       directory,
       this.components.runId,
-      (reason) => this.abort(reason),
+      (reason) => {
+        this.abort(reason);
+      },
     );
     monitor.start();
     return monitor;
@@ -100,7 +102,9 @@ export class CrawlerRuntime {
     await this.components.extensionRunner.invoke(
       "onRunStart hook",
       { scope: "run" },
-      async () => await hook(this.context()),
+      async () => {
+        await hook(this.context());
+      },
     );
   }
 
@@ -117,7 +121,9 @@ export class CrawlerRuntime {
       await this.components.extensionRunner.invoke(
         "onFatalError hook",
         { scope: "run" },
-        async () => await hook(this.context(), error),
+        async () => {
+          await hook(this.context(), error);
+        },
       );
     } catch (hookError) {
       this.components.controller.fail(fatalCrawlerError(hookError));

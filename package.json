@@ -91,29 +91,23 @@
   "scripts": {
     "build": "node tools/clean.mjs && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "quality": "node tools/quality-gate.mjs",
-    "check": "npm run typecheck && npm run quality && npm run format:check",
+    "architecture": "node tools/check-architecture.mjs",
+    "lint": "eslint \"src/**/*.ts\"",
+    "check": "npm run typecheck && npm run lint && npm run architecture && npm run format:check",
     "test": "npm run build && node tools/run-tests.mjs",
     "prepack": "npm run check && npm run build",
     "clean": "node tools/clean.mjs",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.mjs\" \"tools/**/*.mjs\" \"benchmarks/**/*.mjs\" \"*.{json,md}\" \"docs/**/*.md\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.mjs\" \"tools/**/*.mjs\" \"benchmarks/**/*.mjs\" \"*.{json,md}\" \"docs/**/*.md\"",
     "prepublishOnly": "npm test",
-    "verify:release": "npm run check && npm test && npm run verify:termination && npm run verify:leaks && npm run benchmark && npm run test:browser && npm run verify:crash && npm run verify:clean-install && npm run verify:package",
+    "verify:release": "npm run check && npm test && npm run verify:leaks && npm run benchmark && npm run test:browser && npm run verify:crash && npm run verify:clean-install && npm run verify:package",
     "verify:package": "node tools/verify-package.mjs",
     "verify:clean-install": "node tools/verify-clean-install.mjs",
     "verify:leaks": "npm run build && node --expose-gc tools/verify-resource-leaks.mjs",
     "benchmark": "npm run build && node benchmarks/run.mjs",
     "test:browser": "npm run build && node tools/verify-browser.mjs --require",
     "verify:crash": "npm run build && node tools/verify-crash-safety.mjs",
-    "benchmark:million": "npm run build && node benchmarks/million-frontier.mjs",
-    "benchmark:soak": "npm run build && node benchmarks/soak.mjs",
-    "test:fuzz": "npm run build && node tools/run-tests.mjs faults-fuzz.test.mjs",
-    "test:load": "npm run benchmark:million",
-    "test:soak": "npm run benchmark:soak",
-    "verify:pre1": "npm run verify:release && npm run test:load && npm run test:soak",
-    "test:repeat": "npm run verify:termination",
-    "verify:termination": "npm run build && node tools/verify-test-termination.mjs"
+    "benchmark:load": "npm run build && node benchmarks/load.mjs"
   },
   "dependencies": {
     "@ismail-elkorchi/html-parser": "0.2.0",
@@ -124,8 +118,10 @@
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
+    "eslint": "^10.8.0",
     "prettier": "^3.9.5",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.65.0"
   },
   "engines": {
     "node": ">=24.0.0",

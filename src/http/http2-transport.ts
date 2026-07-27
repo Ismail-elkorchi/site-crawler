@@ -91,10 +91,9 @@ export class NodeHttp2Transport {
       options.signal === undefined
         ? timeout.signal
         : AbortSignal.any([timeout.signal, options.signal]);
-    const timer = setTimeout(
-      () => timeout.abort(),
-      this.config.network.requestTimeoutMs,
-    );
+    const timer = setTimeout(() => {
+      timeout.abort();
+    }, this.config.network.requestTimeoutMs);
     const connectStartedAt = performance.now();
     try {
       const session = await this.pool.session(url, address, signal);

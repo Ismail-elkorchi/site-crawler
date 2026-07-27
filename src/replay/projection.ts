@@ -38,25 +38,36 @@ export function stableHash(value: unknown): string {
 
 function replayableEntries(value: unknown): unknown {
   if (!Array.isArray(value)) return value;
-  return value.map((entry) => {
-    if (!isRecord(entry)) return entry;
-    const {
-      runId: _runId,
-      discoveredAt: _discoveredAt,
-      warnings,
-      ...semantic
-    } = entry;
-    return { ...semantic, warnings: replayableWarnings(warnings) };
-  });
+  const entries: unknown[] = [];
+  for (const item of value) {
+    const entry: unknown = item;
+    if (!isRecord(entry)) {
+      entries.push(entry);
+      continue;
+    }
+    const semantic = { ...entry };
+    delete semantic["runId"];
+    delete semantic["discoveredAt"];
+    semantic["warnings"] = replayableWarnings(entry["warnings"]);
+    entries.push(semantic);
+  }
+  return entries;
 }
 
 function replayableWarnings(value: unknown): unknown {
   if (!Array.isArray(value)) return value;
-  return value.map((item) => {
-    if (!isRecord(item)) return item;
-    const { createdAt: _createdAt, ...warning } = item;
-    return warning;
-  });
+  const warnings: unknown[] = [];
+  for (const item of value) {
+    const entry: unknown = item;
+    if (!isRecord(entry)) {
+      warnings.push(entry);
+      continue;
+    }
+    const warning = { ...entry };
+    delete warning["createdAt"];
+    warnings.push(warning);
+  }
+  return warnings;
 }
 
 function stableJson(value: unknown): string {

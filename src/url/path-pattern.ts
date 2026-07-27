@@ -2,9 +2,7 @@ export function pathSegments(url: URL): number {
   return url.pathname.split("/").filter((segment) => segment.length > 0).length;
 }
 export function queryParamCount(url: URL): number {
-  let count = 0;
-  for (const _key of url.searchParams.keys()) count += 1;
-  return count;
+  return [...url.searchParams.keys()].length;
 }
 export function directoryOf(pathname: string): string {
   const index = pathname.lastIndexOf("/");

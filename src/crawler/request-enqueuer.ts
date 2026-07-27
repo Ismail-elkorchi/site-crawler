@@ -17,7 +17,9 @@ export class RequestEnqueuer {
       counters: deps.counters,
       frontier: deps.frontier,
       store: deps.store,
-      onEnqueued: async (request) => await deps.onEnqueued(request),
+      onEnqueued: async (request) => {
+        await deps.onEnqueued(request);
+      },
     });
     this.transaction = new RequestEnqueueTransaction(deps, this.accounting);
   }

@@ -20,11 +20,10 @@ const browserEnvironment = {
   SITE_CRAWLER_CHROMIUM_PATH: executable,
   ...(policySafeFixture ? { SITE_CRAWLER_BROWSER_FIXTURE: "about-blank" } : {}),
 };
-await runWithRetries(
+await run(
   process.execPath,
   ["--test", "tests/playwright-browser.test.mjs"],
   browserEnvironment,
-  3,
   60_000,
 );
 const fixture = policySafeFixture ? "policy-safe about:blank" : "local HTTP";
@@ -81,33 +80,13 @@ async function requiresPolicySafeFixture(executable) {
   }
 }
 
-async function runWithRetries(command, args, env, attempts, timeoutMs) {
-  let failure = null;
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
-    try {
-      await run(command, args, env, timeoutMs, attempt);
-      return;
-    } catch (caught) {
-      failure = caught;
-      if (attempt < attempts) {
-        process.stderr.write(
-          `[verify-browser] Browser attempt ${attempt} failed; retrying after process-tree cleanup.\n`,
-        );
-      }
-    }
-  }
-  throw failure ?? new Error("Browser verification failed.");
-}
-
-function run(command, args, env, timeoutMs, attempt) {
+function run(command, args, env, timeoutMs) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: "inherit", env });
     let timedOut = false;
     let forceTimer = null;
     const heartbeat = setInterval(() => {
-      process.stderr.write(
-        `[verify-browser] Browser attempt ${attempt} is still running.\n`,
-      );
+      process.stderr.write("[verify-browser] Browser test is still running.\n");
     }, 5_000);
     const timeout = setTimeout(() => {
       timedOut = true;

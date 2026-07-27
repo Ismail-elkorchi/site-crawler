@@ -252,7 +252,7 @@ function skipWhitespace(stylesheet: string, start: number): number {
   return index;
 }
 
-function isIdentifierCharacter(value: string | undefined): boolean {
+function isIdentifierCharacter(value: string | undefined): value is string {
   return value !== undefined && /[-_A-Za-z0-9\u0080-\u{10FFFF}]/u.test(value);
 }
 

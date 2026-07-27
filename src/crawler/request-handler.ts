@@ -17,7 +17,7 @@ import type { RequestPolicyRunner } from "./request-policy.js";
 import type { RequestScheduler } from "./request-scheduler.js";
 import type { RetryingFetcher } from "./retrying-fetcher.js";
 import {
-  RequestTerminalizer,
+  type RequestTerminalizer,
   TerminalPersistenceError,
 } from "./request-terminalizer.js";
 import type { CrawlerContext, CrawlCounters, RequestOutcome } from "./types.js";
@@ -155,7 +155,9 @@ export class RequestHandler {
       await this.deps.extensionRunner.invoke(
         "beforeRequest hook",
         { scope: "request", url: request.normalizedUrl, requestId: request.id },
-        async () => await hook(this.deps.context(), request),
+        async () => {
+          await hook(this.deps.context(), request);
+        },
       );
     }
   }

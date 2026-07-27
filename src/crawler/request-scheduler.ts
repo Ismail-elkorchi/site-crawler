@@ -38,8 +38,12 @@ export class RequestScheduler {
       store: deps.store,
       scope: deps.scope,
       skipped: this.skipped,
-      onEnqueued: async (request) => await this.notifyEnqueued(request),
-      onLimit: (limit) => deps.onLimit(limit),
+      onEnqueued: async (request) => {
+        await this.notifyEnqueued(request);
+      },
+      onLimit: (limit) => {
+        deps.onLimit(limit);
+      },
     });
     this.sitemaps = new SitemapBootstrap({
       config: deps.config,

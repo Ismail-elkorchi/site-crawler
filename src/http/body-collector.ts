@@ -39,21 +39,27 @@ export class BodyCollector extends Writable {
     callback: (error?: Error | null) => void,
   ): void {
     this.writeChunk(chunk).then(
-      () => callback(),
-      (caught: unknown) =>
+      () => {
+        callback();
+      },
+      (caught: unknown) => {
         callback(
           caught instanceof Error ? caught : new Error("Body write failed."),
-        ),
+        );
+      },
     );
   }
 
   public override _final(callback: (error?: Error | null) => void): void {
     this.closeFile().then(
-      () => callback(),
-      (caught: unknown) =>
+      () => {
+        callback();
+      },
+      (caught: unknown) => {
         callback(
           caught instanceof Error ? caught : new Error("Body close failed."),
-        ),
+        );
+      },
     );
   }
 

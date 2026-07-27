@@ -27,8 +27,7 @@ export class CrawlEventHub {
     if (!Number.isInteger(capacity) || capacity <= 0) {
       throw new TypeError("Event buffer capacity must be a positive integer.");
     }
-    let channel: EventChannel;
-    channel = new EventChannel(capacity, (dropped) => {
+    const channel = new EventChannel(capacity, (dropped) => {
       this.droppedFromClosedChannels += dropped;
       this.channels.delete(channel);
     });

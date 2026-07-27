@@ -1,4 +1,4 @@
-import { JavascriptCandidateSet, literalMethod } from "./candidates.js";
+import { type JavascriptCandidateSet, literalMethod } from "./candidates.js";
 
 const STRING_LITERAL = /(["'`])((?:\\.|(?!\1)[^\\\r\n])*)\1/gu;
 const SOURCE_MAP = /[#@]\s*sourceMappingURL\s*=\s*([^\s*]+)/giu;

@@ -15,7 +15,7 @@ export interface CrawlIndexReader {
     query: import("../storage/types.js").CrawlRecordQuery,
   ): readonly IndexedCrawlRecord[];
   count(query?: import("../storage/types.js").CrawlRecordQuery): number;
-  metadata(key: "manifest" | "config" | "stats" | "summary"): unknown | null;
+  metadata(key: "manifest" | "config" | "stats" | "summary"): unknown;
   resourcesByType(
     resourceType: import("../resources/types.js").ResourceType,
     limit?: number,

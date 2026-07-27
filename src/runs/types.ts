@@ -7,9 +7,7 @@ export interface RunRecord {
 }
 
 export interface RunReader {
-  metadata(
-    key: "manifest" | "config" | "stats" | "summary",
-  ): Promise<unknown | null>;
+  metadata(key: "manifest" | "config" | "stats" | "summary"): Promise<unknown>;
   records(kind: CrawlRecordKind): AsyncIterable<RunRecord>;
   close(): Promise<void>;
 }

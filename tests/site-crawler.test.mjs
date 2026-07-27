@@ -29,6 +29,22 @@ test("normalizes HTTP URLs deterministically", () => {
   assert.equal(result.value.normalizedUrl, "https://example.com/a");
 });
 
+test("URL normalization rejects unsafe inputs and preserves Unicode paths", () => {
+  for (const raw of [
+    "https://user:secret@example.com/",
+    "javascript:alert(1)",
+    "http://[::1",
+  ]) {
+    assert.equal(normalizeUrl(raw).ok, false);
+  }
+  const result = normalizeUrl("https://EXAMPLE.com/café/😀#fragment");
+  assert.equal(result.ok, true);
+  assert.equal(
+    result.value.normalizedUrl,
+    "https://example.com/caf%C3%A9/%F0%9F%98%80",
+  );
+});
+
 test("extracts HTML facts through html-parser", () => {
   const result = extractHtmlFacts(
     '<!doctype html><html lang="en"><head><title>Hello</title><meta name="description" content="World"><link rel="canonical" href="/canonical"></head><body><h1>Title</h1><a href="/next">Next</a></body></html>',
