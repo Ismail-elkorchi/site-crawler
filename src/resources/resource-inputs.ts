@@ -1,6 +1,6 @@
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import type { FetchResult } from "../http/index.js";
-import type { NetworkSafetyDecision } from "../network/types.js";
+import type { NetworkSafetyDecision } from "@ismail-elkorchi/http-client";
 import type { CrawlRequest } from "../requests/types.js";
 import type { RobotsDecision } from "../robots/types.js";
 import type { ScopeDecision } from "../url/types.js";

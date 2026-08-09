@@ -1,3 +1,4 @@
+import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { ResolvedCrawlConfig } from "../../config/types.js";
 import type { ExtensionRunner } from "../../extensions/runner.js";
 import type { ResolvedCrawlerExtensions } from "../../extensions/types.js";
@@ -24,6 +25,7 @@ export interface RuntimeComponents {
   readonly frontier: Frontier;
   readonly store: ResultStore;
   readonly httpClient: HttpClient;
+  readonly safety: NetworkSafetyPolicy;
   readonly session: SessionManager;
   readonly scheduler: RequestScheduler;
   readonly resources: ResourceProcessor;

@@ -1,10 +1,10 @@
 import { isHtmlLike, isXmlLike } from "../classification/index.js";
 import { CssResourceProcessor } from "../css/resource-processor.js";
 import { HtmlResourceProcessor } from "../html/html-resource-processor.js";
-import { disposeResponseBody } from "../http/body.js";
+import { disposeResponseBody } from "@ismail-elkorchi/http-client";
 import type { FetchResult } from "../http/index.js";
 import { JavascriptResourceProcessor } from "../javascript/resource-processor.js";
-import type { NetworkSafetyDecision } from "../network/types.js";
+import type { NetworkSafetyDecision } from "@ismail-elkorchi/http-client";
 import { RenderController } from "../rendering/controller.js";
 import type { CrawlRequest } from "../requests/types.js";
 import type { RobotsDecision } from "../robots/types.js";

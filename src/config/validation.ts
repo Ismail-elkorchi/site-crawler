@@ -23,6 +23,14 @@ export function validateConfig(
   positive(config.limits.maxDownloadedBytes, "limits.maxDownloadedBytes");
   positive(config.networkSafety.dnsTimeoutMs, "networkSafety.dnsTimeoutMs");
   positive(config.networkSafety.dnsCacheTtlMs, "networkSafety.dnsCacheTtlMs");
+  positive(
+    config.networkSafety.maxDnsCacheEntries,
+    "networkSafety.maxDnsCacheEntries",
+  );
+  positive(
+    config.networkSafety.addressAttemptDelayMs,
+    "networkSafety.addressAttemptDelayMs",
+  );
   positive(config.scope.maxUrlLength, "scope.maxUrlLength");
   positive(config.scope.maxPathSegments, "scope.maxPathSegments");
   nonNegative(config.scope.maxQueryParams, "scope.maxQueryParams");
@@ -80,13 +88,14 @@ export function validateConfig(
       "network.maxRequestsPerMinutePerOrigin",
     );
   }
+  positive(config.responseLimits.maxWireBytes, "responseLimits.maxWireBytes");
   positive(
-    config.responseLimits.maxCompressedBytes,
-    "responseLimits.maxCompressedBytes",
+    config.responseLimits.maxDecodedBytes,
+    "responseLimits.maxDecodedBytes",
   );
-  positive(
-    config.responseLimits.maxDecompressedBytes,
-    "responseLimits.maxDecompressedBytes",
+  nonNegative(
+    config.responseLimits.maxContentEncodingLayers,
+    "responseLimits.maxContentEncodingLayers",
   );
   positive(
     config.responseLimits.memoryThresholdBytes,
@@ -94,10 +103,10 @@ export function validateConfig(
   );
   if (
     config.responseLimits.memoryThresholdBytes >
-    config.responseLimits.maxDecompressedBytes
+    config.responseLimits.maxDecodedBytes
   ) {
     throw new Error(
-      "responseLimits.memoryThresholdBytes must not exceed maxDecompressedBytes.",
+      "responseLimits.memoryThresholdBytes must not exceed maxDecodedBytes.",
     );
   }
   positive(config.parsing.html.maxInputBytes, "parsing.html.maxInputBytes");

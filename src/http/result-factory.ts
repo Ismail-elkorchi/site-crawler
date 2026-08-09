@@ -2,15 +2,6 @@ import { crawlError } from "../diagnostics/factory.js";
 import type { CrawlError } from "../diagnostics/types.js";
 import type { FetchResult } from "./types.js";
 
-const emptyTimings = {
-  dnsMs: null,
-  connectMs: null,
-  tlsMs: null,
-  firstByteMs: null,
-  bodyMs: null,
-  totalMs: 0,
-} as const;
-
 export function failure(
   code: CrawlError["code"],
   message: string,
@@ -31,8 +22,8 @@ export function failure(
     wireBytesRead: null,
     decodedBytesRead: null,
     remoteAddress: null,
-    protocol: "unknown",
-    timings: emptyTimings,
+    protocol: null,
+    timings: null,
     tls: null,
     cacheStatus: "miss",
     error: crawlError({ code, message, url, requestId, cause, retryable }),
@@ -47,6 +38,7 @@ export function withDuration(
   return {
     ...result,
     responseTimeMs: duration,
-    timings: { ...result.timings, totalMs: duration },
+    timings:
+      result.timings === null ? null : { ...result.timings, totalMs: duration },
   };
 }

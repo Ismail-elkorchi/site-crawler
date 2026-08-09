@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { gzipSync } from "node:zlib";
 import { test } from "node:test";
 import { resolveConfig } from "../dist/config/index.js";
-import { HttpFetcher, readResponseBody } from "../dist/http/index.js";
-import { NetworkSafetyPolicy } from "../dist/network/index.js";
+import { HttpFetcher } from "../dist/http/index.js";
+import { readResponseBody } from "@ismail-elkorchi/http-client";
 import { closeServer, listen } from "./helpers.mjs";
 
 function fetcherConfig(overrides = {}) {
@@ -16,8 +16,8 @@ function fetcherConfig(overrides = {}) {
       ...overrides.network,
     },
     responseLimits: {
-      maxCompressedBytes: 100_000,
-      maxDecompressedBytes: 100_000,
+      maxWireBytes: 100_000,
+      maxDecodedBytes: 100_000,
       ...overrides.responseLimits,
     },
     storage: { type: "memory" },
@@ -51,10 +51,7 @@ test("HTTP client reports wire and decoded byte counts", async () => {
     response.end(encoded);
   });
   const config = fetcherConfig();
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`${origin}/gzip`, options());
     assert.equal(result.error, null);
@@ -75,12 +72,9 @@ test("HTTP client enforces decoded body limits while streaming", async () => {
     response.end(encoded);
   });
   const config = fetcherConfig({
-    responseLimits: { maxDecompressedBytes: 100 },
+    responseLimits: { maxDecodedBytes: 100 },
   });
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`${origin}/large`, options());
     assert.equal(result.body, null);
@@ -98,10 +92,7 @@ test("HTTP client detects redirect loops", async () => {
     response.end();
   });
   const config = fetcherConfig();
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`${origin}/a`, options());
     assert.equal(result.error.code, "REDIRECT_LOOP");
@@ -112,6 +103,38 @@ test("HTTP client detects redirect loops", async () => {
   }
 });
 
+test("HTTP client strips configured and request credentials across origins", async () => {
+  let targetHeaders = null;
+  const target = await listen((request, response) => {
+    targetHeaders = request.headers;
+    response.end("target");
+  });
+  const source = await listen((_request, response) => {
+    response.writeHead(302, { location: `${target.origin}/target` });
+    response.end();
+  });
+  const config = fetcherConfig({
+    network: { headers: { authorization: "Bearer configured" } },
+  });
+  const client = new HttpFetcher(config);
+  try {
+    const result = await client.fetch(`${source.origin}/start`, {
+      ...options(),
+      headers: {
+        cookie: "session=request",
+        "proxy-authorization": "Basic request",
+      },
+    });
+    assert.equal(result.error, null);
+    assert.equal(targetHeaders?.authorization, undefined);
+    assert.equal(targetHeaders?.cookie, undefined);
+    assert.equal(targetHeaders?.["proxy-authorization"], undefined);
+  } finally {
+    await client.close();
+    await Promise.all([closeServer(source.server), closeServer(target.server)]);
+  }
+});
+
 test("HTTP client stops at a rejected redirect target", async () => {
   const { server, origin } = await listen((_request, response) => {
     response.statusCode = 302;
@@ -119,10 +142,7 @@ test("HTTP client stops at a rejected redirect target", async () => {
     response.end();
   });
   const config = fetcherConfig();
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`${origin}/`, options(undefined, false));
     assert.equal(result.error.code, "REDIRECT_TARGET_REJECTED");
@@ -138,10 +158,7 @@ test("HTTP client distinguishes caller cancellation", async () => {
     setTimeout(() => response.end("late"), 200);
   });
   const config = fetcherConfig();
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   const controller = new AbortController();
   setTimeout(() => controller.abort(), 20);
   try {
@@ -161,13 +178,33 @@ test("HTTP client distinguishes request timeout", async () => {
     setTimeout(() => response.end("late"), 150);
   });
   const config = fetcherConfig({ network: { requestTimeoutMs: 20 } });
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`${origin}/timeout`, options());
     assert.equal(result.error.code, "FETCH_TIMEOUT");
+  } finally {
+    await client.close();
+    await closeServer(server);
+  }
+});
+
+test("request timeout covers the complete redirect operation", async () => {
+  const { server, origin } = await listen((request, response) => {
+    const hop = Number(new URL(request.url, origin).searchParams.get("hop"));
+    setTimeout(() => {
+      if (hop < 2) {
+        response.writeHead(302, { location: `/?hop=${String(hop + 1)}` });
+        response.end();
+        return;
+      }
+      response.end("complete");
+    }, 30);
+  });
+  const config = fetcherConfig({ network: { requestTimeoutMs: 70 } });
+  const client = new HttpFetcher(config);
+  try {
+    const result = await client.fetch(`${origin}/?hop=0`, options());
+    assert.equal(result.error?.code, "FETCH_TIMEOUT");
   } finally {
     await client.close();
     await closeServer(server);

@@ -1,12 +1,12 @@
+import type {
+  HttpVersion,
+  NetworkSafetyDecision,
+  ResponseTransferTimings,
+  TlsFacts,
+} from "@ismail-elkorchi/http-client";
 import type { CrawlError, CrawlWarning } from "../diagnostics/types.js";
 import type { EncodingFact } from "../encoding/types.js";
 import type { CacheStatus } from "../http/cache/types.js";
-import type {
-  NegotiatedProtocol,
-  NetworkTimings,
-  TlsFacts,
-} from "../http/timing-types.js";
-import type { NetworkSafetyDecision } from "../network/types.js";
 import type { RobotsDecision } from "../robots/types.js";
 import type { ScopeDecision } from "../url/types.js";
 
@@ -65,8 +65,8 @@ export interface CrawledResource {
   readonly httpDecodedBytesRead: number | null;
   readonly fileDecodedBytesRead: number | null;
   readonly remoteAddress: string | null;
-  readonly httpProtocol: NegotiatedProtocol;
-  readonly networkTimings: NetworkTimings;
+  readonly httpProtocol: HttpVersion | null;
+  readonly networkTimings: ResponseTransferTimings | null;
   readonly tls: TlsFacts | null;
   readonly cacheStatus: CacheStatus;
   readonly responseTimeMs: number;

@@ -1,10 +1,10 @@
+import type { NetworkSafetyOptions } from "@ismail-elkorchi/http-client";
 import type { CssDiscoveryConfig } from "../css/types.js";
 import type { HtmlParsingConfig } from "../html/config-types.js";
 import type { HttpCacheConfig } from "../http/cache/types.js";
 import type { NetworkConfig, ResponseLimits } from "../http/types.js";
 import type { SessionConfig } from "../http/session/types.js";
 import type { JsDiscoveryConfig } from "../javascript/types.js";
-import type { NetworkSafetyConfig } from "../network/types.js";
 import type { RenderingConfig } from "../rendering/types.js";
 import type { RobotsConfig } from "../robots/types.js";
 import type { StorageConfig } from "../storage/config-types.js";
@@ -39,13 +39,15 @@ export const defaultLimits: CrawlLimits = {
   maxDownloadedBytes: 1024 * 1024 * 1024,
 };
 
-export const defaultNetworkSafety: NetworkSafetyConfig = {
+export const defaultNetworkSafety: NetworkSafetyOptions = {
   enabled: true,
   allowPrivateNetworks: false,
   allowLocalhost: false,
   mixedAddressPolicy: "reject-host",
   dnsTimeoutMs: 5000,
   dnsCacheTtlMs: 60000,
+  maxDnsCacheEntries: 1024,
+  addressAttemptDelayMs: 250,
 };
 
 export const defaultRobots: RobotsConfig = {
@@ -138,8 +140,9 @@ export const defaultHttpCache: HttpCacheConfig = {
 };
 
 export const defaultResponseLimits: ResponseLimits = {
-  maxCompressedBytes: 5 * 1024 * 1024,
-  maxDecompressedBytes: 10 * 1024 * 1024,
+  maxWireBytes: 5 * 1024 * 1024,
+  maxDecodedBytes: 10 * 1024 * 1024,
+  maxContentEncodingLayers: 5,
   memoryThresholdBytes: 1024 * 1024,
   spoolDirectory: null,
 };

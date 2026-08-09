@@ -1,14 +1,19 @@
+import type {
+  HttpVersion,
+  ResponseBody,
+  ResponseStorageOptions,
+  ResponseTransferLimits,
+  ResponseTransferTimings,
+  TlsFacts,
+} from "@ismail-elkorchi/http-client";
 import type { CrawlError } from "../diagnostics/types.js";
 import type { RequestMethod } from "../requests/types.js";
 import type { RedirectHop } from "../resources/types.js";
-import type { ResponseBody } from "./body-types.js";
 import type { CacheStatus, HttpCacheConfig } from "./cache/types.js";
 import type { SessionConfig } from "./session/types.js";
-import type {
-  NegotiatedProtocol,
-  NetworkTimings,
-  TlsFacts,
-} from "./timing-types.js";
+
+export interface ResponseLimits
+  extends ResponseTransferLimits, ResponseStorageOptions {}
 
 export interface RedirectTargetDecision {
   readonly allowed: boolean;
@@ -40,8 +45,8 @@ export interface FetchResult {
   readonly wireBytesRead: number | null;
   readonly decodedBytesRead: number | null;
   readonly remoteAddress: string | null;
-  readonly protocol: NegotiatedProtocol;
-  readonly timings: NetworkTimings;
+  readonly protocol: HttpVersion | null;
+  readonly timings: ResponseTransferTimings | null;
   readonly tls: TlsFacts | null;
   readonly cacheStatus: CacheStatus;
   readonly error: CrawlError | null;
@@ -77,13 +82,6 @@ export interface NetworkConfig {
   readonly rejectUnauthorized: boolean;
   readonly autoThrottle: AutoThrottleConfig;
   readonly headers: Readonly<Record<string, string>>;
-}
-
-export interface ResponseLimits {
-  readonly maxCompressedBytes: number;
-  readonly maxDecompressedBytes: number;
-  readonly memoryThresholdBytes: number;
-  readonly spoolDirectory: string | null;
 }
 
 export interface HttpRuntimeConfig {

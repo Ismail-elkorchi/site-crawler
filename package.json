@@ -90,6 +90,7 @@
   },
   "dependencies": {
     "@ismail-elkorchi/html-parser": "0.2.0",
+    "@ismail-elkorchi/http-client": "^0.1.0",
     "@ismail-elkorchi/xml-parser": "0.2.0",
     "acorn": "^8.17.0",
     "playwright-core": "^1.61.1",

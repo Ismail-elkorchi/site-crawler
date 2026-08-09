@@ -22,12 +22,8 @@ export type {
   InitialCookie,
   SessionConfig,
 } from "./http/session/types.js";
-export type { NetworkConfig, ResponseLimits } from "./http/types.js";
+export type { NetworkConfig } from "./http/types.js";
 export type { JsDiscoveryConfig } from "./javascript/types.js";
-export type {
-  MixedAddressPolicy,
-  NetworkSafetyConfig,
-} from "./network/types.js";
 export type { RenderingConfig } from "./rendering/types.js";
 export type { OutputConfig } from "./config/types.js";
 export type { RobotsConfig } from "./robots/types.js";
@@ -66,6 +62,7 @@ export type {
   FetchResult,
   HttpClient,
   RedirectTargetDecision,
+  ResponseLimits,
 } from "./http/types.js";
 export type {
   RenderAdapter,
@@ -74,3 +71,7 @@ export type {
   RenderRequest,
 } from "./rendering/types.js";
 export type { CrawlResult, CrawlStats, RunManifest } from "./results/types.js";
+export type {
+  MixedAddressPolicy,
+  NetworkSafetyOptions as NetworkSafetyConfig,
+} from "@ismail-elkorchi/http-client";

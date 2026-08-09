@@ -5,7 +5,7 @@ import { HttpFetcher } from "../../http/index.js";
 import { SessionManager } from "../../http/session/index.js";
 import { resolveSessionConfig } from "../../http/session/path.js";
 import type { HttpClient } from "../../http/types.js";
-import { NetworkSafetyPolicy } from "../../network/index.js";
+import { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import { RobotsService } from "../../robots/index.js";
 import { RunController } from "../../runtime/run-controller.js";
 import { createStore } from "../../storage/index.js";
@@ -99,8 +99,7 @@ export function createRuntimeFoundation(
     resolveSessionConfig(identity.config, identity.runId),
   );
   const httpClient =
-    identity.extensions.httpClient ??
-    new HttpFetcher(identity.config, safety, session);
+    identity.extensions.httpClient ?? new HttpFetcher(identity.config, session);
   const robotsFetcher = new RobotsFetcher({
     runId: identity.runId,
     config: identity.config,

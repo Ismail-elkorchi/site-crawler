@@ -1,3 +1,4 @@
+import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { ConfigFingerprints } from "../config/fingerprint.js";
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import type { RunStatus } from "../core/types.js";
@@ -25,6 +26,7 @@ export interface RunFinalizerDependencies {
   readonly store: ResultStore;
   readonly frontier: Frontier;
   readonly httpClient: HttpClient;
+  readonly safety: NetworkSafetyPolicy;
   readonly session: SessionManager;
   readonly resources: ResourceProcessor;
   readonly controller: RunController;
@@ -121,6 +123,7 @@ export class RunFinalizer {
   }
 
   public async closeAuxiliary(): Promise<void> {
+    this.deps.safety.close();
     const operations: Promise<void>[] = [
       this.deps.frontier.close(),
       this.deps.session.close(),

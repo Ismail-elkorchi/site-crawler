@@ -7,7 +7,7 @@ import {
   type EncodingKind,
 } from "../encoding/index.js";
 import type { EncodingFact } from "../encoding/types.js";
-import type { ResponseBody } from "../http/body-types.js";
+import type { ResponseBody } from "@ismail-elkorchi/http-client";
 import type { BodyHash, ResourceType } from "./types.js";
 
 export interface PayloadInspection {

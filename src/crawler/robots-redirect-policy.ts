@@ -1,4 +1,4 @@
-import type { NetworkSafetyPolicy } from "../network/index.js";
+import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { ScopePolicy } from "../url/index.js";
 import type { RedirectTargetDecision } from "./redirect-target-policy.js";
 export class RobotsRedirectPolicy {

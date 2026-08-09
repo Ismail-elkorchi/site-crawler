@@ -6,7 +6,11 @@ import {
 import { validatePersistedRecord } from "../../contracts/catalog.js";
 import path from "node:path";
 import { sha256 } from "../../core/utils.js";
-import { readResponseBody, responseBodySize } from "../body.js";
+import {
+  openResponseBodyFile,
+  readResponseBody,
+  responseBodySize,
+} from "@ismail-elkorchi/http-client";
 import type { FetchResult } from "../types.js";
 import { parseCacheMetadata } from "./metadata.js";
 import { writeCacheFile } from "./storage.js";
@@ -147,16 +151,11 @@ export class HttpCache {
     );
     try {
       await protectPrivateFile(bodyPath);
-      const stat = await fs.stat(bodyPath);
-      if (stat.size !== cached.bodyBytes) {
+      const body = await openResponseBodyFile(bodyPath);
+      if (body.size !== cached.bodyBytes) {
         throw new Error("Cached body size does not match its metadata.");
       }
-      return {
-        kind: "file",
-        path: bodyPath,
-        size: stat.size,
-        temporary: false,
-      };
+      return body;
     } catch (caught) {
       if (isMissingFile(caught)) return null;
       throw caught;

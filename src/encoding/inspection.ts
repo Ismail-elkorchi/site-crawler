@@ -1,8 +1,11 @@
 import { createHash } from "node:crypto";
 import { warning } from "../diagnostics/factory.js";
 import type { CrawlWarning } from "../diagnostics/types.js";
-import type { ResponseBody } from "../http/body-types.js";
-import { responseBodyPrefix, responseBodyStream } from "../http/body.js";
+import type { ResponseBody } from "@ismail-elkorchi/http-client";
+import {
+  responseBodyPrefix,
+  responseBodyStream,
+} from "@ismail-elkorchi/http-client";
 import type { BodyHash } from "../resources/types.js";
 import { detectEncoding, type EncodingKind } from "./detection.js";
 import { selectDecoder } from "./decoder.js";

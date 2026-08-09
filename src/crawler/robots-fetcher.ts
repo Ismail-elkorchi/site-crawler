@@ -1,9 +1,12 @@
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import { makeId, nowIso } from "../core/utils.js";
 import { decodeBody } from "../encoding/index.js";
-import { disposeResponseBody, readResponseBody } from "../http/body.js";
+import {
+  disposeResponseBody,
+  readResponseBody,
+} from "@ismail-elkorchi/http-client";
 import type { HttpClient } from "../http/index.js";
-import type { NetworkSafetyPolicy } from "../network/index.js";
+import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { RobotsFetchResult } from "../robots/policy-types.js";
 import type { CrawlCounters } from "./types.js";
 import type { RedirectTargetDecision } from "./redirect-target-policy.js";
@@ -51,8 +54,10 @@ export class RobotsFetcher {
       signal: this.deps.signal,
       maxRedirects: Math.min(5, this.deps.config.network.maxRedirects),
       responseLimits: {
-        maxCompressedBytes: maxBytes,
-        maxDecompressedBytes: maxBytes,
+        maxWireBytes: maxBytes,
+        maxDecodedBytes: maxBytes,
+        maxContentEncodingLayers:
+          this.deps.config.responseLimits.maxContentEncodingLayers,
         memoryThresholdBytes: maxBytes,
         spoolDirectory: null,
       },

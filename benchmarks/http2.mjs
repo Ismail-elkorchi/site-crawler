@@ -4,9 +4,8 @@ import http2 from "node:http2";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolveConfig } from "../dist/index.js";
-import { disposeResponseBody } from "../dist/http/body.js";
+import { disposeResponseBody } from "@ismail-elkorchi/http-client";
 import { HttpFetcher } from "../dist/http/index.js";
-import { NetworkSafetyPolicy } from "../dist/network/index.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -47,14 +46,11 @@ export async function benchmarkHttp2(requestCount = 100) {
       firstByteTimeoutMs: 5_000,
     },
     responseLimits: {
-      maxCompressedBytes: 1_000_000,
-      maxDecompressedBytes: 1_000_000,
+      maxWireBytes: 1_000_000,
+      maxDecodedBytes: 1_000_000,
     },
   });
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   const startedAt = performance.now();
   try {
     const results = await Promise.all(
@@ -83,7 +79,7 @@ export async function benchmarkHttp2(requestCount = 100) {
       true,
     );
     assert.equal(
-      results.every((result) => result.protocol === "h2"),
+      results.every((result) => result.protocol === "http/2"),
       true,
     );
     assert.equal(

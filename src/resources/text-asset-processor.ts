@@ -1,6 +1,6 @@
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import { decodeResponseBody } from "../encoding/body-decode.js";
-import type { ResponseBody } from "../http/body-types.js";
+import type { ResponseBody } from "@ismail-elkorchi/http-client";
 import type { JavascriptResourceProcessor } from "../javascript/resource-processor.js";
 import type { CrawlRequest } from "../requests/types.js";
 import type { CssResourceProcessor } from "../css/resource-processor.js";

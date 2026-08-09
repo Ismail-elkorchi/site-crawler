@@ -1,6 +1,6 @@
+import { parseContentLength } from "@ismail-elkorchi/http-client";
 import { nowIso } from "../core/utils.js";
 import type { PreparedXmlBody } from "../xml/body.js";
-import { parseContentLength } from "../http/content-length.js";
 import type { PayloadInspection } from "./resource-inspection.js";
 import type { ResourceDecisionInputs } from "./resource-inputs.js";
 import type { CrawledResource, ResourceType } from "./types.js";

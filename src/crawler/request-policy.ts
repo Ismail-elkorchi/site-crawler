@@ -1,6 +1,6 @@
 import type { SkipReason } from "../diagnostics/types.js";
-import type { NetworkSafetyPolicy } from "../network/index.js";
-import type { NetworkSafetyDecision } from "../network/types.js";
+import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
+import type { NetworkSafetyDecision } from "@ismail-elkorchi/http-client";
 import type { CrawlRequest } from "../requests/types.js";
 import type { RobotsService } from "../robots/index.js";
 import type { RobotsDecision } from "../robots/types.js";

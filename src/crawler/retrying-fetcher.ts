@@ -4,7 +4,7 @@ import { crawlError } from "../diagnostics/factory.js";
 import type { CrawlEvent } from "../events/types.js";
 import type { Frontier } from "../frontier/index.js";
 import type { FetchResult, HttpClient } from "../http/index.js";
-import { disposeResponseBody } from "../http/body.js";
+import { disposeResponseBody } from "@ismail-elkorchi/http-client";
 import type { CrawlRequest } from "../requests/types.js";
 import { abortableDelay } from "../runtime/abortable-delay.js";
 import type { ResultStore } from "../storage/index.js";

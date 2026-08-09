@@ -1,8 +1,8 @@
 import { parseStream } from "@ismail-elkorchi/html-parser";
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import type { EncodingFact } from "../encoding/types.js";
-import type { ResponseBody } from "../http/body-types.js";
-import { responseBodyStream } from "../http/body.js";
+import type { ResponseBody } from "@ismail-elkorchi/http-client";
+import { responseBodyStream } from "@ismail-elkorchi/http-client";
 import { extractHtmlTreeFacts } from "./tree-extractor.js";
 import type { HtmlExtractionResult } from "./types.js";
 

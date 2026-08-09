@@ -2,7 +2,7 @@ import { nowIso } from "../core/utils.js";
 import { crawlError } from "../diagnostics/factory.js";
 import type { CrawlError } from "../diagnostics/types.js";
 import type { CrawlEvent } from "../events/types.js";
-import { responseBodySize } from "../http/body.js";
+import { responseBodySize } from "@ismail-elkorchi/http-client";
 import { ExtensionFailure } from "../extensions/failure.js";
 import type { ExtensionRunner } from "../extensions/runner.js";
 import type { ResolvedCrawlerExtensions } from "../extensions/types.js";
@@ -106,7 +106,7 @@ export class RequestHandler {
         lease,
         fetched.statusCode,
         fetched.responseTimeMs,
-        fetched.timings.firstByteMs ?? fetched.responseTimeMs,
+        fetched.timings?.responseFieldsMs ?? fetched.responseTimeMs,
       );
     } catch (caught) {
       if (terminal || caught instanceof TerminalPersistenceError) throw caught;

@@ -1,8 +1,8 @@
 import { decodeBody, TextDecodingError } from "../encoding/index.js";
 import type { EncodingFact } from "../encoding/types.js";
 import type { EvidenceReference } from "../evidence/types.js";
-import type { ResponseBody } from "../http/body-types.js";
-import { readResponseBody } from "../http/body.js";
+import type { ResponseBody } from "@ismail-elkorchi/http-client";
+import { readResponseBody } from "@ismail-elkorchi/http-client";
 import type { CrawlRequest } from "../requests/types.js";
 import type { ResourceType } from "../resources/types.js";
 import type { ParserDiagnostic } from "../core/types.js";

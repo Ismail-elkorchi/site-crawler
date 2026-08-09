@@ -6,7 +6,12 @@ import { resolveConfig } from "../dist/index.js";
 import { zeroCounters } from "../dist/crawler/run-records.js";
 import { RetryingFetcher } from "../dist/crawler/retrying-fetcher.js";
 import { SiteCrawler } from "../dist/index.js";
-import { disposeResponseBody, responseBodyStream } from "../dist/http/body.js";
+import {
+  collectResponseBody,
+  disposeResponseBody,
+  openResponseBodyFile,
+  responseBodyStream,
+} from "@ismail-elkorchi/http-client";
 import { RunController } from "../dist/runtime/run-controller.js";
 import { MemoryStore } from "../dist/storage/memory-store.js";
 import { ScopePolicy } from "../dist/url/scope-policy.js";
@@ -216,8 +221,10 @@ test("XML decoding and budget failures retain structured failure state", async (
 
 test("retrying a file-backed response always disposes the discarded body", async () => {
   const root = await temporaryDirectory("site-crawler-retry-body-");
-  const discarded = path.join(root, "discarded.body");
-  await fs.writeFile(discarded, "retry", { mode: 0o600 });
+  const firstBody = await collectedBody(root, "retry", 0);
+  assert.equal(firstBody.kind, "file");
+  const discarded = firstBody.path;
+  const successfulBody = await collectedBody(root, "", 1);
   let calls = 0;
   const retrying = retryingFetcher({
     fetcher: {
@@ -226,9 +233,7 @@ test("retrying a file-backed response always disposes the discarded body", async
         return fetchResult(
           url,
           calls === 1 ? 503 : 200,
-          calls === 1
-            ? { kind: "file", path: discarded, size: 5, temporary: true }
-            : { kind: "memory", bytes: new Uint8Array(), size: 0 },
+          calls === 1 ? firstBody : successfulBody,
         );
       },
     },
@@ -252,17 +257,13 @@ test("retrying a file-backed response always disposes the discarded body", async
     assert.equal(calls, 2);
     await assert.rejects(fs.access(discarded));
 
-    const persistenceFailureBody = path.join(root, "persistence-failure.body");
-    await fs.writeFile(persistenceFailureBody, "retry", { mode: 0o600 });
+    const persistenceFailure = await collectedBody(root, "retry", 0);
+    assert.equal(persistenceFailure.kind, "file");
+    const persistenceFailureBody = persistenceFailure.path;
     const failing = retryingFetcher({
       fetcher: {
         async fetch(url) {
-          return fetchResult(url, 503, {
-            kind: "file",
-            path: persistenceFailureBody,
-            size: 5,
-            temporary: true,
-          });
+          return fetchResult(url, 503, persistenceFailure);
         },
       },
       store: {
@@ -296,12 +297,8 @@ test("file response streams pull on demand and cancel without draining", async (
   const file = path.join(root, "large.body");
   const size = 1024 * 1024;
   await fs.writeFile(file, Buffer.alloc(size, 0x61), { mode: 0o600 });
-  const reader = responseBodyStream({
-    kind: "file",
-    path: file,
-    size,
-    temporary: false,
-  }).getReader();
+  const body = await openResponseBodyFile(file);
+  const reader = responseBodyStream(body).getReader();
   try {
     const first = await reader.read();
     assert.equal(first.done, false);
@@ -313,6 +310,22 @@ test("file response streams pull on demand and cancel without draining", async (
     await fs.rm(root, { recursive: true, force: true });
   }
 });
+
+async function collectedBody(directory, text, memoryThresholdBytes) {
+  const bytes = new TextEncoder().encode(text);
+  return await collectResponseBody(
+    new ReadableStream({
+      start(controller) {
+        controller.enqueue(bytes);
+        controller.close();
+      },
+    }),
+    {
+      maxBytes: bytes.byteLength,
+      storage: { memoryThresholdBytes, spoolDirectory: directory },
+    },
+  );
+}
 
 test("link caps count valid candidates and preserve empty href semantics", async () => {
   const fixture = await listen((request, response) => {
@@ -490,13 +503,11 @@ function fetchResult(url, statusCode, body) {
     wireBytesRead: body.size,
     decodedBytesRead: body.size,
     remoteAddress: "127.0.0.1",
-    protocol: "http1.1",
+    protocol: "http/1.1",
     timings: {
       dnsMs: null,
-      connectMs: null,
-      tlsMs: null,
-      firstByteMs: 1,
-      bodyMs: 0,
+      responseFieldsMs: 1,
+      responseBodyMs: 0,
       totalMs: 1,
     },
     tls: null,

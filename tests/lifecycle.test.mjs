@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { SiteCrawler } from "../dist/index.js";
 import { resolveConfig } from "../dist/index.js";
 import { crawlError } from "../dist/diagnostics/factory.js";
+import { composeCrawlerRuntime } from "../dist/crawler/runtime/composition.js";
 import { RuntimeFinalization } from "../dist/crawler/runtime/finalization.js";
 import { zeroCounters } from "../dist/crawler/run-records.js";
 import { RunController } from "../dist/runtime/run-controller.js";
@@ -161,6 +162,26 @@ test("HTTP client and renderer close failures change the final run status", asyn
   assert.equal(result.status, "failed");
   assert.equal(result.fatalError?.code, "INTERNAL_ERROR");
   assert.match(result.fatalError?.causeMessage ?? "", /shutdown failed/u);
+});
+
+test("runtime finalization closes its network safety policy", async () => {
+  const runtime = composeCrawlerRuntime(
+    crawlInput("https://example.com/", {
+      robots: { enabled: false },
+      sitemaps: { enabled: false },
+      storage: { type: "memory" },
+    }),
+    undefined,
+  );
+  try {
+    await runtime.finalizer.closeAuxiliary();
+    await assert.rejects(
+      runtime.safety.decide("https://example.com/"),
+      /policy is closed/u,
+    );
+  } finally {
+    await runtime.store.close();
+  }
 });
 
 test("frontier auxiliary close failure changes finalization to failed", async () => {

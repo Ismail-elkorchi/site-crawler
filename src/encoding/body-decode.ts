@@ -1,5 +1,5 @@
-import type { ResponseBody } from "../http/body-types.js";
-import { responseBodyPrefix } from "../http/body.js";
+import type { ResponseBody } from "@ismail-elkorchi/http-client";
+import { responseBodyPrefix } from "@ismail-elkorchi/http-client";
 import { decodeBody, type DecodedBody, type DecodingPolicy } from "./index.js";
 import type { EncodingKind } from "./detection.js";
 

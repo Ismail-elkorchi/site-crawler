@@ -1,10 +1,10 @@
+import type { NetworkSafetyOptions } from "@ismail-elkorchi/http-client";
 import type { CssDiscoveryConfig } from "../css/types.js";
 import type { HtmlParsingConfig } from "../html/config-types.js";
 import type { HttpCacheConfig } from "../http/cache/types.js";
 import type { NetworkConfig, ResponseLimits } from "../http/types.js";
 import type { SessionConfig } from "../http/session/types.js";
 import type { JsDiscoveryConfig } from "../javascript/types.js";
-import type { NetworkSafetyConfig } from "../network/types.js";
 import type { RenderingConfig } from "../rendering/types.js";
 import type { CrawlSeedInput, ResolvedSeed } from "../requests/types.js";
 import type { RobotsConfig } from "../robots/types.js";
@@ -55,7 +55,7 @@ export interface CrawlConfig {
   readonly seeds: readonly CrawlSeedInput[];
   readonly scope?: Partial<ScopeConfig>;
   readonly limits?: CrawlLimitsInput;
-  readonly networkSafety?: Partial<NetworkSafetyConfig>;
+  readonly networkSafety?: Partial<NetworkSafetyOptions>;
   readonly robots?: Partial<RobotsConfig>;
   readonly sitemaps?: Partial<SitemapConfig>;
   readonly feeds?: Partial<FeedConfig>;
@@ -78,7 +78,7 @@ export interface ResolvedCrawlConfig {
   readonly seedUrls: readonly string[];
   readonly scope: ScopeConfig;
   readonly limits: CrawlLimits;
-  readonly networkSafety: NetworkSafetyConfig;
+  readonly networkSafety: NetworkSafetyOptions;
   readonly robots: RobotsConfig;
   readonly sitemaps: SitemapConfig;
   readonly feeds: FeedConfig;

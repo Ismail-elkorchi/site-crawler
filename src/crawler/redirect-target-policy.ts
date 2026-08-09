@@ -1,4 +1,4 @@
-import type { NetworkSafetyPolicy } from "../network/index.js";
+import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { RobotsService } from "../robots/index.js";
 import type { ScopePolicy } from "../url/index.js";
 import type { CrawlCounters } from "./types.js";

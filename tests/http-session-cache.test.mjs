@@ -5,10 +5,12 @@ import path from "node:path";
 import { test } from "node:test";
 import { resolveConfig } from "../dist/index.js";
 import { SiteCrawler } from "../dist/index.js";
-import { disposeResponseBody, readResponseBody } from "../dist/http/body.js";
+import {
+  disposeResponseBody,
+  readResponseBody,
+} from "@ismail-elkorchi/http-client";
 import { HttpFetcher } from "../dist/http/index.js";
 import { SessionManager } from "../dist/http/session/manager.js";
-import { NetworkSafetyPolicy } from "../dist/network/index.js";
 import {
   closeServer,
   crawlInput,
@@ -41,8 +43,8 @@ function transportConfig(overrides = {}) {
       ...overrides.network,
     },
     responseLimits: {
-      maxCompressedBytes: 2_000_000,
-      maxDecompressedBytes: 2_000_000,
+      maxWireBytes: 2_000_000,
+      maxDecodedBytes: 2_000_000,
       memoryThresholdBytes: 1_024,
       ...overrides.responseLimits,
     },
@@ -65,10 +67,7 @@ test("HTTP/2 transport negotiates a secure local session", async () => {
   const address = server.address();
   assert.equal(typeof address, "object");
   const config = transportConfig({ network: { protocolPreference: "http2" } });
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`https://127.0.0.1:${address.port}/`, {
       requestId: "request_h2",
@@ -77,14 +76,14 @@ test("HTTP/2 transport negotiates a secure local session", async () => {
       onRedirectTarget: redirectDecision,
     });
     assert.equal(result.error, null);
-    assert.equal(result.protocol, "h2");
+    assert.equal(result.protocol, "http/2");
     assert.equal(result.statusCode, 200);
     assert.notEqual(result.body, null);
     assert.equal(
       new TextDecoder().decode(await readResponseBody(result.body)),
       "h2 response",
     );
-    assert.equal(result.timings.firstByteMs !== null, true);
+    assert.equal((result.timings?.responseFieldsMs ?? -1) >= 0, true);
     await disposeResponseBody(result.body);
   } finally {
     await client.close();
@@ -103,10 +102,7 @@ test("large decoded responses spool to disk and can be disposed", async () => {
     network: { protocolPreference: "http1" },
     responseLimits: { memoryThresholdBytes: 512, spoolDirectory: spool },
   });
-  const client = new HttpFetcher(
-    config,
-    new NetworkSafetyPolicy(config.networkSafety),
-  );
+  const client = new HttpFetcher(config);
   try {
     const result = await client.fetch(`${fixture.origin}/asset.bin`, {
       requestId: "request_spool",

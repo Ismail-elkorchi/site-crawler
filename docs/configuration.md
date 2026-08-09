@@ -21,8 +21,8 @@ const crawler = new SiteCrawler({
     requestTimeoutMs: 30_000,
   },
   responseLimits: {
-    maxCompressedBytes: 5 * 1024 * 1024,
-    maxDecompressedBytes: 10 * 1024 * 1024,
+    maxWireBytes: 5 * 1024 * 1024,
+    maxDecodedBytes: 10 * 1024 * 1024,
     memoryThresholdBytes: 1024 * 1024,
   },
   storage: { type: "sqlite", directory: "./runs" },

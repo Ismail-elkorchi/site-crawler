@@ -20,6 +20,8 @@ export function assertNetworkSafety(value: unknown, name: string): void {
       "mixedAddressPolicy",
       "dnsTimeoutMs",
       "dnsCacheTtlMs",
+      "maxDnsCacheEntries",
+      "addressAttemptDelayMs",
     ],
     name,
   );
@@ -28,6 +30,8 @@ export function assertNetworkSafety(value: unknown, name: string): void {
   optional(value, "mixedAddressPolicy", assertMixedPolicy, name);
   optional(value, "dnsTimeoutMs", assertInteger, name);
   optional(value, "dnsCacheTtlMs", assertInteger, name);
+  optional(value, "maxDnsCacheEntries", assertInteger, name);
+  optional(value, "addressAttemptDelayMs", assertInteger, name);
 }
 
 export function assertNetwork(value: unknown, name: string): void {
@@ -78,15 +82,17 @@ export function assertResponseLimits(value: unknown, name: string): void {
   assertKnownKeys(
     value,
     [
-      "maxCompressedBytes",
-      "maxDecompressedBytes",
+      "maxWireBytes",
+      "maxDecodedBytes",
+      "maxContentEncodingLayers",
       "memoryThresholdBytes",
       "spoolDirectory",
     ],
     name,
   );
-  optional(value, "maxCompressedBytes", assertInteger, name);
-  optional(value, "maxDecompressedBytes", assertInteger, name);
+  optional(value, "maxWireBytes", assertInteger, name);
+  optional(value, "maxDecodedBytes", assertInteger, name);
+  optional(value, "maxContentEncodingLayers", assertInteger, name);
   optional(value, "memoryThresholdBytes", assertInteger, name);
   const spool = value["spoolDirectory"];
   if (spool !== undefined && spool !== null && typeof spool !== "string") {
