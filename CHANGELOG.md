@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Fixed reentrant enqueue and skip hooks by notifying after admission accounting and reservations commit.
+- Consolidated admission coordination in the scheduler while retaining frontier and scope policy boundaries.
+- Made fatal errors, cancellation, and hard limits take precedence over soft admission limits.
+- Removed duplicate session-cookie validation.
+
 ## 0.1.0
 
 - Added strict TypeScript crawler, CLI, durable memory/filesystem/SQLite frontiers, and typed result storage.

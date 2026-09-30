@@ -38,7 +38,29 @@ export class SkipRecorder {
     policyName: string | null,
     detail: string | null,
   ): Promise<void> {
-    await this.record({
+    await this.record(
+      this.createRecord(
+        rawUrl,
+        referrerUrl,
+        resolvedUrl,
+        normalizedUrl,
+        reason,
+        policyName,
+        detail,
+      ),
+    );
+  }
+
+  public createRecord(
+    rawUrl: string,
+    referrerUrl: string | null,
+    resolvedUrl: string | null,
+    normalizedUrl: string | null,
+    reason: SkippedUrl["reason"],
+    policyName: string | null,
+    detail: string | null,
+  ): SkippedUrl {
+    return {
       schemaId: "site-crawler.skippedUrl",
       schemaVersion: 1,
       runId: this.deps.runId,
@@ -50,15 +72,23 @@ export class SkipRecorder {
       policyName,
       detail,
       createdAt: nowIso(),
-    });
+    };
   }
 
   public async record(skipped: SkippedUrl): Promise<void> {
+    await this.persist(skipped);
+    await this.notify(skipped);
+  }
+
+  public async persist(skipped: SkippedUrl): Promise<void> {
     this.deps.counters.urlsSkipped += 1;
     incrementPolicyCounter(this.deps.counters, skipped.reason);
     if (this.deps.writeSkippedUrls) {
       await this.deps.store.writeSkipped(skipped);
     }
+  }
+
+  public async notify(skipped: SkippedUrl): Promise<void> {
     this.deps.emit({
       type: "request-skipped",
       runId: this.deps.runId,

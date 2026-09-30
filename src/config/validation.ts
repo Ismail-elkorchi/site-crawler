@@ -140,22 +140,6 @@ export function validateConfig(
     "cssDiscovery.maxUrlsPerStylesheet",
   );
   positive(config.httpCache.maxBodyBytes, "httpCache.maxBodyBytes");
-  if (config.session.persistCookies && !config.session.enabled) {
-    throw new Error(
-      "session.persistCookies requires session.enabled to be true.",
-    );
-  }
-  if (config.session.persistCookies && config.storage.type === "memory") {
-    throw new Error(
-      "Persistent cookies require filesystem-backed crawl storage.",
-    );
-  }
-  if (
-    config.session.cookieFile !== null &&
-    config.session.cookieFile.trim().length === 0
-  ) {
-    throw new Error("session.cookieFile must not be empty.");
-  }
   nonNegative(
     config.jsDiscovery.maxUrlsPerScript,
     "jsDiscovery.maxUrlsPerScript",

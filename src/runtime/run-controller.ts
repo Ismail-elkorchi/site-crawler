@@ -174,8 +174,14 @@ export class RunController {
   }
 
   private setStop(detail: StopDetail, abortActive: boolean): void {
-    if (this.stopValue === null || detail.kind === "fatal")
+    // Stronger stops win; retain equal-priority reasons except for fatal errors.
+    if (
+      this.stopValue === null ||
+      detail.kind === "fatal" ||
+      stopPriority(detail) > stopPriority(this.stopValue)
+    ) {
       this.stopValue = detail;
+    }
     if (this.phaseValue === "running") this.phaseValue = "stopping";
     if (abortActive && !this.abortController.signal.aborted) {
       this.abortController.abort(detail);
@@ -189,5 +195,19 @@ export class RunController {
       );
     }
     this.phaseValue = next;
+  }
+}
+
+// Fatal > cancellation > hard limit > soft limit > frontier completion.
+function stopPriority(detail: StopDetail): number {
+  switch (detail.kind) {
+    case "fatal":
+      return 4;
+    case "cancelled":
+      return 3;
+    case "limit":
+      return SOFT_LIMITS.has(detail.limit) ? 1 : 2;
+    case "frontier-empty":
+      return 0;
   }
 }
