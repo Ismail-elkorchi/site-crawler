@@ -14,7 +14,7 @@ export function discoverSrcdocUrls(
   const srcdoc = getUnnamespacedAttribute(node, "srcdoc");
   if (srcdoc === null || srcdoc.length > config.parsing.html.maxInputBytes)
     return [];
-  const fragment = parseFragment(
+  const { tree: fragment } = parseFragment(
     srcdoc,
     {
       namespaceUri: HTML_NAMESPACE_URI,

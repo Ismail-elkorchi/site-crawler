@@ -8,48 +8,6 @@ import {
   stringField,
 } from "../validation/primitives.js";
 
-const unusedCodes: readonly CrawlErrorCode[] = [
-  "CONFIG_ERROR",
-  "URL_PARSE_ERROR",
-  "UNSUPPORTED_PROTOCOL",
-  "SCOPE_REJECTED",
-  "ROBOTS_DISALLOWED",
-  "ROBOTS_FETCH_FAILED",
-  "ROBOTS_PARSE_ERROR",
-  "NETWORK_SAFETY_REJECTED",
-  "DNS_ERROR",
-  "TLS_ERROR",
-  "FETCH_TIMEOUT",
-  "FETCH_ABORTED",
-  "FETCH_NETWORK_ERROR",
-  "FETCH_DECOMPRESSION_ERROR",
-  "UNSUPPORTED_CONTENT_ENCODING",
-  "HTTP_ERROR",
-  "TOO_MANY_REDIRECTS",
-  "REDIRECT_LOOP",
-  "REDIRECT_TARGET_REJECTED",
-  "RESPONSE_TOO_LARGE",
-  "DECOMPRESSED_RESPONSE_TOO_LARGE",
-  "UNSUPPORTED_CONTENT_TYPE",
-  "DECODE_ERROR",
-  "HTML_PARSE_ERROR",
-  "HTML_BUDGET_EXCEEDED",
-  "XML_PARSE_ERROR",
-  "XML_BUDGET_EXCEEDED",
-  "SITEMAP_FETCH_FAILED",
-  "SITEMAP_PARSE_ERROR",
-  "FEED_PARSE_ERROR",
-  "RENDER_TIMEOUT",
-  "RENDER_ERROR",
-  "STORAGE_WRITE_ERROR",
-  "FRONTIER_JOURNAL_ERROR",
-  "SNAPSHOT_WRITE_ERROR",
-  "EXTENSION_ERROR",
-  "RESUME_ERROR",
-  "INTERNAL_ERROR",
-];
-void unusedCodes;
-
 export function parseCrawlError(value: unknown): CrawlError | null {
   if (value === null) return null;
   const input = record(value, "crawl error");

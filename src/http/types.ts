@@ -9,8 +9,7 @@ import type {
 import type { CrawlError } from "../diagnostics/types.js";
 import type { RequestMethod } from "../requests/types.js";
 import type { RedirectHop } from "../resources/types.js";
-import type { CacheStatus, HttpCacheConfig } from "./cache/types.js";
-import type { SessionConfig } from "./session/types.js";
+import type { CacheStatus } from "./cache/types.js";
 
 export interface ResponseLimits
   extends ResponseTransferLimits, ResponseStorageOptions {}
@@ -82,11 +81,4 @@ export interface NetworkConfig {
   readonly rejectUnauthorized: boolean;
   readonly autoThrottle: AutoThrottleConfig;
   readonly headers: Readonly<Record<string, string>>;
-}
-
-export interface HttpRuntimeConfig {
-  readonly network: NetworkConfig;
-  readonly responseLimits: ResponseLimits;
-  readonly session: SessionConfig;
-  readonly httpCache: HttpCacheConfig;
 }

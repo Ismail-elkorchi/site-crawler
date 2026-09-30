@@ -8,7 +8,7 @@ import type { CrawlRequest } from "../requests/types.js";
 import type { CrawledResource } from "../resources/types.js";
 import type { CrawlResult, SkippedUrl } from "../results/types.js";
 import type { CrawledXmlResource } from "../xml/types.js";
-import type { CrawlerContext, RequestOutcome } from "../crawler/types.js";
+import type { CrawlerContext } from "../crawler/types.js";
 export type ExtensionFailureMode = "record" | "fail-request" | "fail-run";
 export type RequestMiddlewareDecision =
   | { readonly kind: "continue" }
@@ -107,8 +107,4 @@ export interface ResolvedCrawlerExtensions {
   readonly middlewares: CrawlerMiddlewares;
   readonly failureMode: ExtensionFailureMode;
   readonly eventBufferCapacity: number;
-}
-export interface ExtensionRequestFailure {
-  readonly kind: "request-failure";
-  readonly outcome: RequestOutcome;
 }

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Updated production and development dependencies to current stable releases, retaining TypeScript 6.0.3 until the lint tooling supports TypeScript 7.
+- Adopted the current HTML fragment result tree contract for iframe srcdoc discovery.
+- Removed unused internal runtime/configuration types and the unused UTF-16 truncation helper.
+
 - Fixed reentrant enqueue and skip hooks by notifying after admission accounting and reservations commit.
 - Consolidated admission coordination in the scheduler while retaining frontier and scope policy boundaries.
 - Made fatal errors, cancellation, and hard limits take precedence over soft admission limits.

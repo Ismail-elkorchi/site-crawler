@@ -29,16 +29,6 @@ export function errorMessage(error: unknown): string {
 export function errorName(error: unknown): string {
   return error instanceof Error ? error.name : typeof error;
 }
-export function truncateUtf16(
-  input: string,
-  maxChars: number,
-): {
-  readonly text: string;
-  readonly truncated: boolean;
-} {
-  if (input.length <= maxChars) return { text: input, truncated: false };
-  return { text: input.slice(0, maxChars), truncated: true };
-}
 export function globishToRegExp(pattern: string): RegExp {
   const escaped = pattern
     .replace(/[|\\{}()[\]^$+?.]/g, "\\$&")

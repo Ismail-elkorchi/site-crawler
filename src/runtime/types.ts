@@ -25,9 +25,3 @@ export type StopDetail =
   | { readonly kind: "limit"; readonly limit: LimitReason }
   | { readonly kind: "cancelled"; readonly reason: string }
   | { readonly kind: "fatal"; readonly error: CrawlError };
-
-export interface RunSnapshot {
-  readonly phase: RunPhase;
-  readonly stopDetail: StopDetail | null;
-  readonly activeRequests: number;
-}

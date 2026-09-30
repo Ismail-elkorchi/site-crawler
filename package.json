@@ -89,19 +89,19 @@
     "benchmark:load": "npm run build && node benchmarks/load.mjs"
   },
   "dependencies": {
-    "@ismail-elkorchi/html-parser": "0.2.0",
-    "@ismail-elkorchi/http-client": "^0.1.0",
+    "@ismail-elkorchi/html-parser": "0.2.1",
+    "@ismail-elkorchi/http-client": "^0.1.1",
     "@ismail-elkorchi/xml-parser": "0.2.0",
-    "acorn": "^8.17.0",
-    "playwright-core": "^1.61.1",
+    "acorn": "^8.18.0",
+    "playwright-core": "^1.63.0",
     "tough-cookie": "^6.0.2"
   },
   "devDependencies": {
-    "@types/node": "^24.13.2",
-    "eslint": "^10.8.0",
-    "prettier": "^3.9.5",
+    "@types/node": "^26.6.3",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.65.0"
+    "typescript-eslint": "^8.71.0"
   },
   "engines": {
     "node": ">=24.0.0",
