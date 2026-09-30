@@ -187,6 +187,24 @@ export class HttpFetcher implements HttpClient {
             startedAt,
           );
         }
+        if (decision?.rejectionKind === "dns") {
+          return withDuration(
+            {
+              ...failure(
+                "DNS_ERROR",
+                decision.reason ?? "Redirect target DNS lookup failed",
+                target.url,
+                options.requestId,
+                null,
+                result.headers,
+                undefined,
+                true,
+              ),
+              redirects,
+            },
+            startedAt,
+          );
+        }
         if (decision?.allowed !== true) {
           return withDuration(
             redirectFailure(

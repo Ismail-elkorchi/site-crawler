@@ -84,6 +84,7 @@ export class RunFinalizer {
       this.deps.controller.stopReason(),
       fatalError,
       this.deps.counters.requestsFailed,
+      this.deps.counters.requestsFetched,
     );
     const manifest = this.manifest(
       status,
@@ -148,9 +149,11 @@ function statusForRun(
   stopReason: CrawlResult["stopReason"],
   fatal: CrawlError | null,
   requestsFailed: number,
+  requestsFetched: number,
 ): RunStatus {
   if (fatal !== null || stopReason === "fatal_error") return "failed";
   if (stopReason === "aborted") return "aborted";
   if (stopReason === "limit_reached") return "stopped_by_limit";
-  return requestsFailed > 0 ? "partial" : "completed";
+  if (requestsFailed === 0) return "completed";
+  return requestsFetched === 0 ? "failed" : "partial";
 }

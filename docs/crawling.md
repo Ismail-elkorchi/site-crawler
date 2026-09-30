@@ -73,3 +73,31 @@ Failure modes are:
 Explicit cancellation aborts active work and terminalizes affected leases as cancelled. Limit shutdown is different: it stops admission without discarding the response that crossed the boundary.
 
 During finalization, queued events and hooks are drained, auxiliary clients are closed, the final manifest and stats are persisted, and then `run-finished` is emitted. Failures during close or persistence change the final status instead of being ignored.
+
+## Request failures and empty crawls
+
+DNS resolution failures are operational `DNS_ERROR` failures, not network-safety
+policy rejections. DNS preflight and HTTP attempts share `network.retries` and
+backoff. Exhausted DNS failures increment `requestsFailed` and
+`requestsTransportFailed`; they do not increment `requestsPolicySkipped` or
+`networkSafetyRejectedUrls`. Private/blocked addresses still produce policy skips,
+without transport access. Redirect target DNS failures also retain `DNS_ERROR`
+and retryability instead of being counted as blocked redirects; genuine redirect
+policy rejections remain `REDIRECT_TARGET_REJECTED`. Custom redirect deciders
+return `rejectionKind: "dns" | "policy" | null`. Cancellation during DNS resolution or retry backoff
+cancels the request rather than failing it.
+
+The current HTTP dependency exposes DNS failures without the underlying resolver
+error code, so the crawler applies the same bounded DNS retry policy to temporary
+and persistent failures. Its configured DNS cache also retains negative answers:
+a retry before cache expiry may reuse a failed answer. A retry therefore does not
+guarantee a fresh DNS lookup. The crawler preserves `networkSafety.dnsCacheTtlMs`
+and does not bypass address checks or replace the shared cache.
+
+A frontier-exhausted run with request failures and no fetched resources is
+`failed`, with `fatalError: null` unless a separate fatal error occurred. A run
+with both fetched resources and failed requests is `partial`. A run that only
+skips URLs by policy remains `completed`. `summary.md` reports transport failures,
+policy skips, safety rejections, cancellations and retries, and explicitly
+explains zero-fetch outcomes. `errors.ndjson` and `skipped.ndjson` (when enabled)
+contain per-request failure and rejection details.

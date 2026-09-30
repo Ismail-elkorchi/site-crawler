@@ -11,7 +11,7 @@ export function failure(
   headers: Headers,
   cause?: unknown,
   retryable = false,
-): FetchResult {
+): FetchResult & { readonly error: CrawlError } {
   return {
     statusCode,
     finalUrl: null,

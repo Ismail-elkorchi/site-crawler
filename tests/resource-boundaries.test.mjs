@@ -253,7 +253,8 @@ test("retrying a file-backed response always disposes the discarded body", async
       },
       new AbortController().signal,
     );
-    assert.equal(result.statusCode, 200);
+    assert.equal(result.kind, "fetched");
+    assert.equal(result.result.statusCode, 200);
     assert.equal(calls, 2);
     await assert.rejects(fs.access(discarded));
 
@@ -518,6 +519,11 @@ function fetchResult(url, statusCode, body) {
 
 function retryingFetcher({ fetcher, store }) {
   return new RetryingFetcher({
+    policy: {
+      async decide() {
+        return { kind: "allow" };
+      },
+    },
     runId: "run_retry",
     config: resolveConfig({
       seeds: ["https://example.com/"],

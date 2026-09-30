@@ -1,6 +1,7 @@
 import type { ResolvedCrawlConfig } from "../config/types.js";
 import { nowIso } from "../core/utils.js";
 import { crawlError } from "../diagnostics/factory.js";
+import type { CrawlError } from "../diagnostics/types.js";
 import type { CrawlEvent } from "../events/types.js";
 import type { Frontier } from "../frontier/index.js";
 import type { FetchResult, HttpClient } from "../http/index.js";
@@ -9,10 +10,31 @@ import type { CrawlRequest } from "../requests/types.js";
 import { abortableDelay } from "../runtime/abortable-delay.js";
 import type { ResultStore } from "../storage/index.js";
 import type { RedirectTargetPolicy } from "./redirect-target-policy.js";
+import { failure } from "../http/result-factory.js";
+import type {
+  RequestPolicyDecision,
+  RequestPolicyRunner,
+} from "./request-policy.js";
 import type { SeedResolver } from "./seed-resolver.js";
 import type { CrawlCounters } from "./types.js";
 
+export type RequestFetchOutcome =
+  | {
+      readonly kind: "skip";
+      readonly policy: Extract<RequestPolicyDecision, { kind: "skip" }>;
+    }
+  | {
+      readonly kind: "failed";
+      readonly result: FetchResult & { readonly error: CrawlError };
+    }
+  | {
+      readonly kind: "fetched";
+      readonly result: FetchResult;
+      readonly policy: Extract<RequestPolicyDecision, { kind: "allow" }>;
+    };
+
 export interface RetryingFetcherDependencies {
+  readonly policy: RequestPolicyRunner;
   readonly runId: string;
   readonly config: ResolvedCrawlConfig;
   readonly fetcher: HttpClient;
@@ -34,29 +56,20 @@ export class RetryingFetcher {
   public async fetch(
     request: CrawlRequest,
     signal: AbortSignal,
-  ): Promise<FetchResult> {
+  ): Promise<RequestFetchOutcome> {
     let attempt = 0;
     while (true) {
-      const result = await this.deps.fetcher.fetch(request.normalizedUrl, {
-        requestId: request.id,
-        method: request.method,
-        headers: request.headers,
-        signal,
-        onRedirectTarget: (targetUrl) =>
-          this.deps.redirects.decide(
-            targetUrl,
-            request.depth,
-            this.deps.seeds.forRequest(request)?.normalizedUrl ??
-              request.normalizedUrl,
-          ),
-      });
+      signal.throwIfAborted();
+      const outcome = await this.fetchAttempt(request, signal);
+      if (outcome.kind === "skip") return outcome;
+      const result = outcome.result;
       if (signal.aborted || result.error?.code === "FETCH_ABORTED") {
-        return result;
+        return outcome;
       }
       const statusCode = result.statusCode ?? 0;
       const retryable =
         result.error?.retryable === true || isRetryableStatus(statusCode);
-      if (!retryable || attempt >= request.maxRetries) return result;
+      if (!retryable || attempt >= request.maxRetries) return outcome;
       try {
         const delayMs = this.retryDelayMs(
           result.headers.get("retry-after"),
@@ -91,6 +104,46 @@ export class RetryingFetcher {
         await disposeResponseBody(result.body);
       }
     }
+  }
+
+  private async fetchAttempt(
+    request: CrawlRequest,
+    signal: AbortSignal,
+  ): Promise<RequestFetchOutcome> {
+    const policy = await this.deps.policy.decide(request, signal);
+    if (policy.kind === "skip") return { kind: "skip", policy };
+    if (policy.kind === "fail") {
+      return {
+        kind: "failed",
+        result: failure(
+          policy.error.code,
+          policy.error.message,
+          request.normalizedUrl,
+          request.id,
+          null,
+          new Headers(),
+          undefined,
+          policy.error.retryable,
+        ),
+      };
+    }
+    const result = await this.deps.fetcher.fetch(request.normalizedUrl, {
+      requestId: request.id,
+      method: request.method,
+      headers: request.headers,
+      signal,
+      onRedirectTarget: (targetUrl) =>
+        this.deps.redirects.decide(
+          targetUrl,
+          request.depth,
+          this.deps.seeds.forRequest(request)?.normalizedUrl ??
+            request.normalizedUrl,
+          signal,
+        ),
+    });
+    return result.error === null
+      ? { kind: "fetched", result, policy }
+      : { kind: "failed", result: { ...result, error: result.error } };
   }
 
   private retryDelayMs(retryAfter: string | null, attempt: number): number {

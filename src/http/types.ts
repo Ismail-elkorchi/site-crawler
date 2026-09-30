@@ -15,6 +15,7 @@ export interface ResponseLimits
   extends ResponseTransferLimits, ResponseStorageOptions {}
 
 export interface RedirectTargetDecision {
+  readonly rejectionKind: "dns" | "policy" | null;
   readonly allowed: boolean;
   readonly reason: string | null;
   readonly scopeAllowed: boolean | null;

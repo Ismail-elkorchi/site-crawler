@@ -9,11 +9,15 @@ import type { HttpClient } from "../http/index.js";
 import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { RobotsFetchResult } from "../robots/policy-types.js";
 import type { CrawlCounters } from "./types.js";
-import type { RedirectTargetDecision } from "./redirect-target-policy.js";
+import type { RedirectTargetDecision } from "../http/types.js";
 import type { SeedResolver } from "./seed-resolver.js";
 
 export interface RobotsRedirectDecider {
-  decide(targetUrl: string, seedUrl: string): Promise<RedirectTargetDecision>;
+  decide(
+    targetUrl: string,
+    seedUrl: string,
+    signal: AbortSignal,
+  ): Promise<RedirectTargetDecision>;
 }
 
 export interface RobotsFetcherDependencies {
@@ -36,7 +40,7 @@ export class RobotsFetcher {
 
   public async fetch(url: string): Promise<RobotsFetchResult> {
     const fetchedAt = nowIso();
-    const safety = await this.deps.safety.decide(url);
+    const safety = await this.deps.safety.decide(url, this.deps.signal);
     if (!safety.allowed) {
       return this.failure(
         url,
@@ -62,7 +66,7 @@ export class RobotsFetcher {
         spoolDirectory: null,
       },
       onRedirectTarget: (targetUrl) =>
-        this.deps.redirects.decide(targetUrl, seedUrl),
+        this.deps.redirects.decide(targetUrl, seedUrl, this.deps.signal),
     });
     this.deps.counters.robotsFilesFetched += 1;
     if (result.error !== null || result.body === null) {

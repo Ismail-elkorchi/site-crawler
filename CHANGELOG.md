@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Classified request and redirect-preflight DNS failures as operational errors with a shared bounded retry budget, preserving genuine network-safety policy rejections.
+- Reported zero-fetch request failures as failed runs and explained empty/all-skipped results in crawl summaries.
+
 - Updated production and development dependencies to current stable releases, retaining TypeScript 6.0.3 until the lint tooling supports TypeScript 7.
 - Adopted the current HTML fragment result tree contract for iframe srcdoc discovery.
 - Removed unused internal runtime/configuration types and the unused UTF-16 truncation helper.

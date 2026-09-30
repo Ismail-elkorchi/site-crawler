@@ -229,11 +229,43 @@ function summaryMarkdown(result: CrawlResult): string {
     `- Scheduled requests: ${stats.requestsScheduled}`,
     `- Fetched resources: ${stats.requestsFetched}`,
     `- Failed requests: ${stats.requestsFailed}`,
+    `- Transport failures (including DNS): ${stats.requestsTransportFailed}`,
+    `- Policy-skipped requests: ${stats.requestsPolicySkipped}`,
+    `- Skipped URLs: ${stats.urlsSkipped}`,
+    `- Network safety rejections: ${stats.networkSafetyRejectedUrls}`,
+    `- Cancelled requests: ${stats.requestsCancelled}`,
+    `- Retries: ${stats.retries}`,
     `- HTML pages: ${stats.htmlPagesParsed}`,
     `- XML resources: ${stats.xmlResourcesParsed}`,
     `- Evidence objects: ${stats.evidenceObjectsWritten}`,
     `- Downloaded bytes: ${stats.bytesDownloaded}`,
     `- Duration milliseconds: ${stats.durationMs}`,
     "",
+    zeroFetchSummary(result),
+    "",
   ].join("\n");
+}
+
+function zeroFetchSummary(result: CrawlResult): string {
+  const stats = result.stats;
+  if (stats.requestsFetched > 0) return "";
+  if (result.fatalError !== null) {
+    return `No resources were fetched. Fatal error: ${result.fatalError.code}: ${result.fatalError.message}`;
+  }
+  if (stats.requestsFailed > 0) {
+    return `No resources were fetched. ${stats.requestsFailed} request(s) failed (${stats.requestsTransportFailed} transport failures, including DNS); ${stats.requestsPolicySkipped} request(s) were skipped by policy. See errors.ndjson for failure details.`;
+  }
+  if (stats.requestsPolicySkipped > 0) {
+    return `No resources were fetched. ${stats.requestsPolicySkipped} request(s) were skipped by policy (${stats.networkSafetyRejectedUrls} network safety rejections). See skipped.ndjson for rejection details when skipped URL output is enabled.`;
+  }
+  if (stats.requestsCancelled > 0 || result.status === "aborted") {
+    return "No resources were fetched. The crawl was cancelled before fetching any resources.";
+  }
+  if (result.status === "stopped_by_limit") {
+    return "No resources were fetched. The crawl reached a configured limit.";
+  }
+  if (stats.urlsSkipped > 0) {
+    return `No resources were fetched. ${stats.urlsSkipped} URL(s) were skipped before fetching. See skipped.ndjson for details when skipped URL output is enabled.`;
+  }
+  return "No resources were fetched. No fetchable requests were processed.";
 }

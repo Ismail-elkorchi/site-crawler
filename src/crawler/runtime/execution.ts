@@ -32,12 +32,6 @@ export function createRuntimeExecution(
     frontier: foundation.frontier,
     store: foundation.store,
     scheduler: foundation.scheduler,
-    policy: new RequestPolicyRunner(
-      foundation.scope,
-      foundation.safety,
-      foundation.robots,
-      foundation.seeds,
-    ),
     middlewares: foundation.middlewares,
     fetcher: createRetryingFetcher(foundation),
     resources,
@@ -113,6 +107,12 @@ function createResources(foundation: RuntimeFoundation): ResourceProcessor {
 
 function createRetryingFetcher(foundation: RuntimeFoundation): RetryingFetcher {
   return new RetryingFetcher({
+    policy: new RequestPolicyRunner(
+      foundation.scope,
+      foundation.safety,
+      foundation.robots,
+      foundation.seeds,
+    ),
     runId: foundation.runId,
     config: foundation.config,
     fetcher: foundation.httpClient,

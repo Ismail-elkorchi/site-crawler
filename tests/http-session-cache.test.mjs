@@ -20,6 +20,7 @@ import {
 
 const redirectDecision = async () => ({
   allowed: true,
+  rejectionKind: null,
   reason: null,
   scopeAllowed: true,
   robotsAllowed: true,

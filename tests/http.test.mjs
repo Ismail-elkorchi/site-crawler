@@ -33,6 +33,7 @@ function options(signal, redirectAllowed = true) {
     async onRedirectTarget() {
       return {
         allowed: redirectAllowed,
+        rejectionKind: redirectAllowed ? null : "policy",
         reason: redirectAllowed ? null : "fixture rejection",
         scopeAllowed: redirectAllowed,
         robotsAllowed: redirectAllowed,

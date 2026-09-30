@@ -1,3 +1,5 @@
+import { crawlError } from "../diagnostics/factory.js";
+import type { CrawlError } from "../diagnostics/types.js";
 import type { SkipReason } from "../diagnostics/types.js";
 import type { NetworkSafetyPolicy } from "@ismail-elkorchi/http-client";
 import type { NetworkSafetyDecision } from "@ismail-elkorchi/http-client";
@@ -9,6 +11,7 @@ import type { ScopeDecision } from "../url/types.js";
 import type { SeedResolver } from "./seed-resolver.js";
 
 export type RequestPolicyDecision =
+  | { readonly kind: "fail"; readonly error: CrawlError }
   | {
       readonly kind: "allow";
       readonly scope: ScopeDecision;
@@ -40,7 +43,10 @@ export class RequestPolicyRunner {
     this.seeds = seeds;
   }
 
-  public async decide(request: CrawlRequest): Promise<RequestPolicyDecision> {
+  public async decide(
+    request: CrawlRequest,
+    signal: AbortSignal,
+  ): Promise<RequestPolicyDecision> {
     const seed = this.seeds.forRequest(request);
     const scope = this.scope.decide(
       request.normalizedUrl,
@@ -55,8 +61,20 @@ export class RequestPolicyRunner {
         detail: scope.reason,
       };
     }
-    const safety = await this.safety.decide(request.normalizedUrl);
+    const safety = await this.safety.decide(request.normalizedUrl, signal);
     if (!safety.allowed) {
+      if (safety.rejectionKind === "dns") {
+        return {
+          kind: "fail",
+          error: crawlError({
+            code: "DNS_ERROR",
+            message: safety.reason,
+            url: request.normalizedUrl,
+            requestId: request.id,
+            retryable: true,
+          }),
+        };
+      }
       return {
         kind: "skip",
         reason: "NETWORK_SAFETY_REJECTED",

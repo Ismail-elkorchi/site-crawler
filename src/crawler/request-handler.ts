@@ -13,7 +13,6 @@ import type { ResultStore } from "../storage/index.js";
 import { cancellationReason } from "../runtime/cancellation.js";
 import type { RunController } from "../runtime/run-controller.js";
 import type { MiddlewareRunner } from "./middleware-runner.js";
-import type { RequestPolicyRunner } from "./request-policy.js";
 import type { RequestScheduler } from "./request-scheduler.js";
 import type { RetryingFetcher } from "./retrying-fetcher.js";
 import {
@@ -28,7 +27,6 @@ export interface RequestHandlerDependencies {
   readonly store: ResultStore;
   readonly frontier: Frontier;
   readonly scheduler: RequestScheduler;
-  readonly policy: RequestPolicyRunner;
   readonly middlewares: MiddlewareRunner;
   readonly fetcher: RetryingFetcher;
   readonly resources: ResourceProcessor;
@@ -61,8 +59,9 @@ export class RequestHandler {
       if (middleware.kind !== "continue") {
         return await this.applyMiddleware(middleware, lease.request, lease);
       }
-      const policy = await this.deps.policy.decide(lease.request);
-      if (policy.kind === "skip") {
+      const outcome = await this.deps.fetcher.fetch(lease.request, signal);
+      if (outcome.kind === "skip") {
+        const policy = outcome.policy;
         await this.deps.scheduler.recordSkipped(
           lease.request.rawUrl,
           lease.request.referrerUrl,
@@ -75,7 +74,7 @@ export class RequestHandler {
         terminal = true;
         return await this.deps.terminalizer.skipped(lease, policy.detail);
       }
-      const fetched = await this.deps.fetcher.fetch(lease.request, signal);
+      const fetched = outcome.result;
       if (signal.aborted || fetched.error?.code === "FETCH_ABORTED") {
         terminal = true;
         return await this.deps.terminalizer.cancelled(
@@ -83,11 +82,16 @@ export class RequestHandler {
           cancellationReason(signal),
         );
       }
-      if (fetched.error !== null) {
+      if (outcome.kind === "failed") {
         this.deps.counters.requestsTransportFailed += 1;
         terminal = true;
-        return await this.deps.terminalizer.failed(lease, fetched.error, true);
+        return await this.deps.terminalizer.failed(
+          lease,
+          outcome.result.error,
+          true,
+        );
       }
+      const policy = outcome.policy;
       this.deps.controller.recordFetched(
         fetched.decodedBytesRead ?? responseBodySize(fetched.body),
         fetched.responseTimeMs,
